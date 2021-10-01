@@ -1,7 +1,7 @@
 import React from 'react';
-import './Footer.scoped.css';
+import './Disclaimer.scoped.css';
 
-function Footer ({ text }) {
+function Disclaimer ({ text }) {
     return (
         <div className="footer">
             <text>{ text }</text>
@@ -9,4 +9,4 @@ function Footer ({ text }) {
     )
 }
 
-export default Footer;
+export default Disclaimer;

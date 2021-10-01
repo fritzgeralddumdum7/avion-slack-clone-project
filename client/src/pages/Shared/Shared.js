@@ -5,13 +5,13 @@ import Container from '../../shared/Container/Container';
 import Sidebar from '../../shared/Sidebar/Sidebar';
 import Header from '../../shared/Header/Header';
 import Search from '../../shared/Header/component/Search';
-import Footer from '../../shared/Footer/Footer';
+import Disclaimer from '../../shared/Disclaimer/Disclaimer';
 
 function Shared () {
     return (
         <div className="container">
             <div>
-                <Footer 
+                <Disclaimer 
                 text="Disclaimer: This app is for educational purposes only." />
             </div>
             <h1>List of shared components</h1>

@@ -10,7 +10,7 @@ import io from 'socket.io-client'
 
 import './Messages.scoped.css';
 
-const socket = io.connect('http://localhost:8080')
+const socket = io.connect(`http://localhost:${process.env.REACT_APP_SOCKET_PORT}`)
 
 function Messages () {
     const [user, setUser] = useState({
