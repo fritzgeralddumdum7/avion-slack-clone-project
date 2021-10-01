@@ -1,0 +1,64 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;    
+}
+
+header {
+    display: flex;
+    align-items: center;
+    padding: 18px;
+    height: 49px;
+}
+
+h3 {
+    font-size: 18px;
+    font-weight: 900;
+}
+
+.container-compose-message {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: space-between;
+    
+}
+
+.search-input {
+    display: flex;
+    align-items: center;
+    border-top: 1px solid #D2D2D2;
+    border-bottom: 1px solid #D2D2D2;
+    border-left: none;
+    height: 52px;
+    padding: 0 20px;
+}
+
+.container-textarea {
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-bottom: -10px;
+}
+
+.label-to {
+    font-size: 15px;
+}
+
+.container-searchlist {
+    box-sizing: content-box;
+    direction: ltr;
+    position: relative;
+    overflow: auto;
+    height: 240px;
+}
+
+.wrapper-searchlist {
+    overflow: hidden;
+    width: 97%;
+    margin-left: 30px;
+    padding: 12px 0px;
+    border-radius: 5px;
+    border-top: #DFDFDF 0.5px solid;
+    border-left: #DFDFDF 0.5px solid;
+    box-shadow: 1px 1px 1px 0.5px rgba(0,0,0,0.1),1px 1px 1px 1px rgba(0,0,0,0.1);
+}

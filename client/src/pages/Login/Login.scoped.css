@@ -1,0 +1,55 @@
+.container {
+    width: 100%;
+}
+
+.input-wrapper svg {
+    position: absolute;
+    top: 20px;
+    right: 15px;
+}
+
+svg {
+    color: #52687c;
+}
+
+h1 {
+    margin: unset;
+    font-size: 48px;
+    margin-top: 20px;
+}
+
+.description {
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+.fc-icon, .ai-icon {
+    font-size: 20px;
+    padding-right: 10px;
+}
+
+#google-login-btn, #apple-login-btn {
+    display: flex;
+    justify-content: center;
+    background: transparent;
+    padding: 10px;
+    border-radius: 3px;
+    font-weight: bold;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+#google-login-btn {
+    border: 2px solid #3F86F0;
+    color: #3F86F0;
+    margin-bottom: 5px;
+}
+
+#apple-login-btn {
+    border: 2px solid #1D1C1D;
+    margin-bottom: 20px;
+}
+
+.ai-icon {
+    color: #1D1C1D;
+}
