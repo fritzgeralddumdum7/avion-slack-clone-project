@@ -117,3 +117,10 @@ button {
 .new-message:hover .new-hover {
     visibility: visible;
 }
+
+.divider-component {
+    min-height: 30px;
+    height: auto;
+    display: block;
+    gap: 10px;
+}

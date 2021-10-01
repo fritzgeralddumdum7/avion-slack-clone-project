@@ -88,3 +88,7 @@ a.active {
     color: #fff;
     font-weight: 500;
 }
+
+.wrapper {
+    height: auto;
+}
