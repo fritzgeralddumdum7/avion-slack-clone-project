@@ -3,8 +3,7 @@ import { NavLink, useHistory } from "react-router-dom";
 import { VscTriangleRight, VscTriangleDown } from 'react-icons/vsc';
 import Cookies from 'js-cookie';
 import faker from 'faker';
-
-import DirectMessageList from './component/DirectMessageList';
+import CollapsableNavLinkList from './component/CollapsableNavLinkList/CollapsableNavLinkList';
 import UserApi from '../../api/UserApi';
 
 import { TiMessages, TiMessage } from 'react-icons/ti';
@@ -16,8 +15,10 @@ import { filterToUnique } from '../../utils';
 
 function Sidebar () {
     let history = useHistory();
-    const [isToggled, setIsToggled] = useState(false);
+    const [dmToggled, setDmToggled] = useState(false);
+    const [channelToggled, setChannelToggled] = useState(false);
     const [directMessageList, setDirectMessageList]  = useState([]);
+    const [channelList, setChannelList]  = useState([]);
 
     const NavHeader = () => {
         return (
@@ -34,15 +35,27 @@ function Sidebar () {
     }
 
     useEffect(() => {
+        getChannelList();
        getDirectMessages();
     }, []);
 
-    const handleToggling = () => {
-        setIsToggled(!isToggled);
+    const handleDmToggle = () => {
+        setDmToggled(!dmToggled);
+    }
+    
+    const handleChannelToggle = () => {
+        setChannelToggled(!channelToggled);
+        console.log(channelList);
     }
 
     const setHistory = () => {
         history.push(window.location.pathname);
+    }
+
+    const getChannelList = async () => {
+        await UserApi.channels()
+          .then(res => setChannelList(res.data.data))
+          .catch(error => console.log(error.response.data.errors))
     }
 
     const rearrangeArray = (array) => {
@@ -60,11 +73,8 @@ function Sidebar () {
 
                 delete filteredList[index];
                 filteredList.splice(0, 0, current);
-            } else {
-
-            }
+            } 
         })
-
         setDirectMessageList(filteredList);
     }
     
@@ -86,17 +96,25 @@ function Sidebar () {
                 <NavLink to="/shared" exact onClick={setHistory}>
                     <TiMessages /> All DMs
                 </NavLink>
-                <div className="parent-navlink">
-                    <div className="d-flex align-middle parent-navlink-item" onClick={handleToggling}>
-                        { !isToggled ? 
-                            <VscTriangleRight className="vsc-triangle" /> :
-                            <VscTriangleDown className="vsc-triangle" />
-                        }
-                        Direct Messages
+                <div className='wrapper'>
+                    <div className='divider-component'>
+                        <CollapsableNavLinkList 
+                            label='Channels' 
+                            isToggled={channelToggled} 
+                            handleToggle={handleChannelToggle} 
+                            list={channelList}
+                        />
                     </div>
-                    { isToggled &&
-                        <DirectMessageList list={directMessageList} />
-                    }
+                    <div className='divider-component'>
+                        <CollapsableNavLinkList 
+                            label='Direct Messages' 
+                            isToggled={dmToggled} 
+                            handleToggle={handleDmToggle} 
+                            list={directMessageList}
+                            hasImage={true}
+                            hasLabel={true}
+                        />
+                    </div>
                 </div>
             </nav>
         </div>
