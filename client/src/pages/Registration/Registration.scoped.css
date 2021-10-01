@@ -1,0 +1,83 @@
+.input-wrapper svg {
+    position: absolute;
+    top: 20px;
+    right: 15px;
+}
+
+.container {
+    width: 100vw;
+}
+
+svg {
+    color: #52687c;
+}
+
+h1 {
+    margin: unset;
+    font-size: 43px;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+.description {
+    font-size: 16px;
+    margin: 15px;
+    color: rgb(66, 66, 66);
+    text-align: center;
+}
+
+.desc {
+    font-size: 15px;
+    margin: 15px;
+    margin-bottom: 20px;;
+    color: rgb(66, 66, 66);
+}
+
+.input {
+    margin: 20px;
+    
+}
+
+.checkbox{
+    font-size: 15px;
+    margin-top: 13px;
+    margin-bottom: 5px;;
+}
+
+a {
+    text-decoration: none;
+    color: rgb(66, 66, 66);
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+nav {
+    justify-content: center;
+}
+
+li {
+    list-style: none;
+    text-decoration: none;
+    display: inline;
+    margin: 10px;
+    font-size: 15px;
+}
+
+li>a:hover{
+    color: rgb(40, 40, 109);
+}
+
+.fc-icon {
+    font-size: 20px;
+    padding-right: 10px;
+}
+
+.d-flex {
+    width: 450px;
+    top: 50px;
+    transform: translateX(-45%);
+    position:absolute;
+    left: 51%;
+}

@@ -1,0 +1,31 @@
+input {
+    width: -webkit-fill-available;
+    border-radius: 2px;
+    outline: none;
+    border: 1px solid #BABABA;
+    padding: .75rem 45px .75rem .75rem;
+}
+
+.red-border-line {
+    border: 1px solid #e74444 !important;
+}
+
+.input-wrapper {
+    position: relative;
+    padding-top: 7px;
+}
+
+p {
+    margin: 0;
+    color: #e74444;
+    font-size: .70rem;
+    margin-top: 7px;
+}
+
+label {
+    font-size: .8rem;
+}
+
+.remove-padding {
+    padding: unset;
+}

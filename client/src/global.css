@@ -1,0 +1,89 @@
+@font-face {
+    font-family: 'Lato', sans-serif;
+    src: url(./fonts/Lato/Lato-Black.ttf) format('ttf');
+}
+  
+body {
+    min-width: 500px;
+    margin: 0;
+    overflow: hidden;
+    font-family: 'Lato', sans-serif;
+}
+
+a {
+    color: #cfc3cf;
+    font-weight: 400;
+}
+
+.content-center {
+    align-items: center;
+    justify-content: center;
+}
+
+.align-middle {
+    align-items: center;
+}
+
+.d-flex {
+    display: flex;
+}
+
+.flex-column {
+    flex-direction: column;
+}
+
+.full-content {
+    height: 100vh;
+    width: 100vw;
+    overflow: auto;
+}
+
+.container {
+    padding: 20px 20px 50px 20px;
+    overflow: auto;
+    height: 100vh;
+    width: 100%;
+}
+
+.content {
+    height: 100vh;
+    width: 100%;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.divider {
+    position: relative;
+    width: 100%;
+    border-top: 1px solid #DDDDDD;
+    margin-bottom: 20px;
+}
+
+.divider-text {
+    position: absolute;
+    top: -8px;
+    left: 44%;
+    padding: 0 15px;
+    background-color: #fff;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+
+a.active {
+    background-color: #1164a3;
+    color: #fff;
+    font-weight: 500;
+}

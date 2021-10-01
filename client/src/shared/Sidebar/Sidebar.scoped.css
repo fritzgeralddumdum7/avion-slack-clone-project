@@ -1,0 +1,119 @@
+header:hover {
+    background-color: #350d36;
+}
+
+nav {
+    background-color: #3F0E40;
+    min-width: 260px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+a {
+    text-decoration: none;
+    height: 30px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    padding: 0 15px;
+    gap: 10px;
+}
+
+.compose-nav-link {
+    padding: unset;
+}
+
+.compose-nav-link:hover {
+    background-color: none;
+    color: none;
+}
+
+.children-item {
+    padding: 0 25px;
+    height: 30px;
+}
+
+.parent-navlink-item {
+    color: #cfc3cf;
+    padding: 0 15px;
+    font-size: 14px;
+}
+
+.parent-navlink {
+    cursor: pointer;
+    display: flex;
+    padding: 10px 0;
+    gap: 10px;
+    flex-direction: column;
+    height: 15px;
+}
+
+a:hover:not(.active) {
+    background-color: #350d36;
+}
+
+.noActive {
+    background-color: #3F0E40;
+    color: #fff;
+}
+
+svg {
+    font-size: 16px;
+}
+
+header {
+    height: 50px;
+    padding: 0 15px;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 900;
+    border-top: 1px solid rgb(82, 38, 83);
+    border-bottom: 1px solid rgb(82, 38, 83);
+    justify-content: space-between;
+}
+
+.vsc-triangle {
+    font-size: 12px;
+    padding-left: 2px;
+    padding-right: 12px;
+}
+
+button {
+    border-radius: 50%;
+    padding: 7px 0;
+    border: none;
+    background-color: #fff;
+    width: 36px;
+    cursor: pointer;
+}
+
+.io-create {
+    font-size: 18px;
+}
+
+.new-message {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+}
+  
+.new-message .new-hover {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+
+    position: absolute;
+    z-index: 1;
+    top: 120%;
+    left: 50%;
+    margin-left: -60px;
+}
+
+.new-message:hover .new-hover {
+    visibility: visible;
+}
