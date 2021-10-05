@@ -1,3 +1,4 @@
+import React, { useRef, useEffect } from 'react';
 import Image from '../../../shared/Image/Image';
 
 import './MessageItem.scoped.css';
@@ -7,9 +8,17 @@ function MessageItem ({ message }) {
         height: '36px',
         borderRadius: '4px'
     }
+    const scrollToLastMessageRef = useRef();
+
+    useEffect(() => {
+        scrollToLastMessageRef.current.scrollIntoView({ 
+            behavior: 'smooth', 
+            block: 'end' 
+        });
+    }, [message])
 
     return (
-        <div className="d-flex item">
+        <div className="d-flex item xd" ref={scrollToLastMessageRef}>
             <Image 
                 source={message.image}
                 width={36}
