@@ -6,6 +6,7 @@ import Sidebar from '../../shared/Sidebar/Sidebar';
 import Header from '../../shared/Header/Header';
 import Search from '../../shared/Header/component/Search';
 import Disclaimer from '../../shared/Disclaimer/Disclaimer';
+import Card from '../../shared/Card/Card';
 
 function Shared () {
     return (
@@ -15,6 +16,13 @@ function Shared () {
                 text="Disclaimer: This app is for educational purposes only." />
             </div>
             <h1>List of shared components</h1>
+            <div>
+                <Card 
+                    image='https://randomuser.me/api/portraits/women/90.jpg'
+                    name='Potpot Juan'
+                    email='potpotjuan@mail.com'
+                />
+            </div>
             <div style={{width: '300px'}}>
                 <h3>Input</h3>
                 <Input 

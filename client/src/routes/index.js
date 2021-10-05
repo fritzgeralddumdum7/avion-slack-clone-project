@@ -9,6 +9,7 @@ import Shared from '../pages/Shared/Shared';
 import Messages from '../pages/Messages/Messages';
 import Registration from '../pages/Registration/Registration';
 import ComposeMessage from '../pages/ComposeMessage/ComposeMessage';
+import Users from '../pages/Users/Users';
 
 import AuthRoute from './middleware/auth.route';
 import UserRoutes from './middleware/user.route';
@@ -26,6 +27,7 @@ const routes = () => {
             <UserRoutes path="/shared" exact component={Shared} />
             <UserRoutes path="/compose" exact component={ComposeMessage} />
             <UserRoutes path="/socket" exact component={Temp} />
+            <UserRoutes path="/users" exact component={Users} />
         </Switch>
     );
 }

@@ -5,8 +5,8 @@ import Cookies from 'js-cookie';
 import faker from 'faker';
 import CollapsableNavLinkList from './component/CollapsableNavLinkList/CollapsableNavLinkList';
 import UserApi from '../../api/UserApi';
-
 import { TiMessages, TiMessage } from 'react-icons/ti';
+import {FiUsers} from 'react-icons/fi';
 import { IoCreateOutline } from 'react-icons/io5';
 
 import './Sidebar.scoped.css';
@@ -19,6 +19,8 @@ function Sidebar () {
     const [channelToggled, setChannelToggled] = useState(false);
     const [directMessageList, setDirectMessageList]  = useState([]);
     const [channelList, setChannelList]  = useState([]);
+    const [userToggle, setUserToggle] = useState(false);
+    const [userList, setUserList] = useState([]);
 
     const NavHeader = () => {
         return (
@@ -37,6 +39,8 @@ function Sidebar () {
     useEffect(() => {
         getChannelList();
        getDirectMessages();
+       getUserList();
+
     }, []);
 
     const handleDmToggle = () => {
@@ -48,9 +52,20 @@ function Sidebar () {
         console.log(channelList);
     }
 
+    const handleUserToggle = () => {
+        setUserToggle(!userToggle);
+    }
+
     const setHistory = () => {
         history.push(window.location.pathname);
     }
+
+    const getUserList = async () => {
+        await UserApi.all()
+            .then(res => setUserList(res.data.data)
+            )
+            .catch(error => console.log(error.response.data.errors))
+        }
 
     const getChannelList = async () => {
         await UserApi.channels()
@@ -58,6 +73,7 @@ function Sidebar () {
           .catch(error => console.log(error.response.data.errors))
     }
 
+    
     const rearrangeArray = (array) => {
         // set fake images and name
         array.map(item => {
@@ -96,6 +112,10 @@ function Sidebar () {
                 <NavLink to="/shared" exact onClick={setHistory}>
                     <TiMessages /> All DMs
                 </NavLink>
+                <NavLink to="/users" exact onClick={setHistory}>
+                    <FiUsers /> People & user groups
+                </NavLink>
+             
                 <div className='wrapper'>
                     <div className='divider-component'>
                         <CollapsableNavLinkList 

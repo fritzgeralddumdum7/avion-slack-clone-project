@@ -1,0 +1,38 @@
+.card-container {
+  border: solid rgba(204, 204, 204, 0.836) 0.5px;
+  border-radius: 15px;
+  width: 150px;
+  height: auto;
+  margin: 4px;
+  float: right;
+  transition: 0.3s;
+}
+  
+.card:hover {
+  background-color:rgba(153, 152, 152, 0.24);
+}
+
+.footer {
+  padding: 0 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+h3 {
+  font-size: medium;
+  color: rgba(0, 0, 0, 0.829);
+  margin-bottom:0px;
+}
+
+p {
+  font-size: 14px;
+  color: rgba(36, 36, 36, 0.685);
+  margin-top:3px;
+}
+
+img {
+  border-radius: 5px 5px 0 0;
+  max-width:100%;
+  min-height: 100px;
+}
