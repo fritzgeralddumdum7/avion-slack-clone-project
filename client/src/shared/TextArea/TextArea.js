@@ -45,6 +45,7 @@ function TextArea ({
                 onChange={handleOnChange}
                 onFocus={handleFocus}
                 onBlur={handleBlur}
+                onKeyPress={(e) => e.key === 'Enter' && handleSendMessage(e)}
             />
             <div id="send-container" className={ isFocused ? 'focus' : '' }>
                 <button 

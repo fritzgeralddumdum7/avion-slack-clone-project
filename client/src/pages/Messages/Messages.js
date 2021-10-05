@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { alignMessagesWithUser, isEmpty } from '../../utils';
 import Cookies from 'js-cookie';
@@ -6,27 +6,49 @@ import MessageItem from './component/MessageItem';
 import MessageApi from '../../api/MessageApi';
 import TextArea from '../../shared/TextArea/TextArea';
 import faker from 'faker';
-import io from 'socket.io-client'
+import { io } from 'socket.io-client';
 
 import './Messages.scoped.css';
 
-const socket = io.connect(`http://localhost:${process.env.REACT_APP_SOCKET_PORT}`)
-
 function Messages () {
-    const [user, setUser] = useState({
-        name: '',
-        image: ''
-    })
+    const { receiverId } = useParams();
+
+    const socket = useRef(io(`http://localhost:${process.env.REACT_APP_SOCKET_PORT}`));
+
+    // states
     const [messages, setMessages] = useState([]);
-    const [value, setValue] = useState('');
     const [receiver, setReceiver] = useState({});
     const [sender, setSender] = useState({});
+    const [value, setValue] = useState('');
     const [recipientEmail, setRecipientEmail] = useState('');
-    const { receiverId } = useParams();
+    const [arrivalMessage, setArrivalMessage] = useState(null);
+
+    // refs
+    const currentUser = useRef(Cookies.get('uid'));
 
     useEffect(() => {
         retrieveMessage();
     }, [receiverId]);
+
+    useEffect(() => {
+        // get the `getMessage` responce from socket
+        socket.current.on('getMessage', payload => {
+            setArrivalMessage(payload);
+        })
+    }, [])
+
+    // prevent rerender of component
+    useEffect(() => {
+        arrivalMessage && setMessages(prev => [...prev, arrivalMessage]);
+    }, [arrivalMessage])
+
+    // connect users to socket server
+    useEffect(() => {
+        socket.current.emit('initUser', currentUser.current);
+        socket.current.on('getUsers', users => {
+            console.log(users);
+        });
+    }, [currentUser])
     
     const retrieveMessage = async () => {
         const params =`receiver_class=User&receiver_id=${receiverId}`
@@ -43,8 +65,9 @@ function Messages () {
         setSender(fakeSender);
     
         await MessageApi.retrieve(params)
-          .then(res => {
+            .then(res => {
                 const data = res.data.data;
+
                 // loop every item and set fake name & image
                 data.map(data => {
                     if (data['sender'].email === Cookies.get('uid')) {
@@ -59,37 +82,33 @@ function Messages () {
                     }
                 })
                 setMessages(alignMessagesWithUser(data));
-          })
-          .catch(error => console.log(error.response.data.errors))
+            })
+            .catch(error => console.log(error.response.data.errors))
     }
 
     const handleOnChange = (e) => {
         setValue(e.target.value);
     }
 
-    const handleSendMessage = () => {
-        const payload = {
-            id: receiverId,
-            name: sender.name,
-            image: sender.image,
-            body: [value],
-            recipient: recipientEmail,
-            sender: Cookies.get('uid')
-        }
-
-        // pass the payload to the server
-        socket.emit('send-message', { payload })
-        setValue('');
-    }
-
-    useEffect(() => {
-        // receive the request from the server
-        socket.on('receive-message', ({ payload }) => {
-            if (payload.sender === Cookies.get('uid') || payload.recipient === Cookies.get('uid')) {
-                setMessages([...messages, payload])
+    const handleSendMessage = (e) => {
+        e.preventDefault();
+        
+        if (!isEmpty(value.trim())) {
+            const payload = {
+                id: receiverId,
+                name: sender.name,
+                image: sender.image,
+                body: [value],
+                recipient: recipientEmail,
+                sender: currentUser.current
             }
-        })
-    })
+    
+            // pass the payload to the socket server
+            socket.current.emit('sendMessage', { payload });
+            setMessages([...messages, payload]);
+            setValue('');
+        }
+    }
 
     return (
         <div className="container full-content d-flex flex-column justify-bottom" style={{ gap: '20px' }}>
