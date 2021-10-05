@@ -7,6 +7,7 @@ import CollapsableNavLinkList from './component/CollapsableNavLinkList/Collapsab
 import UserApi from '../../api/UserApi';
 
 import { TiMessages, TiMessage } from 'react-icons/ti';
+import {TiContacts} from 'react-icons/ti';
 import { IoCreateOutline } from 'react-icons/io5';
 
 import './Sidebar.scoped.css';
@@ -19,6 +20,13 @@ function Sidebar () {
     const [channelToggled, setChannelToggled] = useState(false);
     const [directMessageList, setDirectMessageList]  = useState([]);
     const [channelList, setChannelList]  = useState([]);
+    //sean
+    const [userToggle, setUserToggle] = useState(false);
+    const [userList, setUserList] = useState([]);
+   
+    //sean
+    
+ 
 
     const NavHeader = () => {
         return (
@@ -37,6 +45,8 @@ function Sidebar () {
     useEffect(() => {
         getChannelList();
        getDirectMessages();
+       getUserList();
+
     }, []);
 
     const handleDmToggle = () => {
@@ -47,10 +57,23 @@ function Sidebar () {
         setChannelToggled(!channelToggled);
         console.log(channelList);
     }
-
+//sean
+    const handleUserToggle = () => {
+        setUserToggle(!userToggle);
+    }
+//sean
     const setHistory = () => {
         history.push(window.location.pathname);
     }
+
+    // sean
+    const getUserList = async () => {
+        await UserApi.register()
+            .then(res => setUserList(res.data.data)
+            )
+            .catch(error => console.log(error.response.data.errors))
+        }
+//sean
 
     const getChannelList = async () => {
         await UserApi.channels()
@@ -58,6 +81,7 @@ function Sidebar () {
           .catch(error => console.log(error.response.data.errors))
     }
 
+    
     const rearrangeArray = (array) => {
         // set fake images and name
         array.map(item => {
@@ -96,6 +120,11 @@ function Sidebar () {
                 <NavLink to="/shared" exact onClick={setHistory}>
                     <TiMessages /> All DMs
                 </NavLink>
+                <NavLink to="/users" exact onClick={setHistory}>
+                    <TiContacts /> People
+                </NavLink>
+
+             
                 <div className='wrapper'>
                     <div className='divider-component'>
                         <CollapsableNavLinkList 
@@ -116,7 +145,9 @@ function Sidebar () {
                         />
                     </div>
                 </div>
+                
             </nav>
+           
         </div>
     )
 }

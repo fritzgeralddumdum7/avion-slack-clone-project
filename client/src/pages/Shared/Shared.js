@@ -6,15 +6,34 @@ import Sidebar from '../../shared/Sidebar/Sidebar';
 import Header from '../../shared/Header/Header';
 import Search from '../../shared/Header/component/Search';
 import Disclaimer from '../../shared/Disclaimer/Disclaimer';
+import People from '../../shared/People/People';
 
 function Shared () {
     return (
         <div className="container">
+            
             <div>
                 <Disclaimer 
                 text="Disclaimer: This app is for educational purposes only." />
             </div>
             <h1>List of shared components</h1>
+            <div>
+                <People 
+                image='https://randomuser.me/api/portraits/women/90.jpg'
+                name='Potpot Juan'
+                bio='Slack User'
+                />
+                <People
+                
+                name='Rody Dyro' 
+                bio='Owner of Chena'
+                />
+                <People
+                image='https://randomuser.me/api/portraits/women/90.jpg'
+                name='Juan Too'
+                bio='Co-Owner of Chena'
+                 />
+            </div>
             <div style={{width: '300px'}}>
                 <h3>Input</h3>
                 <Input 
