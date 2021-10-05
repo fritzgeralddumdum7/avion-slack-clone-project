@@ -13,7 +13,7 @@ import './Messages.scoped.css';
 function Messages () {
     const { receiverId } = useParams();
 
-    const socket = useRef(io(`http://localhost:${process.env.REACT_APP_SOCKET_PORT}`));
+    const socket = useRef();
 
     // states
     const [messages, setMessages] = useState([]);
@@ -31,6 +31,7 @@ function Messages () {
     }, [receiverId]);
 
     useEffect(() => {
+        socket.current = io(`http://localhost:${process.env.REACT_APP_SOCKET_PORT}`);
         // get the `getMessage` responce from socket
         socket.current.on('getMessage', payload => {
             setArrivalMessage(payload);
@@ -90,7 +91,7 @@ function Messages () {
         setValue(e.target.value);
     }
 
-    const handleSendMessage = (e) => {
+    const handleSendMessage = async (e) => {
         e.preventDefault();
         
         if (!isEmpty(value.trim())) {
@@ -102,11 +103,22 @@ function Messages () {
                 recipient: recipientEmail,
                 sender: currentUser.current
             }
+            const messagePayload = {
+                receiver_id: receiverId,
+                receiver_class: 'User',
+                body: value
+            }
+
+            await MessageApi.send(messagePayload)
+                .then(res => {
+                    console.log(res);
+                    // pass the payload to the socket server
+                    socket.current.emit('sendMessage', { payload });
+                    setMessages([...messages, payload]);
+                    setValue('');
+                })
+                .catch(error => console.log(error.response.data.errors))
     
-            // pass the payload to the socket server
-            socket.current.emit('sendMessage', { payload });
-            setMessages([...messages, payload]);
-            setValue('');
         }
     }
 
