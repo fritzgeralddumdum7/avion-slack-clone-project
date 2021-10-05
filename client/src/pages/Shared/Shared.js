@@ -6,7 +6,7 @@ import Sidebar from '../../shared/Sidebar/Sidebar';
 import Header from '../../shared/Header/Header';
 import Search from '../../shared/Header/component/Search';
 import Disclaimer from '../../shared/Disclaimer/Disclaimer';
-import Users from '../../shared/Users/Users';
+import Card from '../../shared/Card/Card';
 
 function Shared () {
     return (
@@ -17,20 +17,11 @@ function Shared () {
             </div>
             <h1>List of shared components</h1>
             <div>
-                <Users 
-                image='https://randomuser.me/api/portraits/women/90.jpg'
-                name='Potpot Juan'
-                bio='Slack User'
+                <Card 
+                    image='https://randomuser.me/api/portraits/women/90.jpg'
+                    name='Potpot Juan'
+                    email='potpotjuan@mail.com'
                 />
-                <Users
-                name='Rody Dyro' 
-                bio='Owner of Chena'
-                />
-                <Users
-                image='https://randomuser.me/api/portraits/women/90.jpg'
-                name='Juan Too'
-                bio='Co-Owner of Chena'
-                 />
             </div>
             <div style={{width: '300px'}}>
                 <h3>Input</h3>
