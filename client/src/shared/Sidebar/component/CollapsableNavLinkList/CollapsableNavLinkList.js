@@ -3,7 +3,7 @@ import { VscTriangleRight, VscTriangleDown } from 'react-icons/vsc';
 import NavLinkList from '../NavLinkList/NavLinkList';
 import './CollapsableNavLinkList.scoped.css';
 
-function CollapsableNavLinkList ({ label, isToggled, list, handleToggle, hasImage, hasLabel }) {
+function CollapsableNavLinkList ({ children, label, isToggled, list, handleToggle, hasImage, hasLabel }) {
     return (
     <div className="parent-navlink" onClick={handleToggle}>
         <div className="d-flex align-middle parent-navlink-item">
@@ -13,13 +13,15 @@ function CollapsableNavLinkList ({ label, isToggled, list, handleToggle, hasImag
             }
             {label}
         </div>
-        { isToggled &&
-            <NavLinkList list={list} hasLabel={hasLabel} hasImage={hasImage}/>
+        { 
+            isToggled &&
+                <div>
+                    <NavLinkList list={list} hasLabel={hasLabel} hasImage={hasImage}/>
+                    {children}
+                </div>
         }
     </div>
-
     )
-    
 }
 
 export default CollapsableNavLinkList;

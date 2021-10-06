@@ -5,6 +5,8 @@ import SearchInput from '../../shared/Search/SearchInput';
 import TextArea from '../../shared/TextArea/TextArea';
 import SearchList from '../../shared/Search/SearchList';
 import UserApi from '../../api/UserApi';
+import { serializer } from '../../utils';
+
 import './ComposeMessage.scoped.css';
 
 function ComposeMessage () {
@@ -19,7 +21,7 @@ function ComposeMessage () {
         await UserApi.all()
           .then(res => handleUsers(res.data.data))
           .catch(error => console.log(error.response.errors))
-      }
+    }
 
     const handleOnChange = (e) => {
         setSearched(e.target.value);
@@ -33,11 +35,7 @@ function ComposeMessage () {
             item.name=Faker.fake("{{name.firstName}} {{name.lastName}}");
             item.image=Faker.fake("{{image.avatar}}");
         });
-        let array2=[];
-        for(let i = 0; i < 20; i++) {
-            array2.push(array[i]);
-        }
-        setResults(array); 
+        setResults(serializer(array, 'user')); 
     }
 
     return (

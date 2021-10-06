@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink, useHistory } from "react-router-dom";
-import { VscTriangleRight, VscTriangleDown } from 'react-icons/vsc';
 import Cookies from 'js-cookie';
 import faker from 'faker';
 import CollapsableNavLinkList from './component/CollapsableNavLinkList/CollapsableNavLinkList';
 import UserApi from '../../api/UserApi';
+
 import { TiMessages, TiMessage } from 'react-icons/ti';
 import {FiUsers} from 'react-icons/fi';
 import { IoCreateOutline } from 'react-icons/io5';
+import { BsPlusSquare } from 'react-icons/bs';
 
 import './Sidebar.scoped.css';
 
@@ -37,7 +38,7 @@ function Sidebar () {
     }
 
     useEffect(() => {
-        getChannelList();
+       getChannelList();
        getDirectMessages();
        getUserList();
 
@@ -123,7 +124,12 @@ function Sidebar () {
                             isToggled={channelToggled} 
                             handleToggle={handleChannelToggle} 
                             list={channelList}
-                        />
+                        >
+                        <NavLink to='/create-channel' className='add-channel-nav-link'>
+                            < BsPlusSquare/>
+                            Add Channel
+                        </NavLink>
+                        </CollapsableNavLinkList>
                     </div>
                     <div className='divider-component'>
                         <CollapsableNavLinkList 

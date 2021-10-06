@@ -29,3 +29,11 @@ label {
 .remove-padding {
     padding: unset;
 }
+
+.create-channel-input input {
+    padding: 12px 20px;
+}
+
+div {
+    width: 100%;
+}

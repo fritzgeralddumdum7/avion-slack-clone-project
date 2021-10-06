@@ -57,3 +57,50 @@ export const filterToUnique = (array) => {
 
     return uniqueArr;
 }
+
+export const serializer = (array, type) => {
+    let serializedArray = [];
+    
+    if (type === 'user') {
+        array.forEach(item => {
+            serializedArray.push({ 
+                value: item.id,
+                email: item.email,
+                text: item.name,
+                image: item.image,
+                type: 'user'
+            })
+        })
+    } else if (type === 'channel') {
+        array.forEach(item => {
+            serializedArray.push({ 
+                value: item.id,
+                text: item.name,
+                type: 'channel'
+                
+            })
+        })
+    } else if (type === 'all') {
+        array.forEach(item => {
+            if (item.hasOwnProperty('email')) {
+                serializedArray.push
+                ({ 
+                    value: item.id,
+                    text: item.name,
+                    email: item.email,
+                    image: item.image,
+                    type: 'user'
+                })
+            } else {
+                serializedArray.push
+                ({ 
+                    value: item.id,
+                    email: '',
+                    text: item.name,
+                    type: 'channel'
+                })
+            }
+        })
+    }
+    return serializedArray;
+}

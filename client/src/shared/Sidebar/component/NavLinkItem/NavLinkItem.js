@@ -2,6 +2,7 @@ import { NavLink } from "react-router-dom";
 import style from './NavLinkItem.scoped.css';
 import Image from '../../../Image/Image';
 import Cookies from "js-cookie";
+import { FiLock } from 'react-icons/fi';
 
 function NavLinkItem ({ item, showCloseIcon, hasImage=false, hasLabel=false }) {
     const imgStyle = { borderRadius: '4px' }
@@ -14,13 +15,16 @@ function NavLinkItem ({ item, showCloseIcon, hasImage=false, hasLabel=false }) {
             activeClassName={style.isActive} 
             className="nav-link-item">
             { 
-                hasImage && 
+                hasImage ? 
                 <Image
                     source={item.image} 
                     width={20}
                     customStyle={imgStyle}
-                />
+                /> 
+                :
+                <FiLock/>
             }   
+          
             {item.name}
             { 
                 hasLabel &&

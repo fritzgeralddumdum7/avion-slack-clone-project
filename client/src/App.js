@@ -80,7 +80,7 @@ function App() {
   }
 
   const getChannelDetails = async () => {
-    const id = "2"
+    const id = "1231"
 
     await channelApi.details(id)
       .then(res => console.log(res))

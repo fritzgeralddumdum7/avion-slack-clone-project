@@ -40,3 +40,17 @@ svg {
 .search-input-compose:focus {
     outline: none;
 }
+
+.search-input-create-channel {
+    padding: 12px 20px;
+    width: 100%;
+    border: none;
+    margin-left: 0px;
+    font-size: 15px;
+    border-bottom: 1px solid #DDDDDD;
+
+}
+
+.search-input-create-channel:focus {
+    outline: none;
+}

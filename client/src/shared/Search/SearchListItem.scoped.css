@@ -45,3 +45,24 @@ li:hover .nav-link {
 .compose-message-search:first-child {
     border: none;
 }
+
+.create-channel-search {
+    height: 32px;
+    display: flex;
+    align-items: center;
+    line-height: 20px;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.create-channel-search .nav-link {
+    display: flex;
+    align-items: center;
+}
+
+.div-list-item {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+
+}
