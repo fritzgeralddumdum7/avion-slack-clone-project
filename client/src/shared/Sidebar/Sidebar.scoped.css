@@ -124,3 +124,18 @@ button {
     display: block;
     gap: 10px;
 }
+
+.div-add-channel {
+    align-items: center;
+}
+
+.div-add-channel {
+    align-items: center;
+}
+
+.add-channel-nav-link {
+    padding: 0 25px;
+    height: 30px;
+    font-size: 14px;
+    
+}

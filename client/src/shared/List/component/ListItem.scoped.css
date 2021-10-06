@@ -1,0 +1,22 @@
+li {
+    height: auto;
+    font-size: 1rem;
+    border: #DDDDDD 1px solid;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    padding: 12px;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+
+    
+}
+
+li button {
+    margin-left: 30px;
+    background: #fdffff;
+    border:  #DDDDDD 1px solid;
+    outline: none;
+    border-radius: 5px;
+    font-size: 0.8rem;
+}
