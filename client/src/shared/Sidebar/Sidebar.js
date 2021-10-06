@@ -103,7 +103,7 @@ function Sidebar () {
           .catch(error => console.log(error.response.data.errors))
     }
 
-    return (
+    return ( 
         <div>
             <nav>
                 <NavHeader />

@@ -18,10 +18,10 @@ function Login () {
     const [email, setEmail] = useState({
         valid: null,
         value: '',
-        error: ''
+        error: '' 
     });
     const [password, setPassword] = useState({
-        valid: null,
+        valid: null, 
         value: '',
         error: ''
     });
@@ -66,7 +66,7 @@ function Login () {
             setPassword({ 
                 ...password, 
                 valid: true, 
-                error: '' 
+                error: ''  
             });
         }
     }

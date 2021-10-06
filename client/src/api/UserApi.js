@@ -37,7 +37,7 @@ const UserApi = {
         }
 
         return API.request(options);
-    },
+    }, 
     ownedChannels: () => {
         const options = {
             method: 'GET',
