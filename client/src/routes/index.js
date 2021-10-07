@@ -6,30 +6,30 @@ import App from '../App';
 import Home from '../pages/Home/Home';
 import Login from '../pages/Login/Login';
 import Shared from '../pages/Shared/Shared';
-import Messages from '../pages/Messages/Messages';
 import Registration from '../pages/Registration/Registration';
 import ComposeMessage from '../pages/ComposeMessage/ComposeMessage';
 import Users from '../pages/Users/Users';
 import CreateChannel from '../pages/CreateChannel/CreateChannel';
+import ChannelMessages from '../pages/ChannelMessages/ChannelMessages';
+import UserMessages from '../pages/UserMessages/UserMessages';
 
 import AuthRoute from './middleware/auth.route';
 import UserRoutes from './middleware/user.route';
 
-import Temp from '../pages/Temp'
-
 const routes = () => {
     return (
         <Switch>
-            <UserRoutes path="/temporary" exact component={App} />
-            <UserRoutes path="/" exact component={Home} />
             <AuthRoute path="/login" exact component={Login} />
             <AuthRoute path="/signup" exact component={Registration}/>
-            <UserRoutes path='/messages/:receiverId' exact component={Messages} />
+
+            <UserRoutes path="/temporary" exact component={App} />
+            <UserRoutes path="/" exact component={Home} />
+            <UserRoutes path="/messages/:receiverId" exact component={UserMessages} />
             <UserRoutes path="/shared" exact component={Shared} />
             <UserRoutes path="/compose" exact component={ComposeMessage} />
             <UserRoutes path="/createchannel" exact component={CreateChannel} />
-            <UserRoutes path="/socket" exact component={Temp} />
             <UserRoutes path="/users" exact component={Users} />
+            <UserRoutes path="/channel/:channelId" exact component={ChannelMessages} />
         </Switch>
     );
 }

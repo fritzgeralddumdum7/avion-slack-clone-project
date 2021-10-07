@@ -41,7 +41,6 @@ function Sidebar () {
        getChannelList();
        getDirectMessages();
        getUserList();
-
     }, []);
 
     const handleDmToggle = () => {
@@ -63,8 +62,7 @@ function Sidebar () {
 
     const getUserList = async () => {
         await UserApi.all()
-            .then(res => setUserList(res.data.data)
-            )
+            .then(res => setUserList(res.data.data))
             .catch(error => console.log(error.response.data.errors))
         }
 
@@ -124,11 +122,12 @@ function Sidebar () {
                             isToggled={channelToggled} 
                             handleToggle={handleChannelToggle} 
                             list={channelList}
+                            type='channel'
                         >
-                        <NavLink to='/create-channel' className='add-channel-nav-link'>
-                            < BsPlusSquare/>
-                            Add Channel
-                        </NavLink>
+                            <NavLink to='/create-channel' className='add-channel-nav-link'>
+                                <BsPlusSquare />
+                                Add Channel
+                            </NavLink>
                         </CollapsableNavLinkList>
                     </div>
                     <div className='divider-component'>
@@ -139,6 +138,7 @@ function Sidebar () {
                             list={directMessageList}
                             hasImage={true}
                             hasLabel={true}
+                            type='messages'
                         />
                     </div>
                 </div>

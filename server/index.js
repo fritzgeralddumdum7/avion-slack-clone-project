@@ -33,15 +33,21 @@ io.on('connection', socket => {
   console.log('a user joined the socket server.')
   // receive the request from the client
   socket.on('initUser', userEmail => {
-    console.log(userEmail)
     addUser(userEmail, socket.id);
     io.emit('getUsers', users);
   });
 
   // get sent message from client
   socket.on('sendMessage', ({ payload }) => {
-    const user = getUser(payload.recipient);
-    io.to(user.socketId).emit('getMessage', payload);
+    if (payload.type === 'channel') {
+      io.emit('getMessage', payload);
+    } else if (payload.type === 'self') {
+      socket.join(payload.roomId)
+      io.to(payload.roomId).emit('getMessage', payload);
+    } else {
+      const user = getUser(payload.recipient);
+      io.to(user.socketId).emit('getMessage', payload);
+    }
   });
 
   socket.on('disconnect', () => {

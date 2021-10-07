@@ -30,6 +30,15 @@ const ChannelApi = {
         
         return API.request(options);
     },
+    // fetch all messages in a channel
+    messages: (id) => { 
+        const options = {
+            method: 'GET',
+            url: `/api/v1/messages?receiver_class=Channel&receiver_id=${id}`
+        }
+        
+        return API.request(options);
+    },
 };
 
 export default ChannelApi;
