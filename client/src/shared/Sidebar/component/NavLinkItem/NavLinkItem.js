@@ -4,13 +4,19 @@ import Image from '../../../Image/Image';
 import Cookies from "js-cookie";
 import { FiLock } from 'react-icons/fi';
 
-function NavLinkItem ({ item, showCloseIcon, hasImage=false, hasLabel=false }) {
+function NavLinkItem ({ 
+    item, 
+    showCloseIcon, 
+    hasImage = false, 
+    hasLabel = false,
+    type
+}) {
     const imgStyle = { borderRadius: '4px' }
 
     return (
         <NavLink 
             onMouseEnter={ showCloseIcon } 
-            to={`../messages/${item.id}`} 
+            to={`../${type}/${item.id}`} 
             exact 
             activeClassName={style.isActive} 
             className="nav-link-item">
@@ -22,10 +28,9 @@ function NavLinkItem ({ item, showCloseIcon, hasImage=false, hasLabel=false }) {
                     customStyle={imgStyle}
                 /> 
                 :
-                <FiLock/>
+                <FiLock />
             }   
-          
-            {item.name}
+            { item.name }
             { 
                 hasLabel &&
                 <span className="guest-label">

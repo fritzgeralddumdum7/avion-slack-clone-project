@@ -1,0 +1,12 @@
+h4 {
+    font-size: 15px;
+    margin-bottom: 5px;
+}
+
+h4, small {
+    margin-left: 15px;
+}
+
+.message-gap {
+    gap: 10px;
+}
