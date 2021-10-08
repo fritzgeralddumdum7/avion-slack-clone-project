@@ -20,7 +20,7 @@ const AuthApi = () => {
                 Cookies.set('client', headers['client']);
                 Cookies.set('uid', headers['uid']);
                 Cookies.set('expiry', headers['expiry']);
-                window.location= '/';
+                window.location= '/compose';
             }
         }).catch(err => {
             callback(err.response.data)

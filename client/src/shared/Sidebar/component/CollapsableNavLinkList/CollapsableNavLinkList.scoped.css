@@ -60,3 +60,8 @@ a:hover:not(.active) {
     color: #cfc3cf;
     border-radius: 2px;
 }
+
+.auto-scroll {
+    max-height: 250px;
+    overflow: auto;
+}

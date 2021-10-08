@@ -18,3 +18,19 @@ button:hover {
     opacity: .5;
     pointer-events: none;
 }
+
+.logout-btn {
+    background-color: #DC4E56;
+    width: 80%;
+    font-size: 14px;
+    border-radius: 2px;
+    padding: 8px;
+    position: absolute;
+    bottom: 100px;
+    color: #fff;
+    letter-spacing: 1px;
+}
+
+.logout-btn:hover {
+    opacity: .9;
+}

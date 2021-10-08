@@ -3,15 +3,17 @@ import { NavLink, useHistory } from "react-router-dom";
 import { TiMessages } from 'react-icons/ti';
 import { BiMessageRoundedDetail, BiDotsVerticalRounded } from 'react-icons/bi';
 import { FaRegSmile, FaRegSave } from 'react-icons/fa';
-import {FiUsers} from 'react-icons/fi';
+import { FiUsers } from 'react-icons/fi';
 import { IoCreateOutline } from 'react-icons/io5';
 import { BsPlusSquare } from 'react-icons/bs';
 import Cookies from 'js-cookie';
 import faker from 'faker';
 
 import CollapsableNavLinkList from './component/CollapsableNavLinkList/CollapsableNavLinkList';
+import LogoutButton from '../Button/Button';
 
 import UserApi from '../../api/UserApi';
+import AuthApi from '../../services/AuthApi';
 
 import './Sidebar.scoped.css';
 
@@ -19,11 +21,8 @@ import { filterToUnique } from '../../utils';
 
 function Sidebar () {
     let history = useHistory();
-    const [dmToggled, setDmToggled] = useState(false);
-    const [channelToggled, setChannelToggled] = useState(false);
     const [directMessageList, setDirectMessageList]  = useState([]);
     const [channelList, setChannelList]  = useState([]);
-    const [userToggle, setUserToggle] = useState(false);
     const [userList, setUserList] = useState([]);
 
     const NavHeader = () => {
@@ -45,18 +44,6 @@ function Sidebar () {
        getDirectMessages();
        getUserList();
     }, []);
-
-    const handleDmToggle = () => {
-        setDmToggled(!dmToggled);
-    }
-    
-    const handleChannelToggle = () => {
-        setChannelToggled(!channelToggled);
-    }
-
-    const handleUserToggle = () => {
-        setUserToggle(!userToggle);
-    }
 
     const setHistory = () => {
         history.push(window.location.pathname);
@@ -103,9 +90,14 @@ function Sidebar () {
           .catch(error => console.log(error.response.data.errors))
     }
 
+    const handleLogout = () => {
+        AuthApi.logout();
+        window.location = '/login';
+    }
+
     return ( 
-        <div>
-            <nav>
+        <nav>
+            <div>
                 <NavHeader />
                 <NavLink to="/threads" exact onClick={setHistory}>
                     <BiMessageRoundedDetail className="bi-thread-icon" /> Threads
@@ -141,8 +133,6 @@ function Sidebar () {
                     <div>
                         <CollapsableNavLinkList 
                             label='Direct Messages' 
-                            // isToggled={dmToggled} 
-                            // handleToggle={handleDmToggle} 
                             list={directMessageList}
                             hasImage={true}
                             hasLabel={true}
@@ -150,8 +140,15 @@ function Sidebar () {
                         />
                     </div>
                 </div>
-            </nav>
-        </div>
+            </div>
+            <div className="logout-container" style={{ padding: '0 25px' }}>
+                <LogoutButton 
+                    text='LOGOUT' 
+                    handleClick={handleLogout}
+                    customClass="logout-btn"
+                />
+            </div>
+        </nav>
     )
 }
 
