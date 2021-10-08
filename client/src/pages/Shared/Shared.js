@@ -1,7 +1,6 @@
 import React from 'react';
 import Input from '../../shared/Input/Input';
 import Button from '../../shared/Button/Button';
-import Container from '../../shared/Container/Container';
 import Sidebar from '../../shared/Sidebar/Sidebar';
 import Header from '../../shared/Header/Header';
 import Search from '../../shared/Header/component/Search';
@@ -48,28 +47,6 @@ function Shared () {
                 <Button 
                     text='Login'
                 />
-            </div>
-            <div>
-                <h3>Container</h3>
-                <Container>
-                    <Input 
-                        placeholder='Email'
-                        hasError={false}
-                        type='text'
-                        hasIcon={true}
-                        faIcon='envelope'
-                    />
-                    <Input 
-                        placeholder='Password'
-                        hasError={true}
-                        type='password'
-                        hasIcon={true}
-                        faIcon='lock'
-                    />
-                    <Button 
-                        text='Login'
-                    />
-                </Container>
             </div>
             <div style={{width: '300px'}}>
                 <h3>Sidebar</h3>

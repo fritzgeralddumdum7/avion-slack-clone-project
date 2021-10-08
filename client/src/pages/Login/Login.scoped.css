@@ -2,20 +2,10 @@
     width: 100%;
 }
 
-.input-wrapper svg {
-    position: absolute;
-    top: 20px;
-    right: 15px;
-}
-
-svg {
-    color: #52687c;
-}
-
 h1 {
     margin: unset;
     font-size: 48px;
-    margin-top: 20px;
+    margin: 20px;
 }
 
 .description {
@@ -24,8 +14,7 @@ h1 {
 }
 
 .fc-icon, .ai-icon {
-    font-size: 20px;
-    padding-right: 10px;
+    margin-right: 10px;
 }
 
 #google-login-btn, #apple-login-btn {
@@ -50,6 +39,29 @@ h1 {
     margin-bottom: 20px;
 }
 
-.ai-icon {
-    color: #1D1C1D;
+.container-wrapper {
+    gap: 15px;
+    min-width: 300px;
+}
+
+p {
+    margin: unset;
+    color: #e74444;
+    font-size: 15px;
+    margin-top: 7px;
+}
+
+.divider {
+    position: relative;
+    width: 100%;
+    border-top: 1px solid #DDDDDD;
+    margin: 10px 0;
+}
+
+.divider-text {
+    position: absolute;
+    top: -8px;
+    left: 44%;
+    padding: 0 15px;
+    background-color: #fff;
 }
