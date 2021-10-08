@@ -62,21 +62,6 @@ a {
     text-align: center;
 }
 
-.divider {
-    position: relative;
-    width: 100%;
-    border-top: 1px solid #DDDDDD;
-    margin-bottom: 20px;
-}
-
-.divider-text {
-    position: absolute;
-    top: -8px;
-    left: 44%;
-    padding: 0 15px;
-    background-color: #fff;
-}
-
 ::-webkit-scrollbar {
     width: 8px;
 }
@@ -90,11 +75,11 @@ a {
     border-radius: 5px;
 }
 
-a.active {
+/* a.active {
     background-color: #1164a3;
     color: #fff;
     font-weight: 500;
-}
+} */
 
 .wrapper {
     height: auto;

@@ -5,7 +5,6 @@ import Input from '../../shared/Input/Input';
 import Button from '../../shared/Button/Button';
 import UserApi from '../../api/UserApi';
 
-import '../../shared/Container/Container.scoped.css';
 import './Registration.scoped.css';
 
 function Registration () {

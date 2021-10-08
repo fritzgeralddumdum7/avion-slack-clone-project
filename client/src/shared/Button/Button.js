@@ -1,10 +1,10 @@
 import React from 'react';
 import './Button.scoped.css';
 
-function Button ({ text, handleClick }) {
+function Button ({ text, handleClick, disabled = false }) {
     return (
         <div>
-            <button onClick={handleClick}>{ text }</button>
+            <button className={ disabled && 'loading' } disabled={disabled} onClick={handleClick}>{ text }</button>
         </div>
     )
 }
