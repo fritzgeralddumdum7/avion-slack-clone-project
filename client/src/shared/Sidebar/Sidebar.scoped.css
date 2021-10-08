@@ -2,6 +2,10 @@ header:hover {
     background-color: #350d36;
 }
 
+.bi-thread-icon {
+    font-size: 18px;
+}
+
 nav {
     background-color: #3F0E40;
     min-width: 260px;
@@ -71,12 +75,7 @@ header {
     border-top: 1px solid rgb(82, 38, 83);
     border-bottom: 1px solid rgb(82, 38, 83);
     justify-content: space-between;
-}
-
-.vsc-triangle {
-    font-size: 12px;
-    padding-left: 2px;
-    padding-right: 12px;
+    margin-bottom: 10px;
 }
 
 button {
@@ -135,7 +134,30 @@ button {
 
 .add-channel-nav-link {
     padding: 0 25px;
+    margin-left: 3px;
+}
+
+a.active {
+    background-color: #1164a3;
+    color: #fff;
+    font-weight: 500;
+}
+
+.more {
     height: 30px;
+    display: flex;
+    align-items: center;
+    color: #cfc3cf;
+    padding-left: 15px;
     font-size: 14px;
-    
+    cursor: pointer;
+}
+
+.more:hover {
+    color: #fff;
+    opacity: .9;
+}
+
+.more-icon {
+    margin-right: 10px;
 }

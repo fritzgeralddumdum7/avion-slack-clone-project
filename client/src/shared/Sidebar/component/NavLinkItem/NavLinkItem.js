@@ -15,8 +15,8 @@ function NavLinkItem ({
 
     return (
         <NavLink 
-            onMouseEnter={ showCloseIcon } 
-            to={`../${type}/${item.id}`} 
+            onMouseEnter={showCloseIcon} 
+            to={`../${type}/${item.id}`}
             exact 
             activeClassName={style.isActive} 
             className="nav-link-item">
