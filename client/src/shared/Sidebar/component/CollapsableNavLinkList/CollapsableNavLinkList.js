@@ -1,20 +1,26 @@
+import React, { useState } from 'react';
 import '../NavLinkList/NavLinkList';
 import { VscTriangleRight, VscTriangleDown } from 'react-icons/vsc';
 import NavLinkList from '../NavLinkList/NavLinkList';
 import './CollapsableNavLinkList.scoped.css';
 
-function CollapsableNavLinkList ({ children, label, isToggled, list, handleToggle, hasImage, hasLabel, type }) {
+function CollapsableNavLinkList ({ children, label, list, hasImage, hasLabel, type }) {
+    const [toggled, setToggled] = useState(false);
+
+    const handleToggle = () => {
+        setToggled(!toggled);
+    }
+
     return (
-    <div className="parent-navlink" onClick={handleToggle}>
-        <div className="d-flex align-middle parent-navlink-item">
-            { !isToggled ? 
-                <VscTriangleRight className="vsc-triangle" /> :
-                <VscTriangleDown className="vsc-triangle" />
-            }
-            {label}
-        </div>
-        { 
-            isToggled &&
+        <div className="parent-navlink">
+            <div className="d-flex align-middle parent-navlink-item" onClick={handleToggle}>
+                { !toggled ? 
+                    <VscTriangleRight className="vsc-triangle" /> :
+                    <VscTriangleDown className="vsc-triangle" />
+                }
+                { label }
+            </div>
+            { toggled &&
                 <div>
                     <NavLinkList 
                         list={list} 
@@ -22,10 +28,10 @@ function CollapsableNavLinkList ({ children, label, isToggled, list, handleToggl
                         hasImage={hasImage}
                         type={type}
                     />
-                    {children}
+                    { children }
                 </div>
-        }
-    </div>
+            }
+        </div>
     )
 }
 

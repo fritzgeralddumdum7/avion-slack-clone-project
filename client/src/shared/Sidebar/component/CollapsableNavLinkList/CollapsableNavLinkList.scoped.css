@@ -48,7 +48,15 @@ a:hover:not(.active) {
     background-color: #350d36;
 }
 
-.noActive {
-    background-color: #3F0E40;
-    color: #fff;
+.vsc-triangle {
+    padding: 5px;
+    font-size: 22px;
+    margin-left: -3px;
+    margin-right: 6px;
+}
+
+.vsc-triangle:hover {
+    background-color: #ffffff24;
+    color: #cfc3cf;
+    border-radius: 2px;
 }

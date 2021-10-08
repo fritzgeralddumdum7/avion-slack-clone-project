@@ -16,6 +16,9 @@ import UserMessages from '../pages/UserMessages/UserMessages';
 import AuthRoute from './middleware/auth.route';
 import UserRoutes from './middleware/user.route';
 
+// for demo components
+import UnderConstruction from '../pages/UnderConstruction/UnderConstruction';
+
 const routes = () => {
     return (
         <Switch>
@@ -30,6 +33,11 @@ const routes = () => {
             <UserRoutes path="/createchannel" exact component={CreateChannel} />
             <UserRoutes path="/users" exact component={Users} />
             <UserRoutes path="/channel/:channelId" exact component={ChannelMessages} />
+
+            <UserRoutes path="/threads" exact component={UnderConstruction} />
+            <UserRoutes path="/all-dms" exact component={UnderConstruction} />
+            <UserRoutes path="/activity-page" exact component={UnderConstruction} />
+            <UserRoutes path="/saved-page" exact component={UnderConstruction} />
         </Switch>
     );
 }

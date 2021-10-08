@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink, useHistory } from "react-router-dom";
-import Cookies from 'js-cookie';
-import faker from 'faker';
-import CollapsableNavLinkList from './component/CollapsableNavLinkList/CollapsableNavLinkList';
-import UserApi from '../../api/UserApi';
-
-import { TiMessages, TiMessage } from 'react-icons/ti';
+import { TiMessages } from 'react-icons/ti';
+import { BiMessageRoundedDetail, BiDotsVerticalRounded } from 'react-icons/bi';
+import { FaRegSmile, FaRegSave } from 'react-icons/fa';
 import {FiUsers} from 'react-icons/fi';
 import { IoCreateOutline } from 'react-icons/io5';
 import { BsPlusSquare } from 'react-icons/bs';
+import Cookies from 'js-cookie';
+import faker from 'faker';
+
+import CollapsableNavLinkList from './component/CollapsableNavLinkList/CollapsableNavLinkList';
+
+import UserApi from '../../api/UserApi';
 
 import './Sidebar.scoped.css';
 
@@ -49,7 +52,6 @@ function Sidebar () {
     
     const handleChannelToggle = () => {
         setChannelToggled(!channelToggled);
-        console.log(channelList);
     }
 
     const handleUserToggle = () => {
@@ -105,22 +107,28 @@ function Sidebar () {
         <div>
             <nav>
                 <NavHeader />
-                <NavLink to="/" exact onClick={setHistory}>
-                    <TiMessage /> Threads
+                <NavLink to="/threads" exact onClick={setHistory}>
+                    <BiMessageRoundedDetail className="bi-thread-icon" /> Threads
                 </NavLink>
-                <NavLink to="/shared" exact onClick={setHistory}>
+                <NavLink to="/all-dms" exact onClick={setHistory}>
                     <TiMessages /> All DMs
+                </NavLink>
+                <NavLink to="/activity-page" exact onClick={setHistory}>
+                    <FaRegSmile /> Mentions & reactions
+                </NavLink>
+                <NavLink to="/saved-page" exact onClick={setHistory}>
+                    <FaRegSave /> Saved items
                 </NavLink>
                 <NavLink to="/users" exact onClick={setHistory}>
                     <FiUsers /> People & user groups
                 </NavLink>
-             
+                <div className="more">
+                    <BiDotsVerticalRounded className="more-icon" /> More
+                </div>
                 <div className='wrapper'>
-                    <div className='divider-component'>
+                    <div>
                         <CollapsableNavLinkList 
                             label='Channels' 
-                            isToggled={channelToggled} 
-                            handleToggle={handleChannelToggle} 
                             list={channelList}
                             type='channel'
                         >
@@ -130,11 +138,11 @@ function Sidebar () {
                             </NavLink>
                         </CollapsableNavLinkList>
                     </div>
-                    <div className='divider-component'>
+                    <div>
                         <CollapsableNavLinkList 
                             label='Direct Messages' 
-                            isToggled={dmToggled} 
-                            handleToggle={handleDmToggle} 
+                            // isToggled={dmToggled} 
+                            // handleToggle={handleDmToggle} 
                             list={directMessageList}
                             hasImage={true}
                             hasLabel={true}
