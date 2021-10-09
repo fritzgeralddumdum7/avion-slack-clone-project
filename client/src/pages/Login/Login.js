@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { NavLink } from "react-router-dom";
 import { FcGoogle } from 'react-icons/fc';
 import { AiFillApple } from 'react-icons/ai';
 import GoogleLogin from 'react-google-login';
 import AppleSignin from 'react-apple-signin-auth';
+import Banner from '../../shared/Banner/Banner';
+import AlertMessage from '../../shared/AlertMessage/AlertMessage';
 
 import Input from '../../shared/Input/Input';
 import Button from '../../shared/Button/Button';
@@ -38,7 +41,6 @@ function Login () {
     }
 
     const handleValidation = () =>{
-        setHasError(false);
         if (isEmpty(email.value)) {
             setEmail(email => ({ 
                     ...email,
@@ -118,13 +120,13 @@ function Login () {
     }
 
     return (
-        <div className="d-flex content-center content">
+        <div className="d-flex login-container">
+            <div className="info-wrapper d-flex flex-column">
+                New to Slack?
+                <NavLink to="/signup" exact>Create an account</NavLink>
+            </div>
             <div className='d-flex flex-column container-wrapper'>
-                <div className="text-center">
-                    <img alt="Slack" src="https://a.slack-edge.com/bv1-9/slack_logo-ebd02d1.svg" height="34" title="Slack" />
-                    <h1>Sign in to Slack</h1>
-                    <div className="description">We suggest using the <strong>email address you use at work.</strong></div>
-                </div>
+                <Banner description='Sign in to Slack'/>
                 <GoogleLogin 
                     clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
                     buttonText="Sign in with Google" 
@@ -157,7 +159,7 @@ function Login () {
                     <small className="divider-text">OR</small>
                 </div>
                 <div className="text-center">
-                    { hasError && <p className="error-message">{ errorMsg }</p>}
+                    { hasError && <AlertMessage message={errorMsg} /> }
                 </div>
                 <Input 
                     placeholder='name@work-email.com'

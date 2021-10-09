@@ -1,16 +1,7 @@
-.container {
-    width: 100%;
-}
-
-h1 {
-    margin: unset;
-    font-size: 48px;
-    margin: 20px;
-}
-
-.description {
-    font-size: 18px;
-    margin-bottom: 15px;
+.login-container {
+    justify-content: center;
+    padding-top: 50px;
+    position: relative;
 }
 
 .fc-icon, .ai-icon {
@@ -42,13 +33,6 @@ h1 {
 .container-wrapper {
     gap: 15px;
     min-width: 300px;
-}
-
-p {
-    margin: unset;
-    color: #e74444;
-    font-size: 15px;
-    margin-top: 7px;
 }
 
 .divider {

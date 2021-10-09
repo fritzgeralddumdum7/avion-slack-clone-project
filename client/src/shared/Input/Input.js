@@ -32,7 +32,7 @@ function Input ({
             { label && <Label />}
             <div className={`input-wrapper ${customClass}`}>
                 { children }
-                <input 
+                <input
                     placeholder={placeholder}
                     value={value}
                     className={setStyles}
