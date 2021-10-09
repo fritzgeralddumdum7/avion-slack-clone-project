@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { NavLink, useHistory } from "react-router-dom";
+import React, { useEffect } from 'react';
+import { NavLink } from "react-router-dom";
 import { TiMessages } from 'react-icons/ti';
 import { BiMessageRoundedDetail, BiDotsVerticalRounded } from 'react-icons/bi';
 import { FaRegSmile, FaRegSave } from 'react-icons/fa';
@@ -13,9 +13,6 @@ import { BsPlusSquare } from 'react-icons/bs';
 import { useDispatch, useSelector } from 'react-redux';
 
 import CollapsableNavLinkList from './component/CollapsableNavLinkList/CollapsableNavLinkList';
-import LogoutButton from '../Button/Button';
-
-import AuthApi from '../../services/AuthApi';
 
 import './Sidebar.scoped.css';
 
@@ -42,11 +39,6 @@ function Sidebar () {
         dispatch(fetchRecentMessages());
     }, [])
 
-    const handleLogout = () => {
-        AuthApi.logout();
-        window.location = '/login';
-    }
-
     const NavHeader = () => {
         return (
             <header className="d-flex align-middle">
@@ -63,8 +55,8 @@ function Sidebar () {
 
     return ( 
         <nav>
-            <div>
-                <NavHeader />
+            <NavHeader />
+            <div style={{ height: '100vh', overflowY: 'auto', paddingBottom: '140px' }}>
                 <NavLink to="/threads" exact>
                     <BiMessageRoundedDetail className="bi-thread-icon" /> Threads
                 </NavLink>
@@ -106,13 +98,6 @@ function Sidebar () {
                         />
                     </div>
                 </div>
-            </div>
-            <div className="logout-container" style={{ padding: '0 25px' }}>
-                <LogoutButton 
-                    text='LOGOUT' 
-                    handleClick={handleLogout}
-                    customClass="logout-btn"
-                />
             </div>
         </nav>
     )
