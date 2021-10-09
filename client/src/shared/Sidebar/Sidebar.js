@@ -6,24 +6,46 @@ import { FaRegSmile, FaRegSave } from 'react-icons/fa';
 import { FiUsers } from 'react-icons/fi';
 import { IoCreateOutline } from 'react-icons/io5';
 import { BsPlusSquare } from 'react-icons/bs';
-import Cookies from 'js-cookie';
-import faker from 'faker';
+
+// import redux to call the states from the redux
+// use the useSelector hook to call a state from the redux
+// use the useDispatch hook to trigger an api function from the redux
+import { useDispatch, useSelector } from 'react-redux';
 
 import CollapsableNavLinkList from './component/CollapsableNavLinkList/CollapsableNavLinkList';
 import LogoutButton from '../Button/Button';
 
-import UserApi from '../../api/UserApi';
 import AuthApi from '../../services/AuthApi';
 
 import './Sidebar.scoped.css';
 
-import { filterToUnique } from '../../utils';
+// dispatching a specific redux fetch api function
+// the following fetch functions can be find in `../../redux/users`
+import { 
+    fetchAllUsers,
+    fetchRecentMessages,
+    fetchOwnedChannels
+} from '../../redux/users';
 
 function Sidebar () {
-    let history = useHistory();
-    const [directMessageList, setDirectMessageList]  = useState([]);
-    const [channelList, setChannelList]  = useState([]);
-    const [userList, setUserList] = useState([]);
+    // using `dispatch` can trigger/run the function APIs stated above
+    const dispatch = useDispatch();
+
+    // these are from the redux users initialState
+    // these contains response data from the api
+    const { recentMessages, ownedChannels } = useSelector(state => state.users);
+
+    // dispatches all fetch api
+    useEffect(() => {
+        dispatch(fetchAllUsers());
+        dispatch(fetchOwnedChannels());
+        dispatch(fetchRecentMessages());
+    }, [])
+
+    const handleLogout = () => {
+        AuthApi.logout();
+        window.location = '/login';
+    }
 
     const NavHeader = () => {
         return (
@@ -39,79 +61,23 @@ function Sidebar () {
         );
     }
 
-    useEffect(() => {
-       getChannelList();
-       getDirectMessages();
-       getUserList();
-    }, []);
-
-    const setHistory = () => {
-        history.push(window.location.pathname);
-    }
-
-    const getUserList = async () => {
-        await UserApi.all()
-            .then(res => setUserList(res.data.data))
-            .catch(error => console.log(error.response.data.errors))
-        }
-
-    const getChannelList = async () => {
-        await UserApi.channels()
-          .then(res => setChannelList(res.data.data))
-          .catch(error => console.log(error.response.data.errors))
-    }
-
-    
-    const rearrangeArray = (array) => {
-        // set fake images and name
-        array.map(item => {
-            item.name=faker.fake("{{name.firstName}}");
-            item.image=faker.fake("{{image.avatar}}");
-        });
-
-        let filteredList = filterToUnique(array);
-
-        filteredList.forEach((item, index) => {
-            if (item.uid === Cookies.get('uid')) {
-                const current = item
-
-                delete filteredList[index];
-                filteredList.splice(0, 0, current);
-            } 
-        })
-        setDirectMessageList(filteredList);
-    }
-    
-    const getDirectMessages = async () => {
-        await UserApi.recentMessages()
-          .then(res => {
-            rearrangeArray(res.data.data)
-          })
-          .catch(error => console.log(error.response.data.errors))
-    }
-
-    const handleLogout = () => {
-        AuthApi.logout();
-        window.location = '/login';
-    }
-
     return ( 
         <nav>
             <div>
                 <NavHeader />
-                <NavLink to="/threads" exact onClick={setHistory}>
+                <NavLink to="/threads" exact>
                     <BiMessageRoundedDetail className="bi-thread-icon" /> Threads
                 </NavLink>
-                <NavLink to="/all-dms" exact onClick={setHistory}>
+                <NavLink to="/all-dms" exact>
                     <TiMessages /> All DMs
                 </NavLink>
-                <NavLink to="/activity-page" exact onClick={setHistory}>
+                <NavLink to="/activity-page" exact>
                     <FaRegSmile /> Mentions & reactions
                 </NavLink>
-                <NavLink to="/saved-page" exact onClick={setHistory}>
+                <NavLink to="/saved-page" exact>
                     <FaRegSave /> Saved items
                 </NavLink>
-                <NavLink to="/users" exact onClick={setHistory}>
+                <NavLink to="/users" exact>
                     <FiUsers /> People & user groups
                 </NavLink>
                 <div className="more">
@@ -121,7 +87,7 @@ function Sidebar () {
                     <div>
                         <CollapsableNavLinkList 
                             label='Channels' 
-                            list={channelList}
+                            list={ownedChannels}
                             type='channel'
                         >
                             <NavLink to='/create-channel' className='add-channel-nav-link'>
@@ -133,7 +99,7 @@ function Sidebar () {
                     <div>
                         <CollapsableNavLinkList 
                             label='Direct Messages' 
-                            list={directMessageList}
+                            list={recentMessages}
                             hasImage={true}
                             hasLabel={true}
                             type='messages'

@@ -21,7 +21,7 @@ import UnderConstruction from '../pages/UnderConstruction/UnderConstruction';
 const routes = () => {
     return (
         <Switch>
-            <AuthRoute path="/login" exact component={Login} />
+            <AuthRoute path={["/", "/login"]} exact component={Login} />
             <AuthRoute path="/signup" exact component={Registration}/>
 
             <UserRoutes path="/temporary" exact component={App} />

@@ -13,7 +13,7 @@ const AuthRoute = ({ component: Component, ...rest }) => {
         } else {
           return <Redirect to={
             {
-              pathname: '/',
+              pathname: '/compose',
               state: {
                 from: props.location
               }
