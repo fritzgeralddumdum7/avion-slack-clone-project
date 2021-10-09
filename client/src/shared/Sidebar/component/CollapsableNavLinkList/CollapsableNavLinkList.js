@@ -21,7 +21,7 @@ function CollapsableNavLinkList ({ children, label, list, hasImage, hasLabel, ty
                 { label }
             </div>
             { toggled &&
-                <div className="auto-scroll">
+                <div>
                     <NavLinkList 
                         list={list} 
                         hasLabel={hasLabel} 

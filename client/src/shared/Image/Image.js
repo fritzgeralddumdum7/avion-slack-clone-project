@@ -1,10 +1,13 @@
 import React from 'react';
 
-function Image ({ source, width, customStyle }) {
+import './Image.scoped.css';
+
+function Image ({ source, width, customStyle, handleClick }) {
     return <img 
         src={source} 
         width={width}
         style={customStyle}
+        onClick={handleClick}
     />
 }
 

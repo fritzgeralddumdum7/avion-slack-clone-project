@@ -1,0 +1,23 @@
+.profile-container {
+    position: relative;
+    align-items: flex-end;
+}
+
+.profile {
+    background-color: black;
+    height: 45px;
+    width: 300px;
+    position: absolute;
+    bottom: -53px;
+    left: -270px;
+    background-color: #F8F8F8;
+    border-radius: 5px;
+    border: 1px solid #DBDBDB;
+    cursor: pointer;
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,.08),0 1px 3px 0 rgba(0,0,0,.08);
+}
+
+.profile:hover {
+    background-color: #1164a3;
+    color: #fff;
+}
