@@ -1,0 +1,11 @@
+.description {
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+h1 {
+    margin: unset;
+    font-size: 48px;
+    margin: 20px;
+    white-space: nowrap;
+}

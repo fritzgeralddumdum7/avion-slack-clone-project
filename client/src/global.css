@@ -83,3 +83,22 @@ a {
     gap: 20px;
     justify-content: end;
 }
+
+.info-wrapper {
+    font-size: 13px;
+    position: absolute;
+    right: 50px;
+    color: #616061;
+    row-gap: 3px;
+    align-items: flex-end;
+}
+
+.info-wrapper a {
+    color: #1264a3;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.info-wrapper a:hover {
+    text-decoration: underline;
+}
