@@ -61,7 +61,6 @@ function Sidebar () {
           .catch(error => console.log(error.response.data.errors))
     }
 
-    
     const rearrangeArray = (array) => {
         // set fake images and name
         array.map(item => {

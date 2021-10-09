@@ -11,6 +11,8 @@ import Messages from '../../shared/Messages/Messages';
 
 import ChannelApi from '../../api/ChannelApi';
 import MessageApi from '../../api/MessageApi';
+import PageHeader from '../../shared/Header/PageHeader';
+import ChannelMemberList from '../../shared/ChannelMemberList/ChannelMembersList';
 
 function ChannelMessages () {
     const { channelId } = useParams();
@@ -18,6 +20,8 @@ function ChannelMessages () {
     const [value, setValue] = useState('');
     const [messages, setMessages] = useState([]);
     const [arrivalMessage, setArrivalMessage] = useState(null);
+    const [memberListClicked, setMemberListClicked] = useState(false);
+    const [channelName, setChannelName] = useState('');
 
     const socket = useRef();
     const currentUser = useRef({
@@ -28,6 +32,7 @@ function ChannelMessages () {
 
     useEffect(() => {
         fetchChannelMessages();
+        getChannelName();
     }, [channelId])
 
     useEffect(() => {
@@ -45,6 +50,13 @@ function ChannelMessages () {
         }
     }, [arrivalMessage])
 
+    const getChannelName = async () => {
+    
+        await ChannelApi.details(channelId)
+          .then(res => setChannelName(res.data.data.name))
+          .catch(error => console.log(error.response.data.errors))
+      }
+    
     const handleOnChange = (e) => {
         setValue(e.target.value);
     }
@@ -65,7 +77,6 @@ function ChannelMessages () {
                 receiver_class: 'Channel',
                 body: value
             }
-
             socket.current.emit('sendMessage', { payload });
             setValue('');
 
@@ -97,9 +108,6 @@ function ChannelMessages () {
                     } else {
                         data.name = fakeReceiver.name;
                         data.image = fakeReceiver.image;
-                        // if (isEmpty(recipientEmail)) {
-                        //     setRecipientEmail(data['sender'].uid)
-                        // }
                     }
                 })
                 setMessages(alignMessagesWithUser(data));
@@ -107,15 +115,26 @@ function ChannelMessages () {
             .catch(err => console.log(err))
     }
 
+    const handleButtonClick = () => {
+        setMemberListClicked(true);
+    }
+
     return (
-        <div className="message-container container full-content d-flex flex-column">
-            <Messages messages={messages} />
-            <TextArea
-                placeholder={`Send your message here...`}
-                handleOnChange={handleOnChange}
-                value={value}
-                handleSendMessage={handleSendMessage}
-            />
+        <div className="container full-content d-flex flex-column">
+            <PageHeader title={channelName} buttonLabel='Members'  handleButtonClick={handleButtonClick} />
+            {
+                memberListClicked && 
+                    <ChannelMemberList channelId={channelId} channelName={channelName}/>
+            }
+            <div className='message-container d-flex flex-column' style={{paddingBottom: '0px', paddingLeft: '0px' }}>
+                <Messages messages={messages} />
+                <TextArea
+                    placeholder={`Send your message here...`}
+                    handleOnChange={handleOnChange}
+                    value={value}
+                    handleSendMessage={handleSendMessage}
+                />
+            </div>
         </div>
     )
 }

@@ -81,5 +81,5 @@ a {
 
 .message-container {
     gap: 20px;
-    justify-content: end;
+    justify-content: flex-end;
 }
