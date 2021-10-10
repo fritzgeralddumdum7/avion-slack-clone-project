@@ -23,7 +23,11 @@ function UserMessages () {
 
     // refs
     const socket = useRef();
-    const currentUser = useRef(Cookies.get('uid'));
+    const currentUser = useRef({
+        uid: Cookies.get('uid'),
+        name: faker.fake("{{name.firstName}} {{name.lastName}}"),
+        image: faker.fake("{{image.avatar}}")
+    });
 
     useEffect(() => {
         retrieveMessage();
@@ -44,14 +48,13 @@ function UserMessages () {
 
     // connect users to socket server
     useEffect(() => {
-        socket.current.emit('initUser', currentUser.current);
+        socket.current.emit('initUser', currentUser.current.email);
         socket.current.on('getUsers', users => {
             console.log(users);
         });
     }, [currentUser])
     
     const retrieveMessage = async () => {
-        const params =`receiver_class=User&receiver_id=${receiverId}`
         const fakeSender = {
             name: faker.fake("{{name.firstName}} {{name.lastName}}"),
             image: faker.fake("{{image.avatar}}")
@@ -64,7 +67,7 @@ function UserMessages () {
         setReceiver(fakeReceiver);
         setSender(fakeSender);
     
-        await MessageApi.retrieve(params)
+        await MessageApi.retrieve('User' ,receiverId)
             .then(res => {
                 const data = res.data.data;
 
@@ -131,7 +134,7 @@ function UserMessages () {
 
     return (
         <div className="message-container container full-content d-flex flex-column justify-bottom" style={{ gap: '20px' }}>
-            <Messages messages={messages} />
+            <Messages messages={messages} selectedUser={currentUser.current} />
             <TextArea
                 placeholder={`Message ${receiver.name}`}
                 handleOnChange={handleOnChange}

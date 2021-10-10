@@ -12,10 +12,10 @@ const MessageApi = {
         return API.request(options);
     },
     // fetch messages of a specific user
-    retrieve: (params) => {
+    retrieve: (type, receiverId) => {
         const options = {
             method: 'GET',
-            url: `/api/v1/messages?${params}`,
+            url: `/api/v1/messages?receiver_class=${type}&receiver_id=${receiverId}`,
         };
 
         return API.request(options);

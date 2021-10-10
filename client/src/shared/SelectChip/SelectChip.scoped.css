@@ -1,0 +1,33 @@
+.select-chip {
+    width: 100%;
+}
+
+.search-wrapper {
+    position: relative;
+}
+
+.chip {
+    position: absolute;
+    top: -13px;
+    left: 10px;
+    background-color: #E8F5FB;
+    color: #000;
+    border-radius: 4px;
+    gap: 10px;
+    height: 25px;
+}
+
+.chip label {
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.remove-chip {
+    cursor: pointer;
+    margin-right: 5px;
+    border-radius: 2px;
+}
+
+.remove-chip:hover {
+    background-color: #ff000012;
+}

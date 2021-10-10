@@ -1,72 +1,148 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import Cookies from 'js-cookie';
 import Faker from 'faker';
-import SearchInput from '../../shared/Search/SearchInput';
+
 import TextArea from '../../shared/TextArea/TextArea';
-import SearchList from '../../shared/Search/SearchList';
+
 import UserApi from '../../api/UserApi';
-import { serializer } from '../../utils';
+
+import { alignMessagesWithUser, isEmpty, serializer } from '../../utils';
+import faker from 'faker';
+import Messages from '../../shared/Messages/Messages';
+
+import MessageApi from '../../api/MessageApi';
+
+import ComposeHeader from './components/ComposeHeader';
 
 import './ComposeMessage.scoped.css';
 
 function ComposeMessage () {
-    const [searched, setSearched] = useState('');
-    const [results, setResults] = useState([]);
+    const { users } = useSelector(state => state.users);
+
+    const [isToggled, setIsToggled] = useState(false);
+    const [selectedUser, setSelectedUser] = useState({});
+    const [messages, setMessages] = useState([]);
+    const [filteredUsers, setFilteredUsers] = useState([]);
+    const [searchInputValue, setSearchInputValue] = useState('');
+    const [messageText, setMessageText] = useState('');
+
+    const handleClickSearchInput = () => {
+        setIsToggled(!isToggled);
+    }
+
+    const handleSelectUser = (user) => {
+        setIsToggled(!isToggled);
+        setSelectedUser(user);
+    }
+
+    const handleRemoveChip = () => {
+        setSelectedUser({});
+        setMessages([]);
+        setFilteredUsers([]);
+    }
+
+    const handleOnChangeSearchInput = (e) => {
+        setSearchInputValue(e.target.value)
+    }
 
     useEffect(() => {
-        getAllUsers();
-     }, []);
+        if (Object.keys(selectedUser).length) {
+            fetchConversation(selectedUser.id)
+        }
+    }, [selectedUser])
 
-    const getAllUsers = async () => {
-        await UserApi.all()
-          .then(res => handleUsers(res.data.data))
-          .catch(error => console.log(error.response.errors))
+    const fetchConversation = async (receiverId) => {
+        const fakeSender = {
+            name: faker.fake("{{name.firstName}} {{name.lastName}}"),
+            image: faker.fake("{{image.avatar}}")
+        }
+        const fakeReceiver = {
+            name: faker.fake("{{name.firstName}} {{name.lastName}}"),
+            image: faker.fake("{{image.avatar}}")
+        }
+
+        await MessageApi.retrieve('User', receiverId)
+            .then(res => {
+                const data = res.data.data;
+
+                // loop every item and set fake name & image
+                data.map(data => {
+                    if (data['sender'].email === Cookies.get('uid')) {
+                        data.name = fakeSender.name;
+                        data.image = fakeSender.image;
+                    } else {
+                        data.name = fakeReceiver.name;
+                        data.image = fakeReceiver.image;
+                    }
+                })
+                setMessages(alignMessagesWithUser(data));
+            })
+            .catch(error => console.log(error.response.data.errors))
     }
 
-    const handleOnChange = (e) => {
-        setSearched(e.target.value);
+    useEffect(() => {
+        // filter data that matches the search query
+        let filtered = users.map(user => {
+            if (user.uid.toLowerCase().includes(searchInputValue.toLowerCase())) {
+                return user;
+            }
+        })
+
+        // remove all undefined items
+        filtered = filtered.filter(item => item !== undefined);
+        
+        setFilteredUsers(filtered);
+        filtered = [];
+    }, [searchInputValue])
+
+    const handleSendMessage = async (e) => {
+        e.preventDefault();
+
+        if (Object.keys(selectedUser).length > 0) {
+            if (!isEmpty(messageText.trim())) {
+                let payload = {
+                    receiver_id: selectedUser.id,
+                    receiver_class: 'User',
+                    body: messageText
+                }
+    
+                await MessageApi.send(payload)
+                    .then(res => {
+                        window.location = `../messages/${selectedUser.id}`
+                    })
+                    .catch(error => console.log(error.response.data.errors))
+            }
+        }
     }
 
-    const handleUsers = (array) => {
-        array = array.filter(item => item.uid === Cookies.get('uid'))
-            .concat(array.filter(item => item.uid !== Cookies.get('uid')));
-            
-        array.map(item => {
-            item.name=Faker.fake("{{name.firstName}} {{name.lastName}}");
-            item.image=Faker.fake("{{image.avatar}}");
-        });
-        setResults(serializer(array, 'user')); 
+    const handleOnChangeTextAreaValue = (e) => {
+        setMessageText(e.target.value);
     }
 
     return (
-        <div className='full-content container-compose-message'>
-            <div>
-                <header>
-                    <h3>New message</h3>
-                </header>
-                <div className="search-input">
-                    <span className='label-to'>To: </span>
-                    <SearchInput 
-                        searched={searched}
-                        readOnly={false}
-                        handleOnChange={handleOnChange}
-                        placeholder={'#a-channel, @somebody, or somebody@example.com'}
-                        customClass='search-input-compose'
-                    />
-                </div>
-                {searched!==''  && 
-                <div className="wrapper-searchlist">
-                    <div className="container-searchlist">
-                        <SearchList 
-                            results={results}
-                            searched={searched}
-                            customClass='compose-message-search'
-                        />
-                    </div>
-                </div>}
-            </div>
-            <div className="container-textarea">
-              <TextArea />
+        <div className="d-flex flex-column content">
+            <ComposeHeader 
+                handleClickSearchInput={handleClickSearchInput}
+                isToggled={isToggled}
+                users={filteredUsers}
+                handleSelectUser={handleSelectUser}
+                selectedUser={selectedUser}
+                handleRemoveChip={handleRemoveChip}
+                handleOnChange={handleOnChangeSearchInput}
+                searchInputValue={searchInputValue}
+            />
+            <div className="message-container container full-content d-flex flex-column justify-bottom" style={{ gap: '20px' }}>
+                <Messages 
+                    messages={messages}
+                    selectedUser={selectedUser}
+                />
+                <TextArea
+                    placeholder={Object.keys(selectedUser).length === 0 ? 'Start a new message' : `Message ${selectedUser.name}`}
+                    handleOnChange={handleOnChangeTextAreaValue}
+                    value={messageText}
+                    handleSendMessage={handleSendMessage}
+                />
             </div>
         </div>
     )
