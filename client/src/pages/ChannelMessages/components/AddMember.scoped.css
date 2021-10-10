@@ -1,0 +1,35 @@
+
+.container-add-member {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    padding-top: 30px;
+    left: 50%;
+    top: 50%;
+    transform:translate(-50%, -50%);
+    width: 580px;
+    height: 600px;
+    border: 1px solid black;
+    border-radius: 10px;
+    background-color: #fdffff;
+    
+}
+
+.d-flex {
+    border: 1px solid #9C9B9C;
+    width: 510px;
+    align-items: center;
+    border-radius: 5px;
+    padding-left: 12px;
+    height: 36px;
+    margin-left: 28px;
+    margin-bottom: 30px;
+}
+
+button {
+    width: 100px;
+    height: 36px;
+    background-color: #fdffff;
+    border: 1px solid #BBBABB;
+    align-self: center;
+}

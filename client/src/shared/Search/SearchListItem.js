@@ -3,8 +3,11 @@ import Image from '../Image/Image';
 import './SearchListItem.scoped.css';
 
 function SearchListItem ({ item, customClass, handleClick, isNavLink=true }) {
-    const imgStyle = { height: '20px', width: '20px', marginRight: '10px', borderRadius: '4px' }
+    let imgStyle = { height: '20px', width: '20px', marginRight: '10px', borderRadius: '4px' }
 
+    if (customClass==='channel-member-searchlist') {
+        imgStyle = { height: '36px', width: '36px', marginLeft: '30px', borderRadius: '4px' }
+    }
     return (
         <div>
             {
