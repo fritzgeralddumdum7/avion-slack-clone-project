@@ -1,0 +1,11 @@
+.loader {
+    background: url(../../loading.gif);
+    background-repeat: no-repeat;
+    height: 600px;
+    width: 800px;
+    text-align: center;
+}
+
+.loader-container {
+    background-color: #F4FBFB;
+}

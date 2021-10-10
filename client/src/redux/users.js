@@ -71,14 +71,15 @@ export const usersSlice = createSlice({
         users: [],
         ownedChannels: [],
         recentMessages: [],
-        isFetching: false
+        isFetchingUsers: false
     },
     extraReducers: {
         [fetchAllUsers.pending]: state => {
-            state.isFetching = true
+            state.isFetchingUsers = true;
         },
         [fetchAllUsers.fulfilled]: (state, action) => {
             state.users = finalizeUsersInfo(action.payload);
+            state.isFetchingUsers = false;
         },
         [fetchOwnedChannels.fulfilled]: (state, action) => {
             state.ownedChannels = action.payload;
