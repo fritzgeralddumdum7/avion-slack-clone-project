@@ -10,34 +10,20 @@ import { BsPlusSquare } from 'react-icons/bs';
 // import redux to call the states from the redux
 // use the useSelector hook to call a state from the redux
 // use the useDispatch hook to trigger an api function from the redux
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import CollapsableNavLinkList from './component/CollapsableNavLinkList/CollapsableNavLinkList';
 
 import './Sidebar.scoped.css';
 
-// dispatching a specific redux fetch api function
-// the following fetch functions can be find in `../../redux/users`
-import { 
-    fetchAllUsers,
-    fetchRecentMessages,
-    fetchOwnedChannels
-} from '../../redux/users';
-
 function Sidebar () {
-    // using `dispatch` can trigger/run the function APIs stated above
-    const dispatch = useDispatch();
 
     // these are from the redux users initialState
     // these contains response data from the api
-    const { recentMessages, ownedChannels } = useSelector(state => state.users);
-
-    // dispatches all fetch api
-    useEffect(() => {
-        dispatch(fetchAllUsers());
-        dispatch(fetchOwnedChannels());
-        dispatch(fetchRecentMessages());
-    }, [])
+    const { 
+        recentMessages, 
+        ownedChannels
+    } = useSelector(state => state.users);
 
     const NavHeader = () => {
         return (
@@ -53,10 +39,10 @@ function Sidebar () {
         );
     }
 
-    return ( 
+    return (
         <nav>
             <NavHeader />
-            <div style={{ height: '100vh', overflowY: 'auto', paddingBottom: '140px' }}>
+            <div>
                 <NavLink to="/threads" exact>
                     <BiMessageRoundedDetail className="bi-thread-icon" /> Threads
                 </NavLink>
@@ -75,7 +61,7 @@ function Sidebar () {
                 <div className="more">
                     <BiDotsVerticalRounded className="more-icon" /> More
                 </div>
-                <div className='wrapper'>
+                <div className='wrapper'  style={{ height: '65vh', overflowY: 'auto' }}>
                     <div>
                         <CollapsableNavLinkList 
                             label='Channels' 
