@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { 
+    fetchOwnedChannels
+} from '../../redux/users';
 
 import SearchInput from '../../shared/Search/SearchInput';
 import SearchList from '../../shared/Search/SearchList';
@@ -19,7 +22,7 @@ function CreateChannel () {
     const { 
         users
     } = useSelector(state => state.users);
-
+    const dispatch = useDispatch();
 
     useEffect(() => {
         setResults(users);
@@ -33,12 +36,19 @@ function CreateChannel () {
         else if(uidList.length < 1) {
             return alert('Please input users you want to include in your channel');
         }
+        else if(uidList.length > 14) {
+            return alert('Name too long (maximum of 15 characters)');
+        }
         const payload = {
           'name': channelName,
           'user_ids': uidList
         };
         await ChannelApi.create(payload)
-        .then(res => console.log(res))
+        .then(res => {
+            console.log(res);
+            //updates redux channel global state to update the user owned channel list on sidebar component
+            dispatch(fetchOwnedChannels());
+        })
         .catch(error => console.log(error.response.data.errors))
         setChannelName('');
         setUsersList([]);
