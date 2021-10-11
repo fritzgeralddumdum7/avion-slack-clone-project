@@ -1,8 +1,8 @@
 import Image from "../../Image/Image";
-import  './ListItem.scoped.css';
+import  './ListItem.scoped.css'
 
 function ListItem ({ item, customClass, removeItem }) {
-    const imgStyle = { height: '40px', width: '40px', marginRight: '10px', borderRadius: '4px' }
+    const imgStyle = { height: '36px', width: '36px', marginRight: '10px', borderRadius: '5px' }
 
     return(
         <li className={customClass}>

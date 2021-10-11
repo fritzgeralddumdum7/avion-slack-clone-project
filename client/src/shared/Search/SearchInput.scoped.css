@@ -54,3 +54,15 @@ svg {
 .search-input-create-channel:focus {
     outline: none;
 }
+
+.members-list-search-input { 
+    align-self: center;
+    width: 100%;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    margin-left: 10px;
+}
+.members-list-search-input:focus {
+    outline: none; 
+}

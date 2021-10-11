@@ -87,10 +87,18 @@ function App() {
       .catch(error => setError(error.response.data.errors))
   }
 
+  const getChannelMessages = async () => {
+    const id = "1231"
+
+    await channelApi.messages(id)
+      .then(res => console.log(res))
+      .catch(error => setError(error.response.data.errors))
+  }
+
   const memberToChannel = async () => {
     const payload = {
-      "id": 1,
-      "member_id": 3
+      "id": 1231,
+      "member_id": 799
   }
 
     await channelApi.members(payload)
@@ -138,6 +146,9 @@ function App() {
       </button>
       <button onClick={getAllUsers} className="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">
        Get All Users
+      </button>
+      <button onClick={getChannelMessages} className="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">
+       Get Channel Messages
       </button>
       <button onClick={getOwnedChannels} className="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">
        User owned channels

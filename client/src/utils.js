@@ -102,5 +102,6 @@ export const serializer = (array, type) => {
             }
         })
     }
+    
     return serializedArray;
 }
