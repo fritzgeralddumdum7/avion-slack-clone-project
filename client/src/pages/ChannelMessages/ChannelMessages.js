@@ -14,7 +14,6 @@ import ChannelMemberList from './components/ChannelMembersList';
 
 import ChannelApi from '../../api/ChannelApi';
 import MessageApi from '../../api/MessageApi';
-import UserApi from '../../api/UserApi';
 
 // import ChannelMemberList from '../../shared/ChannelMemberList/ChannelMembersList';
 import { useSelector } from 'react-redux';
@@ -39,6 +38,10 @@ function ChannelMessages () {
         name: faker.fake("{{name.firstName}} {{name.lastName}}"),
         image: faker.fake("{{image.avatar}}")
     });
+    
+    const { 
+        users
+    } = useSelector(state => state.users);
 
     useEffect(async () => {
         setMemberList([]);
@@ -139,10 +142,6 @@ function ChannelMessages () {
             })
             .catch(err => console.log(err))
     }
-
-    const { 
-        users
-    } = useSelector(state => state.users);
 
     const handleShowMemberListModal = () => {
         setShowMemberList(!showMemberList);

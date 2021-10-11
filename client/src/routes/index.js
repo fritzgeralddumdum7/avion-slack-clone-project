@@ -29,7 +29,7 @@ const routes = () => {
             <UserRoutes path="/messages/:receiverId" exact component={UserMessages} />
             <UserRoutes path="/shared" exact component={Shared} />
             <UserRoutes path="/compose" exact component={ComposeMessage} />
-            <UserRoutes path="/createchannel" exact component={CreateChannel} />
+            <UserRoutes path="/create-channel" exact component={CreateChannel} />
             <UserRoutes path="/users" exact component={Users} />
             <UserRoutes path="/channel/:channelId" exact component={ChannelMessages} />
 

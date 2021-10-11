@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import Faker from 'faker';
-import UserApi from '../../api/UserApi';
+import { useSelector } from 'react-redux';
+
 import SearchInput from '../../shared/Search/SearchInput';
 import SearchList from '../../shared/Search/SearchList';
 import Input from '../../shared/Input/Input';
 import List from '../../shared/List/List';
+
 import ChannelApi from '../../api/ChannelApi';
 
 import './CreateChannel.scoped.css';
@@ -15,17 +16,16 @@ function CreateChannel () {
     const [channelName, setChannelName] = useState('');
     const [uidList, setUidList] = useState([]);
     const [usersList, setUsersList] = useState([]);
+    const { 
+        users
+    } = useSelector(state => state.users);
+
 
     useEffect(() => {
-        getAllUsers();
+        setResults(users);
      }, []);
 
-    const getAllUsers = async () => {
-        await UserApi.all()
-          .then(res => handleUsers(res.data.data))
-          .catch(error => console.log(error.response.errors))
-    }
-
+     //handles Create Channel button. Triggers api create channel function passing in the channel name and chosen channel members. 
     const createChannel = async () => {
         if(channelName.trim()==='') {
             return alert('Must input a channel name');
@@ -45,21 +45,18 @@ function CreateChannel () {
         setUidList([]);
     }
     
-    const handleUsers = (array) => {
-        array.map(item => {
-            item.image=Faker.fake("{{image.avatar}}");
-        });
-        setResults(array); 
-    }
-
+    //gets the text value from search input
     const handleOnChange = (e) => {
         setSearched(e.target.value);
     }
 
+    //gets the value of channel name from the channel name text input
     const handleChannelNameChange = (e) => {
         setChannelName(e.target.value);
     }
 
+    //handles choosing of channel members from our search list. 
+    //adds the users onto usersList state and their ids to the uidList state which will be used for sending the info to slack api
     const handleClick = (item) => {
         if(!uidList.includes(item.id)) {
             setUsersList([...usersList, {id: item.id, image: item.image, email: item.email}]);
@@ -72,6 +69,7 @@ function CreateChannel () {
         }
     }   
     
+    //handles remove item button. Removes the chosen user from the channel users to be included on create channel.
     const removeItem = (item) => {
         setUsersList(usersList.filter(user => user.email !== item.email));
     }
@@ -110,7 +108,6 @@ function CreateChannel () {
                     </div>
             }
             <List list={usersList} removeItem={removeItem}/> 
-            <button>TEST</button>
             </div>
         </div>
     )
