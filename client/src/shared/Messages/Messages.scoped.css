@@ -14,3 +14,50 @@
     height: auto;
     gap: 20px;
 }
+
+.no-convo {
+    gap: 15px;
+}
+
+.card {
+    column-gap: 20px;
+    font-size: 15px;
+    padding-bottom: 10px;
+}
+
+.card,
+.short-desc {
+    color: #1d1c1d;
+}
+
+.info {
+    row-gap: 5px;
+    justify-content: space-between;
+    height: 70px;
+}
+
+.info label,
+.info small {
+    color: #1d1c1db3;
+}
+
+.short-desc {
+    font-size: 18px;
+    line-height: 25px;
+}
+
+.short-desc a {
+    color: #1264a3;
+    text-decoration: none;
+    background-color: #1264a31c;
+    padding: 2px;
+    border-radius: 2px;
+}
+
+.normal-link {
+    background-color: unset !important;
+}
+
+.normal-link:hover {
+    text-decoration: underline;
+}

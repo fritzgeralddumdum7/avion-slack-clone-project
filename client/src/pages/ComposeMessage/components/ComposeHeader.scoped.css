@@ -1,0 +1,11 @@
+.row {
+    height: 49px;
+    background-color: #fff;
+    border-bottom: 1px solid #E1E1E1;
+    padding: 0 20px;
+}
+
+.row:last-child {
+    color: #616061;
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 8%), 0 1px 3px 0 rgb(0 0 0 / 8%);
+}

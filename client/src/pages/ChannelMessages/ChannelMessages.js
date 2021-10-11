@@ -12,8 +12,8 @@ import Messages from '../../shared/Messages/Messages';
 import PageHeader from './components/PageHeader';
 import ChannelMemberList from './components/ChannelMembersList';
 
-import ChannelApi from '../../api/ChannelApi';
 import MessageApi from '../../api/MessageApi';
+import ChannelApi from '../../api/ChannelApi';
 
 // import ChannelMemberList from '../../shared/ChannelMemberList/ChannelMembersList';
 import { useSelector } from 'react-redux';
@@ -78,12 +78,12 @@ function ChannelMessages () {
         const payload = {
           "id": channelId,
           "member_id": newUserId
-      }
+        }
     
         await ChannelApi.members(payload)
           .then()
           .catch(error => console.log(error))
-      }
+    }
     
     const handleOnChange = (e) => {
         setValue(e.target.value);
@@ -124,7 +124,7 @@ function ChannelMessages () {
             image: faker.fake("{{image.avatar}}")
         }
         
-        await ChannelApi.messages(channelId)
+        await MessageApi.retrieve('Channel', channelId)
             .then(res => {
                 const data = res.data.data;
 
