@@ -19,7 +19,9 @@ function Shared () {
                 <Card 
                     image='https://randomuser.me/api/portraits/women/90.jpg'
                     name='Potpot Juan'
+                    bio='Co-Owner of CoCo'
                     email='potpotjuan@mail.com'
+                    text='text'
                 />
             </div>
             <div style={{width: '300px'}}>
