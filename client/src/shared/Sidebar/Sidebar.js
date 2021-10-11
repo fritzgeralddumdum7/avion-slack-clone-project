@@ -56,7 +56,7 @@ function Sidebar () {
                     <FaRegSave /> Saved items
                 </NavLink>
                 <NavLink to="/users" exact>
-                    <FiUsers /> People & user groups
+                    <FiUsers /> Users
                 </NavLink>
                 <div className="more">
                     <BiDotsVerticalRounded className="more-icon" /> More

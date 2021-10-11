@@ -4,16 +4,30 @@ import { AiOutlineLock } from 'react-icons/ai';
 import './SearchListItem.scoped.css';
 
 function SearchListItem ({ item, customClass, handleClick, isNavLink=true }) {
-    let imgStyle = { height: '20px', width: '20px', marginRight: '10px', borderRadius: '4px' }
+    let imgStyle = { height: '20px', width: '20px', marginRight: '10px', borderRadius: '4px' };
+    let itemName = item.email;
+
+    if (customClass === 'all-users-searchlist' ) {
+        imgStyle = { height: '40px', width: '40px', marginRight: '10px', borderRadius: '5px' };
+        itemName =  
+        <div className='d-flex flex-column'>
+            <div className='name'>
+             {item.name} 
+             </div>
+             <div className='email'>
+             {item.email}
+             </div>
+        </div>
+    } else if (customClass==='channel-member-searchlist') {
+        imgStyle = { height: '36px', width: '36px', marginLeft: '30px', borderRadius: '4px' };
+    }
+
     let itemImage = <Image source={ item.image } customStyle={ imgStyle } />
 
     if (item.image === undefined) {
         itemImage = <AiOutlineLock/>
     }
 
-    if (customClass==='channel-member-searchlist') {
-        imgStyle = { height: '36px', width: '36px', marginLeft: '30px', borderRadius: '4px' }
-    }
     return (
         <div>
             {
@@ -21,14 +35,14 @@ function SearchListItem ({ item, customClass, handleClick, isNavLink=true }) {
             <li className={customClass}>         
                 <NavLink className="nav-link" to='/' >
                     {itemImage}
-                    {item.email}
+                    {itemName}
                 </NavLink> 
             </li>
             :                          
             <li className={customClass} onClick={() => handleClick(item)} >                
                 <div className="div-list-item" onClick={() => handleClick(item)} >
                     {itemImage}
-                    {item.email}
+                    {itemName}
                 </div> 
             </li>
             }

@@ -39,3 +39,7 @@ a:hover {
 ::-webkit-scrollbar {
     width: 15px;
 }
+
+.all-users-searchlist {
+    padding: 10px;
+}

@@ -1,45 +1,53 @@
 import React, { useState, useEffect } from 'react';
-import UserApi from '../../api/UserApi';
-import Card from '../../shared/Card/Card';
-import Faker from 'faker';
+import { useSelector } from 'react-redux';
 
+import SearchList from '../../shared/Search/SearchList';
+import SearchInput from '../../shared/Search/SearchInput';
+
+import './Users.scoped.css'
 function Users () {
     
     const [results, setResults] = useState([]);
+    const [searched, setSearched] = useState('');
+    const { 
+        users
+    } = useSelector(state => state.users);
     
     useEffect(() => {
-       getUserList();
+       setResults(users);
      }, []);
 
-    const getUserList =  async () => {
-        await UserApi.all()
-          .then(res => handleUsers(res.data.data))
-          .catch(error => console.log(error.response.errors))
-}
+    const handleOnChange = (e) => {
+        setSearched(e.target.value);
+    }
 
-const handleUsers = (array) => {
-    array.map(item => {
-        item.name=Faker.fake("{{name.firstName}} {{name.lastName}}");
-        item.image=Faker.fake("{{image.avatar}}");
-    });
-    setResults(array); 
-}
-    
+    const handleClick = () => {
+
+    }
+        
 return (
     <div className='full-content container-compose-message'>
         <div>
             <header>
                 <h3>MEMBERS</h3>
             </header>
-           {results.map((user, index) =>{
-               return < Card name={user.name} email={user.email} image={user.image}/>
-           })}
-            
-        </div>
-    </div>
-                
+            <SearchInput 
+                searched={searched}
+                readOnly={false}
+                handleOnChange={handleOnChange}
+                placeholder={'@somebody, or somebody@example.com'}
+                customClass='search-input-create-channel'
+            />
+            <SearchList 
+                    results={results}
+                    searched={searched}
+                    customClass='all-users-searchlist'
+                    handleClick={handleClick}
+                    isNavLink={false}
+            />
+            </div>
+        </div> 
     )
 }
 
 export default Users;
-
