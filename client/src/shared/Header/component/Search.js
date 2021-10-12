@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react'; 
 import { useSelector } from 'react-redux';
 import OutsideClickHandler from 'react-outside-click-handler';
-import { AiOutlineClose, AiOutlineLock } from 'react-icons/ai';
+import { AiOutlineClose } from 'react-icons/ai';
 import { FiSearch } from 'react-icons/fi';
-
 
 import SearchForm from '../../Search/SearchForm';
 import SearchInput from '../../Search/SearchInput';
@@ -19,9 +18,14 @@ function Search () {
         ownedChannels 
     } = useSelector(state => state.users);
 
-    useEffect(async () => {
+    useEffect(() => {
+        const handleResults = () => {
+            ownedChannels.map(item => setResults(currentResults => [...currentResults, item]));
+            users.map(item => setResults(currentResults => [...currentResults, item]));
+        }
+
         handleResults();
-    }, [])
+    }, [users, ownedChannels])
 
     const handleClick = () => {
         setIsClicked(!isClicked);
@@ -33,16 +37,6 @@ function Search () {
 
     const clearSearch = () => {
         setSearched('');
-    }
-
-    const handleResults = () => {
-        ownedChannels.map((item, index) => {
-            // setResults(currentResults => [...currentResults, {email: item.name, id: item.id, name: item.name, owner_id: item.owner_id}]);
-            setResults(currentResults => [...currentResults, item])
-        });
-        users.map((item, index) => {
-            setResults(currentResults => [...currentResults, item])
-        });
     }
 
     return (

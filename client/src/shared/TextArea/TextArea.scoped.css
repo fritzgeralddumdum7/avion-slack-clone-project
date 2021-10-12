@@ -22,7 +22,7 @@ textarea {
 
 #send-container {
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
     align-items: center;
     padding: 5px;
     border-bottom-right-radius: 5px;

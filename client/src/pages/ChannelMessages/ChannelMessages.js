@@ -6,7 +6,7 @@ import faker from 'faker';
 import Cookies from 'js-cookie';
 import OutsideClickHandler from 'react-outside-click-handler';
 
-import { alignMessagesWithUser, isEmpty, serializer } from '../../utils';
+import { alignMessagesWithUser, isEmpty } from '../../utils';
 
 import TextArea from '../../shared/TextArea/TextArea';
 import Messages from '../../shared/Messages/Messages';
@@ -39,11 +39,73 @@ function ChannelMessages () {
         users
     } = useSelector(state => state.users);
 
-    useEffect(async () => {
+    useEffect(() => {
+        const fetchChannelMessages = async () => {
+            const fakeSender = {
+                name: faker.fake("{{name.firstName}} {{name.lastName}}"),
+                image: faker.fake("{{image.avatar}}")
+            }
+            const fakeReceiver = {
+                name: faker.fake("{{name.firstName}} {{name.lastName}}"),
+                image: faker.fake("{{image.avatar}}")
+            }
+            
+            await MessageApi.retrieve('Channel', channelId)
+                .then(res => {
+                    const data = res.data.data;
+
+                    // loop every item and set fake name & image
+                    data.map(data => {
+                        if (data['sender'].email === Cookies.get('uid')) {
+                            data.name = fakeSender.name;
+                            data.image = fakeSender.image;
+                        } else {
+                            data.name = fakeReceiver.name;
+                            data.image = fakeReceiver.image;
+                        }
+
+                        return data;
+                    })
+                    setMessages(alignMessagesWithUser(data));
+                })
+                .catch(err => console.log(err))
+        }
+
+        //gets the info of users not yet a member of the channel and stores it on usersNotOnChannel useState.
+        const setNonMembersInfo = (channelMembers) => {
+            let memberIds = []
+            channelMembers.forEach(member => {
+                    memberIds.push(member.user_id)
+            })
+            users.forEach(user => {
+                if (!memberIds.includes(user.id)) {
+                    setUsersNotOnChannel(previous => [...previous, user])
+                }
+            })
+        }
+
+        //gets the info of channelMembers from users and stores it on memberList useState.
+        const setUserInfoOnMemberList = (channelMembers) => {
+            channelMembers.forEach(member => {
+                const user = users.find(user => user.id === member.user_id)
+                setMemberList(previous => [...previous, user]);
+            })
+        }
+
+        const fetchChannelInfo = async () => {
+            await ChannelApi.details(channelId)
+                .then(res => {
+                    setUserInfoOnMemberList(res.data.data.channel_members);
+                    setNonMembersInfo(res.data.data.channel_members);
+                    setChannelName(res.data.data.name)
+                })
+                .catch(error => console.log(error.response.data.errors))
+        }
+
         setMemberList([]);
-        await fetchChannelMessages();
-        await fetchChannelInfo();
-    }, [channelId])
+        fetchChannelMessages();
+        fetchChannelInfo();
+    }, [channelId, users])
 
     useEffect(() => {
         socket.current = io(`http://localhost:${process.env.REACT_APP_SOCKET_PORT}`);
@@ -58,17 +120,7 @@ function ChannelMessages () {
         if (arrivalMessage && (arrivalMessage.type === 'channel' && channelId === arrivalMessage.roomId)) {
             setMessages(prev => [...prev, arrivalMessage]);
         }
-    }, [arrivalMessage])
-
-    const fetchChannelInfo = async () => {
-        await ChannelApi.details(channelId)
-            .then(res => {
-                setUserInfoOnMemberList(res.data.data.channel_members);
-                setNonMembersInfo(res.data.data.channel_members);
-                setChannelName(res.data.data.name)
-            })
-            .catch(error => console.log(error.response.data.errors))
-    }
+    }, [arrivalMessage, channelId])
 
     const addMemberToChannel = async (newUserId) => {
         const payload = {
@@ -110,58 +162,8 @@ function ChannelMessages () {
         }
     }
 
-    const fetchChannelMessages = async () => {
-        const fakeSender = {
-            name: faker.fake("{{name.firstName}} {{name.lastName}}"),
-            image: faker.fake("{{image.avatar}}")
-        }
-        const fakeReceiver = {
-            name: faker.fake("{{name.firstName}} {{name.lastName}}"),
-            image: faker.fake("{{image.avatar}}")
-        }
-        
-        await MessageApi.retrieve('Channel', channelId)
-            .then(res => {
-                const data = res.data.data;
-
-                // loop every item and set fake name & image
-                data.map(data => {
-                    if (data['sender'].email === Cookies.get('uid')) {
-                        data.name = fakeSender.name;
-                        data.image = fakeSender.image;
-                    } else {
-                        data.name = fakeReceiver.name;
-                        data.image = fakeReceiver.image;
-                    }
-                })
-                setMessages(alignMessagesWithUser(data));
-            })
-            .catch(err => console.log(err))
-    }
-
     const handleShowMemberListModal = () => {
         setShowMemberList(!showMemberList);
-    }
-
-    //gets the info of channelMembers from users and stores it on memberList useState.
-    const setUserInfoOnMemberList = (channelMembers) => {
-        channelMembers.forEach(member => {
-            const user = users.find(user => user.id === member.user_id)
-            setMemberList(previous => [...previous, user]);
-        })
-    }
-
-    //gets the info of users not yet a member of the channel and stores it on usersNotOnChannel useState.
-    const setNonMembersInfo = (channelMembers) => {
-        let memberIds = []
-        channelMembers.forEach(member => {
-                memberIds.push(member.user_id)
-        })
-        users.forEach(user => {
-            if (!memberIds.includes(user.id)) {
-                setUsersNotOnChannel(previous => [...previous, user])
-            }
-        })
     }
 
     //called on AddMember; Handles Add User Button on AddMember.

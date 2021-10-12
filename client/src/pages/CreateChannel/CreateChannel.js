@@ -26,7 +26,7 @@ function CreateChannel () {
 
     useEffect(() => {
         setResults(users);
-     }, []);
+     }, [users]);
 
      //handles Create Channel button. Triggers api create channel function passing in the channel name and chosen channel members. 
     const createChannel = async () => {

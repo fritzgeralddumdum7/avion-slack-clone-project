@@ -44,13 +44,14 @@ h1 {
     margin-right: 8px;
 }
 
-a {
+label {
     text-decoration: none;
     color: rgb(66, 66, 66);
 }
 
-a:hover {
+label:hover {
     text-decoration: underline;
+    cursor: pointer;
 }
 
 li {

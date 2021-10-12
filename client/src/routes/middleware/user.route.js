@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import faker from 'faker';
 import { useDispatch, useSelector } from 'react-redux';
@@ -28,7 +28,7 @@ function UserRoutes ({ component: Component, ...rest }) {
         dispatch(fetchAllUsers());
         dispatch(fetchOwnedChannels());
         dispatch(fetchRecentMessages());
-    }, [])
+    }, [dispatch])
 
     return (
         <div>

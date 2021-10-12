@@ -30,8 +30,45 @@ function UserMessages () {
     });
 
     useEffect(() => {
+    
+        const retrieveMessage = async () => {
+            const fakeSender = {
+                name: faker.fake("{{name.firstName}} {{name.lastName}}"),
+                image: faker.fake("{{image.avatar}}")
+            }
+            const fakeReceiver = {
+                name: faker.fake("{{name.firstName}} {{name.lastName}}"),
+                image: faker.fake("{{image.avatar}}")
+            }
+    
+            setReceiver(fakeReceiver);
+            setSender(fakeSender);
+        
+            await MessageApi.retrieve('User', receiverId)
+                .then(res => {
+                    const data = res.data.data;
+    
+                    // loop every item and set fake name & image
+                    data.map(data => {
+                        if (data['sender'].email === Cookies.get('uid')) {
+                            data.name = fakeSender.name;
+                            data.image = fakeSender.image;
+                        } else {
+                            data.name = fakeReceiver.name;
+                            data.image = fakeReceiver.image;
+                            if (isEmpty(recipientEmail)) {
+                                setRecipientEmail(data['sender'].uid)
+                            }
+                        }
+                        return data;
+                    })
+                    setMessages(alignMessagesWithUser(data));
+                })
+                .catch(error => console.log(error.response.data.errors))
+        }
+
         retrieveMessage();
-    }, [receiverId]);
+    }, [receiverId, recipientEmail]);
 
     useEffect(() => {
         socket.current = io(`http://localhost:${process.env.REACT_APP_SOCKET_PORT}`);
@@ -48,46 +85,11 @@ function UserMessages () {
 
     // connect users to socket server
     useEffect(() => {
-        socket.current.emit('initUser', currentUser.current.email);
+        socket.current.emit('initUser', currentUser.current.uid);
         socket.current.on('getUsers', users => {
             console.log(users);
         });
     }, [currentUser])
-    
-    const retrieveMessage = async () => {
-        const fakeSender = {
-            name: faker.fake("{{name.firstName}} {{name.lastName}}"),
-            image: faker.fake("{{image.avatar}}")
-        }
-        const fakeReceiver = {
-            name: faker.fake("{{name.firstName}} {{name.lastName}}"),
-            image: faker.fake("{{image.avatar}}")
-        }
-
-        setReceiver(fakeReceiver);
-        setSender(fakeSender);
-    
-        await MessageApi.retrieve('User' ,receiverId)
-            .then(res => {
-                const data = res.data.data;
-
-                // loop every item and set fake name & image
-                data.map(data => {
-                    if (data['sender'].email === Cookies.get('uid')) {
-                        data.name = fakeSender.name;
-                        data.image = fakeSender.image;
-                    } else {
-                        data.name = fakeReceiver.name;
-                        data.image = fakeReceiver.image;
-                        if (isEmpty(recipientEmail)) {
-                            setRecipientEmail(data['sender'].uid)
-                        }
-                    }
-                })
-                setMessages(alignMessagesWithUser(data));
-            })
-            .catch(error => console.log(error.response.data.errors))
-    }
 
     const handleOnChange = (e) => {
         setValue(e.target.value);
