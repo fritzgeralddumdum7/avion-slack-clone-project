@@ -2,9 +2,7 @@ import React from 'react';
 import { Switch, withRouter } from 'react-router-dom';
 
 // components
-import App from '../App';
 import Login from '../pages/Login/Login';
-import Shared from '../pages/Shared/Shared';
 import Registration from '../pages/Registration/Registration';
 import ComposeMessage from '../pages/ComposeMessage/ComposeMessage';
 import Users from '../pages/Users/Users';
@@ -24,9 +22,7 @@ const routes = () => {
             <AuthRoute path={["/", "/login"]} exact component={Login} />
             <AuthRoute path="/signup" exact component={Registration}/>
 
-            <UserRoutes path="/temporary" exact component={App} />
             <UserRoutes path="/messages/:receiverId" exact component={UserMessages} />
-            <UserRoutes path="/shared" exact component={Shared} />
             <UserRoutes path="/compose" exact component={ComposeMessage} />
             <UserRoutes path="/create-channel" exact component={CreateChannel} />
             <UserRoutes path="/users" exact component={Users} />

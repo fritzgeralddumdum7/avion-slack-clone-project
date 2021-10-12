@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { BiSearch } from 'react-icons/bi';
 import SearchInput from '../../../shared/Search/SearchInput';
 import SearchList from '../../../shared/Search/SearchList';

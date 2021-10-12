@@ -26,7 +26,7 @@ function Messages ({ messages, selectedUser = {} }) {
                     </div>
                 </div>
                 <label className="short-desc">
-                    This is the very beginning of your direct message history with <a href="#">@{ name }</a>. Only the two of you are in this conversation, and no one else can join it. <a href="#" className="normal-link">Learn more</a>
+                    This is the very beginning of your direct message history with <label>@{ name }</label>. Only the two of you are in this conversation, and no one else can join it. <label className="normal-link">Learn more</label>
                 </label>
             </div>
         )

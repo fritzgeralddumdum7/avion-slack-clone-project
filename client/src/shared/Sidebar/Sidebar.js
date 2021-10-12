@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { NavLink } from "react-router-dom";
 import { TiMessages } from 'react-icons/ti';
 import { BiMessageRoundedDetail, BiDotsVerticalRounded } from 'react-icons/bi';

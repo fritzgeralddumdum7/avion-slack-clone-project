@@ -22,12 +22,12 @@ li:last-child {
     border-bottom-right-radius: 10px;
 }
 
-a {
+label {
     color: #1264a3;
     text-decoration: none;
 }
 
-a:hover {
+label:hover {
     text-decoration: underline;
 }
 

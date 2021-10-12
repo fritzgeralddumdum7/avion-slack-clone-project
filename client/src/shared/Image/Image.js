@@ -8,6 +8,7 @@ function Image ({ source, width, customStyle, handleClick }) {
         width={width}
         style={customStyle}
         onClick={handleClick}
+        alt="avion slack clone"
     />
 }
 

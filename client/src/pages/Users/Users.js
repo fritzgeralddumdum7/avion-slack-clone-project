@@ -15,14 +15,14 @@ function Users () {
     
     useEffect(() => {
        setResults(users);
-     }, []);
+     }, [users]);
 
     const handleOnChange = (e) => {
         setSearched(e.target.value);
     }
 
     const handleClick = () => {
-
+        console.log('clicked')
     }
         
 return (

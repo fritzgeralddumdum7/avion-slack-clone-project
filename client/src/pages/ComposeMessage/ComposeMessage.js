@@ -1,19 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import Cookies from 'js-cookie';
-import Faker from 'faker';
+import faker from 'faker';
 
 import TextArea from '../../shared/TextArea/TextArea';
-
-import UserApi from '../../api/UserApi';
-
-import { alignMessagesWithUser, isEmpty, serializer } from '../../utils';
-import faker from 'faker';
 import Messages from '../../shared/Messages/Messages';
+import ComposeHeader from './components/ComposeHeader';
+
+import { alignMessagesWithUser, isEmpty } from '../../utils';
 
 import MessageApi from '../../api/MessageApi';
-
-import ComposeHeader from './components/ComposeHeader';
 
 import './ComposeMessage.scoped.css';
 
@@ -75,6 +71,8 @@ function ComposeMessage () {
                         data.name = fakeReceiver.name;
                         data.image = fakeReceiver.image;
                     }
+
+                    return data;
                 })
                 setMessages(alignMessagesWithUser(data));
             })
@@ -83,18 +81,14 @@ function ComposeMessage () {
 
     useEffect(() => {
         // filter data that matches the search query
-        let filtered = users.map(user => {
-            if (user.uid.toLowerCase().includes(searchInputValue.toLowerCase())) {
-                return user;
-            }
-        })
+        let filtered = users.map(user => user.uid.toLowerCase().includes(searchInputValue.toLowerCase()) && user)
 
         // remove all undefined items
-        filtered = filtered.filter(item => item !== undefined);
+        filtered = filtered.filter(item => item);
         
         setFilteredUsers(filtered);
         filtered = [];
-    }, [searchInputValue])
+    }, [searchInputValue, users])
 
     const handleSendMessage = async (e) => {
         e.preventDefault();

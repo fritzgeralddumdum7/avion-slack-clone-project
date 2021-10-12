@@ -81,7 +81,7 @@ function Registration () {
                 valid: false, 
                 error: 'Please enter password confirmation' 
             });
-        } else if (passwordConfirmation.value != password.value) {
+        } else if (passwordConfirmation.value !== password.value) {
             setPasswordConfirmation({ 
                 ...passwordConfirmation, 
                 valid: false, 
@@ -185,15 +185,15 @@ function Registration () {
                 </div>
                 <div className="desc">
                     By continuing, you’re agreeing to our 
-                    <a href="#"> Customer Terms of Service</a>,  
-                    <a href="#"> Privacy Policy</a>, and   
-                    <a href="#"> Cookie Policy</a>.
+                    <label> Customer Terms of Service</label>,  
+                    <label> Privacy Policy</label>, and
+                    <label> Cookie Policy</label>.
                 </div>
                 <div className="footer">
                     <ul>
-                        <li><a href="">Privacy & Terms</a></li>
-                        <li><a href="">Contact Us</a></li>
-                        <li>&#127760; <a href="">Change Region</a></li>
+                        <li><label>Privacy & Terms</label></li>
+                        <li><label>Contact Us</label></li>
+                        <li>&#127760; <label>Change Region</label></li>
                     </ul>
                 </div>
             </div>
