@@ -86,6 +86,14 @@ function App() {
       .then(res => console.log(res))
       .catch(error => setError(error.response.data.errors))
   }
+  
+  const getAllChannels = async () => {
+    const id = "1231"
+
+    await channelApi.all
+      .then(res => console.log(res))
+      .catch(error => setError(error.response.data.errors))
+  }
 
   const getChannelMessages = async () => {
     const id = "1231"
@@ -152,6 +160,9 @@ function App() {
       </button>
       <button onClick={getOwnedChannels} className="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">
        User owned channels
+      </button>
+      <button onClick={getOwnedChannels} className="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">
+       Get All Channels
       </button>
       { error ? error : success }
     </div>

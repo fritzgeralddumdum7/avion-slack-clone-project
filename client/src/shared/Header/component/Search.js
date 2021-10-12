@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react'; 
-import SearchForm from '../../Search/SearchForm';
+import { useSelector } from 'react-redux';
 import OutsideClickHandler from 'react-outside-click-handler';
+import { AiOutlineClose, AiOutlineLock } from 'react-icons/ai';
 import { FiSearch } from 'react-icons/fi';
-import { AiOutlineClose } from 'react-icons/ai';
+
+
+import SearchForm from '../../Search/SearchForm';
 import SearchInput from '../../Search/SearchInput';
 
 import './Search.scoped.css';
@@ -10,17 +13,15 @@ import './Search.scoped.css';
 function Search () {
     const [isClicked, setIsClicked] = useState(false);
     const [searched, setSearched] = useState('');
-    const [results, setResults] = useState([
-        'Apple', 
-        'Banana', 
-        'Cupcake', 
-        'AFile', 
-        'Bfile', 
-        'Cfile', 
-        'Android', 
-        'Boozy', 
-        'Cooper'
-    ]);
+    const [results, setResults] = useState([]);
+    const { 
+        users,
+        ownedChannels 
+    } = useSelector(state => state.users);
+
+    useEffect(async () => {
+        handleResults();
+    }, [])
 
     const handleClick = () => {
         setIsClicked(!isClicked);
@@ -32,6 +33,15 @@ function Search () {
 
     const clearSearch = () => {
         setSearched('');
+    }
+
+    const handleResults = () => {
+        ownedChannels.map((item, index) => {
+            setResults(currentResults => [...currentResults, {email: item.name, id: item.id, name: item.name, owner_id: item.owner_id}]);
+        });
+        users.map((item, index) => {
+            setResults(currentResults => [...currentResults, item])
+        });
     }
 
     return (
