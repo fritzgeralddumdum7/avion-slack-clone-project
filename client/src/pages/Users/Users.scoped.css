@@ -1,0 +1,29 @@
+header {
+    padding: 15px 30px;
+}
+
+h3 {
+    font-size: 25px;
+    font-weight: 400px;
+}
+
+.search-input {
+    display: flex;
+    align-items: center;
+    border-top: 1px solid #979797;
+    border-bottom: 1px solid #D2D2D2;
+    border-left: none;
+    border-radius: 30px;
+    margin: 10px;
+    height: 25px;
+    padding: 0 10px; 
+  }
+
+  span {
+    font-size: 14px;
+  }
+
+
+  
+  
+   

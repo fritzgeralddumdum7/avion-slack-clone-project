@@ -1,13 +1,13 @@
 .card-container {
   border: solid rgba(204, 204, 204, 0.836) 0.5px;
   border-radius: 15px;
-  width: 150px;
-  height: auto;
+  width: 255px;
+  height: 400px;
   margin: 4px;
   float: right;
   transition: 0.3s;
 }
-  
+   
 .card:hover {
   background-color:rgba(153, 152, 152, 0.24);
 }
@@ -19,20 +19,49 @@
   text-overflow: ellipsis;
 }
 
+img {
+  border-radius: 5px 5px 0 0;
+  position: relative;
+  max-width:100%;
+  min-height: 100px;
+}
+
+.profile-content {
+  padding: 13px 20px;;
+}
+
 h3 {
-  font-size: medium;
+  font-size: x-large;
   color: rgba(0, 0, 0, 0.829);
-  margin-bottom:0px;
+  margin-top: 5px;
 }
 
 p {
-  font-size: 14px;
+  font-size: 15px;
   color: rgba(36, 36, 36, 0.685);
   margin-top:3px;
 }
 
-img {
-  border-radius: 5px 5px 0 0;
-  max-width:100%;
-  min-height: 100px;
+.btn-message {
+  bottom: 0;
+}
+
+a {
+  text-decoration: none;
+  color: rgb(56, 101, 153);
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+li {
+  font-size: 14px;
+  list-style: none;
+  text-decoration: none;
+  display: inline;
+}
+
+li>a:hover{
+  color: rgb(40, 40, 109);
 }

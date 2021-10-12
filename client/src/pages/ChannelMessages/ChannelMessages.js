@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { io } from 'socket.io-client';
 import faker from 'faker';
 import Cookies from 'js-cookie';
@@ -14,11 +15,6 @@ import ChannelMemberList from './components/ChannelMembersList';
 
 import MessageApi from '../../api/MessageApi';
 import ChannelApi from '../../api/ChannelApi';
-
-// import ChannelMemberList from '../../shared/ChannelMemberList/ChannelMembersList';
-import { useSelector } from 'react-redux';
-
-// import ChannelMemberList from '../../shared/ChannelMemberList/ChannelMembersList';
 
 function ChannelMessages () {
     const { channelId } = useParams();
