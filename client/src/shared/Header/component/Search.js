@@ -37,7 +37,8 @@ function Search () {
 
     const handleResults = () => {
         ownedChannels.map((item, index) => {
-            setResults(currentResults => [...currentResults, {email: item.name, id: item.id, name: item.name, owner_id: item.owner_id}]);
+            // setResults(currentResults => [...currentResults, {email: item.name, id: item.id, name: item.name, owner_id: item.owner_id}]);
+            setResults(currentResults => [...currentResults, item])
         });
         users.map((item, index) => {
             setResults(currentResults => [...currentResults, item])

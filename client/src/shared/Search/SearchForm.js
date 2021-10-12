@@ -33,14 +33,11 @@ function SearchForm({
             />
             <AiOutlineClose className="close-icon icon" onClick={handleClick}/>
         </div>
-        <div className='dummydiv'>
-        
         <SearchList 
           results={results}
           searched={searched}
           customClass='header-searchlist'
         />
-        </div>
       </div>
     )
 }

@@ -5,7 +5,11 @@ import './SearchListItem.scoped.css';
 
 function SearchListItem ({ item, customClass, handleClick, isNavLink=true }) {
     let imgStyle = { height: '20px', width: '20px', marginRight: '10px', borderRadius: '4px' };
-    let itemName = item.email;
+    let itemName = item.name + ' ' + item.email ;
+
+    if (item.email === undefined) {
+        itemName = item.name;
+    }
 
     if (customClass === 'all-users-searchlist' ) {
         imgStyle = { height: '40px', width: '40px', marginRight: '10px', borderRadius: '5px' };
