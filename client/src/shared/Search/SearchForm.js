@@ -13,7 +13,7 @@ function SearchForm({
   results
 }) {
     const searchInputRef = useRef(null);
-
+    
     useEffect(() => {
       searchInputRef.current.focus();
     }, [])
@@ -33,10 +33,14 @@ function SearchForm({
             />
             <AiOutlineClose className="close-icon icon" onClick={handleClick}/>
         </div>
+        <div className='dummydiv'>
+        
         <SearchList 
           results={results}
           searched={searched}
+          customClass='header-searchlist'
         />
+        </div>
       </div>
     )
 }

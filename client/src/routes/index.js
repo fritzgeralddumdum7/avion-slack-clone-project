@@ -11,7 +11,6 @@ import Users from '../pages/Users/Users';
 import CreateChannel from '../pages/CreateChannel/CreateChannel';
 import ChannelMessages from '../pages/ChannelMessages/ChannelMessages';
 import UserMessages from '../pages/UserMessages/UserMessages';
-import ChannelMemberList from '../shared/ChannelMemberList/ChannelMembersList';
 
 import AuthRoute from './middleware/auth.route';
 import UserRoutes from './middleware/user.route';
