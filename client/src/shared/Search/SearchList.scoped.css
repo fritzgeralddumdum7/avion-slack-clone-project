@@ -32,7 +32,7 @@ a:hover {
 }
 
 .header-searchlist {
-    height: 470px;
+    max-height: 470px;
     overflow: auto;
 }
 
