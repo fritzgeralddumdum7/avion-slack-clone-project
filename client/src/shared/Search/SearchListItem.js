@@ -11,7 +11,7 @@ function SearchListItem ({ item, customClass, handleClick, isNavLink=true }) {
         itemName = item.name;
     }
 
-    if (customClass === 'all-users-searchlist' ) {
+    if (customClass === 'all-users-searchlist' || customClass === 'channel-member-searchlist' ) {
         imgStyle = { height: '40px', width: '40px', marginRight: '10px', borderRadius: '5px' };
         itemName =  
         <div className='d-flex flex-column'>

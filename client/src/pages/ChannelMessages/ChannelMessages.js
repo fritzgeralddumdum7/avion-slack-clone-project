@@ -190,7 +190,7 @@ function ChannelMessages () {
                 showMemberList && 
                 <OutsideClickHandler onOutsideClick={handleShowMemberListModal}>
                     <ChannelMemberList 
-                        channelName='Test Name'
+                        channelName={channelName}
                         memberList={memberList}
                         usersNotOnChannel={usersNotOnChannel}
                         setUsersNotOnChannel={setUsersNotOnChannel}
