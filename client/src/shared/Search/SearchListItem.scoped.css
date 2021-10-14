@@ -63,6 +63,21 @@ li:hover .nav-link {
     align-items: center;
 }
 
+.add-member-searchlist {
+    height: 32px;
+    display: flex;
+    align-items: center;
+    line-height: 20px;
+    font-size: 15px;
+    font-weight: bold;
+    border: none !important;
+}
+
+.add-member-searchlist .nav-link {
+    display: flex;
+    align-items: center;
+}
+
 .div-list-item {
     display: flex;
     justify-content: flex-start;
