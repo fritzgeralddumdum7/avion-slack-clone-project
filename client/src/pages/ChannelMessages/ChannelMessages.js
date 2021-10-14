@@ -15,6 +15,7 @@ import ChannelMemberList from './components/ChannelMembersList';
 
 import MessageApi from '../../api/MessageApi';
 import ChannelApi from '../../api/ChannelApi';
+import './ChannelMessages.scoped.css'
 
 function ChannelMessages () {
     const { channelId } = useParams();
@@ -188,16 +189,18 @@ function ChannelMessages () {
             />
              { 
                 showMemberList && 
-                <OutsideClickHandler onOutsideClick={handleShowMemberListModal}>
-                    <ChannelMemberList 
-                        channelName={channelName}
-                        memberList={memberList}
-                        usersNotOnChannel={usersNotOnChannel}
-                        setUsersNotOnChannel={setUsersNotOnChannel}
-                        handleAddUsers={handleAddUsers}
-                        handleShowMemberListModal={handleShowMemberListModal}
-                    />
-                 </OutsideClickHandler>
+                <div className="wrapper-blackout-backdrop">
+                    <OutsideClickHandler onOutsideClick={handleShowMemberListModal}>
+                        <ChannelMemberList 
+                            channelName={channelName}
+                            memberList={memberList}
+                            usersNotOnChannel={usersNotOnChannel}
+                            setUsersNotOnChannel={setUsersNotOnChannel}
+                            handleAddUsers={handleAddUsers}
+                            handleShowMemberListModal={handleShowMemberListModal}
+                        />
+                    </OutsideClickHandler>
+                 </div>
             }
             <div className='message-container d-flex flex-column' style={{paddingBottom: '0px', paddingLeft: '0px' }}>
                 <Messages messages={messages} />
