@@ -23,6 +23,10 @@ function ChannelMemberList ({ channelName, memberList, usersNotOnChannel, setUse
         setAddMemberClicked(false);
     }
 
+    const handleClick = () => {
+        // display user card function 
+    }
+
     return (
         <div className='container-channel-members'> 
             <PageHeader title={channelName} buttonLabel='Add Member' handleButtonClick={handleAddMemberButton}/>
@@ -42,6 +46,7 @@ function ChannelMemberList ({ channelName, memberList, usersNotOnChannel, setUse
                     setUsersNotOnChanne={setUsersNotOnChannel}
                     customClass='channel-member-searchlist'
                     isNavLink={false}
+                    handleClick={handleClick}
                 />
             </div>
             {
