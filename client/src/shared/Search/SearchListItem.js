@@ -6,6 +6,7 @@ import './SearchListItem.scoped.css';
 function SearchListItem ({ item, customClass, handleClick, isNavLink=true }) {
     let imgStyle = { height: '20px', width: '20px', marginRight: '10px', borderRadius: '4px' };
     let itemName = item.name + ' ' + item.email ;
+    let type = 'messages';
 
     if (item.email === undefined) {
         itemName = item.name;
@@ -30,6 +31,8 @@ function SearchListItem ({ item, customClass, handleClick, isNavLink=true }) {
 
     if (item.image === undefined) {
         itemImage = <AiOutlineLock/>
+        type = 'channel';
+        
     }
 
     return (
@@ -37,9 +40,13 @@ function SearchListItem ({ item, customClass, handleClick, isNavLink=true }) {
             {
             (isNavLink) ? 
             <li className={customClass}>         
-                <NavLink className="nav-link" to='/' >
-                    {itemImage}
-                    {itemName}
+                <NavLink to={`../${type}/${item.id}`} exact>
+                    <div className='d-flex'>
+                        {itemImage}
+                        <div className='navlink-name'>
+                            {itemName}
+                        </div>
+                    </div>
                 </NavLink> 
             </li>
             :                          

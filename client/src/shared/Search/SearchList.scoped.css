@@ -11,7 +11,7 @@ ul {
     
 }
 
-li:last-child {
+footer {
     list-style: none;
     padding-right: 15px;
     background-color: #f8f8f8;
@@ -20,6 +20,8 @@ li:last-child {
     text-align: right;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
+    height: 36px;
+    padding-top: 5px;
 }
 
 label {
@@ -43,3 +45,4 @@ label:hover {
 .all-users-searchlist {
     padding: 10px;
 }
+

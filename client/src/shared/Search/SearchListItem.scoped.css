@@ -121,3 +121,21 @@ li:hover .nav-link {
     border: none !important;
     margin-left: 10px;
 }
+
+.header-searchlist a{
+    text-decoration: none;
+    color: black;
+    font-size: 1rem;
+}
+
+.header-searchlist .d-flex{
+    align-items: center;
+}
+
+.navlink-name {
+    margin-left: 5px;
+}
+
+a {
+    width: 100%;
+}
