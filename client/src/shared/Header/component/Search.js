@@ -58,7 +58,6 @@ function Search () {
                         searched={searched}
                         handleOnChange={handleOnChange}
                         results={results}
-                        handleClick={handleClick}
                     />
                 </OutsideClickHandler>
             }
