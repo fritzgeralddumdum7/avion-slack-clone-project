@@ -15,7 +15,6 @@ import ChannelMemberList from './components/ChannelMembersList';
 
 import MessageApi from '../../api/MessageApi';
 import ChannelApi from '../../api/ChannelApi';
-import './ChannelMessages.scoped.css'
 
 function ChannelMessages () {
     const { channelId } = useParams();

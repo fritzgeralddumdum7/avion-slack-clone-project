@@ -34,3 +34,7 @@ header {
 .container-searchlist {
     margin-top: 20px;
 }
+
+.wrapper-fixed {
+    position: fixed;
+}
