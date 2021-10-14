@@ -9,7 +9,7 @@ function PageHeader ({
     hasButton = true, 
 }) {
     return (
-        <div>
+        <div className='wrapper-fixed'>
             <header>
                 <h3>{title}</h3>
                 { hasButton &&
