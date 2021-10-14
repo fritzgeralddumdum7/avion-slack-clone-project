@@ -32,33 +32,35 @@ function AddMember ({
     return (
         <div className='container-add-member'>
             <PageHeader title={`${channelName} - Add Member` } hasButton={false}/>
-            <div className="d-flex">
-                <BiSearch/>
-                <SearchInput 
-                    placeholder='Find Members' 
-                    customClass='members-list-search-input'
-                    handleOnChange={handleOnChange}
-                />
+            <div className='wrapper'>
+                <div className="d-flex">
+                    <BiSearch/>
+                    <SearchInput 
+                        placeholder='Find Members' 
+                        customClass='members-list-search-input'
+                        handleOnChange={handleOnChange}
+                    />
+                </div>
             </div>
                 {
                 searched!==''  && 
                     <div className="wrapper-searchlist">
-                        <div className="container-searchlist">
-                            <SearchList 
-                                results={usersNotOnChannel}
-                                searched={searched}
-                                customClass='create-channel-search'
-                                isNavLink={false}
-                                handleClick={handleClick}
-                            />
-                        </div>
+                        <SearchList 
+                            results={usersNotOnChannel}
+                            searched={searched}
+                            customClass='add-member-searchlist'
+                            isNavLink={false}
+                            handleClick={handleClick}
+                        />
                     </div>
                 }
-                <List list={newUsersList} removeItem={removeItem}/> 
+                <div className='wrapper-list'>
+                    <List list={newUsersList} removeItem={removeItem}/> 
+                </div>
                 <button onClick={() => {
-                    handleAddUsers(newUsersList) }}>
-                        Add Users
-                </button>
+                        handleAddUsers(newUsersList) }}>
+                            Add Users
+                    </button>
         </div>
         
     )
