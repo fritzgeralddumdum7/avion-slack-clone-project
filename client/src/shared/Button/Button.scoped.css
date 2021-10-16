@@ -34,3 +34,20 @@ button:hover {
 .logout-btn:hover {
     opacity: .9;
 }
+
+.transparent-btn {
+    color: #616061;
+    font-size: 15px;
+    padding: 8px;
+    background-color: transparent;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.transparent-btn:hover {
+    background-color: rgba(0, 0, 0, .1);
+}
+
+.outlined {
+    border: 2px solid #616061;
+}

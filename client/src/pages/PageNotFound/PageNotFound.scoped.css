@@ -1,0 +1,56 @@
+nav {
+    height: 70px;
+    background-color: #fff;
+    border-bottom: 1px solid #DADADA;
+    padding: 0px 20px;
+    justify-content: space-between;
+}
+
+.info {
+    gap: 10px;
+}
+
+.glitch-banner {
+    margin-top: 50px;
+    height: 200px;
+    width: 500px;
+    border: 1px solid #DADADA;
+    padding: 25px;
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, .9);
+}
+
+.glitch-banner p {
+    color: #1d1c1d;
+    font-size: 15px;
+    padding-top: 15px;
+    line-height: 25px;
+}
+
+.not-found-container {
+    background-image: url("https://a.slack-edge.com/80588/img/404/marrakesh-meadow-80.jpg");
+    justify-content: center;
+    height: 85vh;
+}
+
+.links {
+    padding: 25px;
+    justify-content: space-evenly;
+}
+
+li {
+    list-style: none;
+    padding-bottom: 10px;
+    color: #616061;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+li:hover {
+    opacity: .6;
+}
+
+svg {
+    font-size: 35px;
+    color: red;
+}

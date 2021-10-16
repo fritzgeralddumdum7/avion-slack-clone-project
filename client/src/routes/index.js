@@ -12,6 +12,7 @@ import UserMessages from '../pages/UserMessages/UserMessages';
 
 import AuthRoute from './middleware/auth.route';
 import UserRoutes from './middleware/user.route';
+import NotFoundRoute from './middleware/notFound.route';
 
 // for demo components
 import UnderConstruction from '../pages/UnderConstruction/UnderConstruction';
@@ -32,6 +33,7 @@ const routes = () => {
             <UserRoutes path="/all-dms" exact component={UnderConstruction} />
             <UserRoutes path="/activity-page" exact component={UnderConstruction} />
             <UserRoutes path="/saved-page" exact component={UnderConstruction} />
+            <NotFoundRoute />
         </Switch>
     );
 }
