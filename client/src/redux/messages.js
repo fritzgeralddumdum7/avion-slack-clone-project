@@ -40,6 +40,9 @@ export const messages = createSlice({
                     action.payload
                 ]
             }
+        },
+        emptyConversation: state => {
+            state.conversation = []
         }
     },
     extraReducers: {
@@ -57,6 +60,9 @@ export const messages = createSlice({
     }
 })
 
-export const { setConversation } = messages.actions;
+export const { 
+    setConversation, 
+    emptyConversation 
+} = messages.actions;
 
 export default messages.reducer;

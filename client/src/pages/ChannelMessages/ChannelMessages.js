@@ -155,7 +155,7 @@ function ChannelMessages () {
        <div className="message-container container full-content d-flex flex-column justify-bottom" style={{ gap: '20px', paddingTop: '0px', paddingLeft: '0px' ,paddingRight: '0px' }}>
             <PageHeader 
                 title={channelInfo.name} 
-                buttonLabel='Members'  
+                buttonLabel={`Members ${channelInfo.channel_members.length}`}  
                 handleButtonClick={handleShowMemberListModal}
             />
              { 

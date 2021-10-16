@@ -16,16 +16,22 @@ header {
 }
 
 button {
-    width: 100px;
-    height: 28px;
     background-color: #fdffff;
     border: 1px solid #BBBABB;
     align-self: center;
     border-radius: 5px;
+    cursor: pointer;
+    padding: 5px 10px;
 }
 
 
 button:hover {
     box-shadow: 0 1px 3px 0 rgb(0 0 0 / 8%);
     background-color: #F8F8F8;
+}
+
+button label {
+    padding: 10px 0 10px 10px;
+    cursor: pointer;
+    font-size: 13px;
 }
