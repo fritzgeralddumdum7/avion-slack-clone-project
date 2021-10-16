@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { BiSearch } from 'react-icons/bi';
 import SearchInput from '../../../shared/Search/SearchInput';
 import SearchList from '../../../shared/Search/SearchList';
-import PageHeader from './PageHeader';
+import PageHeader from '../../../shared/PageHeader/PageHeader';
 import List from '../../../shared/List/List';
 import './AddMember.scoped.css';
 

@@ -10,7 +10,7 @@ import { alignMessagesWithUser, isEmpty } from '../../utils';
 
 import TextArea from '../../shared/TextArea/TextArea';
 import Messages from '../../shared/Messages/Messages';
-import PageHeader from './components/PageHeader';
+import PageHeader from '../../shared/PageHeader/PageHeader'
 import ChannelMemberList from './components/ChannelMembersList';
 
 import MessageApi from '../../api/MessageApi';
