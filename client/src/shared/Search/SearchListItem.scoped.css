@@ -14,10 +14,21 @@ li:first-child {
     border-top: 1px solid #DDDDDD;
 }
 
+li a{    
+    text-decoration: none;
+    color: black;
+    font-size: 1rem;
+}
+
+li a:hover {
+    color: #fdffff;
+}
+
 li:hover {
     background-color: #1164A3;
-    color:  #fdffff;
+    color:  #fdffff !important;
 }
+
 
 li:hover .nav-link {
     color: #fdffff;
@@ -119,13 +130,6 @@ li:hover .nav-link {
     display: flex;
     align-items: center;
     border: none !important;
-    margin-left: 10px;
-}
-
-.header-searchlist a{
-    text-decoration: none;
-    color: black;
-    font-size: 1rem;
 }
 
 .header-searchlist .d-flex{

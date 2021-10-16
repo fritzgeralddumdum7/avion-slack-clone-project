@@ -36,8 +36,6 @@ function SearchListItem ({ item, customClass, handleClick, isNavLink=true }) {
     }
 
     return (
-        <div>
-            {
             (isNavLink) ? 
             <li className={customClass}>         
                 <NavLink to={`../${type}/${item.id}`} exact>
@@ -56,8 +54,7 @@ function SearchListItem ({ item, customClass, handleClick, isNavLink=true }) {
                     {itemName}
                 </div> 
             </li>
-            }
-        </div>
+
     )
 }
 
