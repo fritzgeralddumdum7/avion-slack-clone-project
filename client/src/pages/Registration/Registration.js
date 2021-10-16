@@ -157,7 +157,8 @@ function Registration () {
                     handleChange={handleEmailChange}
                     message={email.error}
                     customClass='remove-padding'
-                />
+                    label="Email"
+                    />
                 <Input 
                     placeholder='Password'
                     isValid={password.valid}
@@ -165,7 +166,8 @@ function Registration () {
                     value={password.value}
                     handleChange={handlePasswordChange}
                     message={password.error}
-                />
+                    label="Your password"
+                    />
                 <Input 
                     placeholder='Password Confirmation'
                     isValid={passwordConfirmation.valid}
@@ -173,6 +175,7 @@ function Registration () {
                     value={passwordConfirmation.value}
                     handleChange={handlePasswordConfirmationChange}
                     message={passwordConfirmation.error}
+                    label="Retype your password"
                 />
                 <div style={{ paddingTop: '5px'}}>
                     <Button 

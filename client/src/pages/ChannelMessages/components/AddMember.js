@@ -51,16 +51,19 @@ function AddMember ({
                             customClass='add-member-searchlist'
                             isNavLink={false}
                             handleClick={handleClick}
+                            hasFooter={true}
                         />
                     </div>
                 }
                 <div className='wrapper-list'>
                     <List list={newUsersList} removeItem={removeItem}/> 
                 </div>
-                <button onClick={() => {
-                        handleAddUsers(newUsersList) }}>
-                            Add Users
+                <div className="wrapper-button">
+                    <button onClick={() => {
+                            handleAddUsers(newUsersList) }}>
+                                Add Users
                     </button>
+                </div>
         </div>
         
     )

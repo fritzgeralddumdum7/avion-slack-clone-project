@@ -29,15 +29,17 @@ function ChannelMemberList ({ channelName, memberList, usersNotOnChannel, setUse
 
     return (
         <div className='container-channel-members'> 
-            <PageHeader title={channelName} buttonLabel='Add Member' handleButtonClick={handleAddMemberButton}/>
-            <div className='wrapper'>
-                <div className="d-flex">
-                    <BiSearch/>
-                    <SearchInput 
-                        placeholder={`Find Members in ${channelName}`}
-                        customClass='members-list-search-input'   
-                        handleOnChange={handleOnChange}/>
-                 </div>
+            <div className='fixed-top'>
+                <PageHeader title={channelName} buttonLabel='Add Member' handleButtonClick={handleAddMemberButton}/>
+                <div className='wrapper'>
+                    <div className="d-flex">
+                        <BiSearch/>
+                        <SearchInput 
+                            placeholder={`Find Members in ${channelName}`}
+                            customClass='members-list-search-input'   
+                            handleOnChange={handleOnChange}/>
+                    </div>
+                </div>
             </div>
             <div className="container-searchlist">
                 <SearchList 

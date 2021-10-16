@@ -159,7 +159,7 @@ function Login () {
                     <small className="divider-text">OR</small>
                 </div>
                 <div className="text-center">
-                    { hasError && <AlertMessage message={errorMsg} /> }
+                    { !hasError ? <p className='hidden'>hidden</p> : <AlertMessage message={errorMsg} /> }
                 </div>
                 <Input 
                     placeholder='name@work-email.com'
@@ -169,6 +169,7 @@ function Login () {
                     handleChange={handleEmailChange}
                     message={email.error}
                     customClass='remove-padding'
+                    label="Email"
                 />
                 <Input 
                     placeholder='Password'
@@ -178,6 +179,7 @@ function Login () {
                     handleChange={handlePasswordChange}
                     message={password.error}
                     customClass='remove-padding'
+                    label="Your password"
                 />
                 <Button 
                     text='Sign In with Email'

@@ -17,37 +17,51 @@
 }
 
 .d-flex {
-    border: 1px solid #9C9B9C;
-    width: 100%;
+    border: 1px solid #1d1c1d4d;
+    width: 510px;
     align-items: center;
     border-radius: 5px;
     padding-left: 12px;
     height: 36px;
     justify-self: center;
+    align-self: center;
+}
+
+.d-flex:hover {
+    border: 1px solid rgb(97,96,97);
 }
 
 .wrapper {
-    width: 510px;
-    margin-left: 28px;
-    margin-right: 28px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
     border-radius: 8px;
     margin-top: 20px;
+    justify-self: center;
+    align-self: center;
+    border-bottom: 1px solid #1d1c1d4d;
+    padding-bottom: 20px;
 }
 
-.wrapper:focus-within {
-
-    border: 3px solid #4DC8E4;
+.d-flex:focus-within {
+    outline: none;
+    --saf-0: rgba(var(--sk_highlight,18,100,163),1);
+    box-shadow: 0 0 0 1px var(--saf-0),0 0 0 5px rgba(29,155,209,.3);
+    border-radius: 4px;
+    border-color: transparent;
+    -webkit-appearance: none;
 }
 
 .wrapper-searchlist {
-    max-height: 300px;
-    padding: 10px;
-    width: 90%;
+    position: relative;
+    top: -10px;
+    width: 100%;
     border: 1px solid #9C9B9C;
     border-radius: 10px;
     margin-top: 20px;
     overflow-y: auto;
     overflow-x: hidden;
+    align-self: center;
 }
 
 .wrapper-list {
@@ -55,7 +69,8 @@
     overflow-y: auto;
     overflow-x: hidden;
     max-height: 400px;
-    width: 510px;
+    width:100%;
+    align-self: center;
 }
 
 button {
@@ -63,6 +78,19 @@ button {
     height: 36px;
     background-color: #fdffff;
     border: 1px solid #BBBABB;
-    align-self: center;
     border-radius: 5px;
+}
+
+.wrapper-button {
+    padding: 10px;
+    background-color: #fdffff;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    position: absolute;
+    bottom: 10px;
+    align-self: center;
+    border-top: 1px solid #1d1c1d4d;
 }
