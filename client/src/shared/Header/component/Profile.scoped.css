@@ -1,6 +1,7 @@
 .profile-container {
     position: relative;
     align-items: flex-end;
+    z-index: 1;
 }
 
 .profile {
@@ -15,6 +16,7 @@
     border: 1px solid #DBDBDB;
     cursor: pointer;
     box-shadow: 0 1px 3px 0 rgba(0,0,0,.08),0 1px 3px 0 rgba(0,0,0,.08);
+
 }
 
 .profile:hover {
