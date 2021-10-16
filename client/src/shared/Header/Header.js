@@ -16,7 +16,7 @@ function Header ({ image }) {
                 <Search />
                 <FiHelpCircle className="help-icon" />
             </header>
-            <div style={{ marginRight: '10px' }}>
+            <div style={{ marginRight: '5px' }}>
                 <Profile image={image} />
             </div>
         </div>
