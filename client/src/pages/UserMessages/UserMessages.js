@@ -7,7 +7,7 @@ import faker from 'faker';
 
 import Messages from '../../shared/Messages/Messages';
 import TextArea from '../../shared/TextArea/TextArea';
-import PageHeader from '../ChannelMessages/components/PageHeader';
+import PageHeader from '../../shared/PageHeader/PageHeader';
 
 import MessageApi from '../../api/MessageApi';
 
