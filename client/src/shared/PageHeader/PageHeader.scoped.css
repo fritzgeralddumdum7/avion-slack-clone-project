@@ -1,15 +1,18 @@
 
 .wrapper-fixed {
+    top: 0;
     padding-left: 20px;
     padding-right: 20px;
     border-bottom: #dddddd 1px solid;
 }
+
 header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
     height: 50px;
+    z-index: 1;
 }
 
 button {
@@ -19,4 +22,10 @@ button {
     border: 1px solid #BBBABB;
     align-self: center;
     border-radius: 5px;
+}
+
+
+button:hover {
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 8%);
+    background-color: #F8F8F8;
 }

@@ -49,3 +49,10 @@
     padding: 0 15px;
     background-color: #fff;
 }
+
+.hidden { 
+    margin: unset;
+    color: #e74444;
+    font-size: 15px;
+    visibility:hidden;
+}
