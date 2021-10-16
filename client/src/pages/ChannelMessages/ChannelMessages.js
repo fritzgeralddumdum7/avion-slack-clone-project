@@ -1,82 +1,61 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { 
+    useEffect, 
+    useState, 
+    useRef 
+} from 'react';
 import { useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { io } from 'socket.io-client';
-import faker from 'faker';
 import Cookies from 'js-cookie';
+
 import OutsideClickHandler from 'react-outside-click-handler';
-
-import { alignMessagesWithUser, isEmpty } from '../../utils';
-
-import TextArea from '../../shared/TextArea/TextArea';
-import Messages from '../../shared/Messages/Messages';
-import PageHeader from '../../shared/PageHeader/PageHeader'
 import ChannelMemberList from './components/ChannelMembersList';
+
+import Messages from '../../shared/Messages/Messages';
+import TextArea from '../../shared/TextArea/TextArea';
+import PageHeader from '../../shared/PageHeader/PageHeader';
+
+import { 
+    fetchConversation,
+    setConversation
+} from '../../redux/messages';
+
+import { 
+    fetchChannelInfo,
+} from '../../redux/channels';
+
+import { isEmpty } from '../../utils';
 
 import MessageApi from '../../api/MessageApi';
 import ChannelApi from '../../api/ChannelApi';
 
 function ChannelMessages () {
-    const { channelId } = useParams();
+    const { id } = useParams();
+
+    const dispatch = useDispatch();
+
+    const { conversation, sender } = useSelector(state => state.messages);
+    const { users } = useSelector(state => state.users);
+    const { channelInfo, isFetchingChannel } = useSelector(state => state.channels);
+
     const [value, setValue] = useState('');
-    const [messages, setMessages] = useState([]);
     const [arrivalMessage, setArrivalMessage] = useState(null);
     const [showMemberList, setShowMemberList] = useState(false);
-    //memberList returns object info of channel members 
     const [memberList, setMemberList] = useState([]);
-    //usersNotOnChannel returns info of users not a member of the current channel selected
     const [usersNotOnChannel, setUsersNotOnChannel] = useState([]);
-    const [channelName, setChannelName] = useState('');
-    
+
     const socket = useRef();
-    const currentUser = useRef({
-        uid: Cookies.get('uid'),
-        name: faker.fake("{{name.firstName}} {{name.lastName}}"),
-        image: faker.fake("{{image.avatar}}")
-    });
-    
-    const { 
-        users
-    } = useSelector(state => state.users);
 
     useEffect(() => {
-        const fetchChannelMessages = async () => {
-            const fakeSender = {
-                name: faker.fake("{{name.firstName}} {{name.lastName}}"),
-                image: faker.fake("{{image.avatar}}")
-            }
-            const fakeReceiver = {
-                name: faker.fake("{{name.firstName}} {{name.lastName}}"),
-                image: faker.fake("{{image.avatar}}")
-            }
-            
-            await MessageApi.retrieve('Channel', channelId)
-                .then(res => {
-                    const data = res.data.data;
+        dispatch(fetchConversation({ type: 'Channel', id }));
+        dispatch(fetchChannelInfo({ id }));
+    }, [id, dispatch])
 
-                    // loop every item and set fake name & image
-                    data.map(data => {
-                        if (data['sender'].email === Cookies.get('uid')) {
-                            data.name = fakeSender.name;
-                            data.image = fakeSender.image;
-                        } else {
-                            data.name = fakeReceiver.name;
-                            data.image = fakeReceiver.image;
-                        }
-
-                        return data;
-                    })
-                    setMessages(alignMessagesWithUser(data));
-                })
-                .catch(err => console.log(err))
-        }
-
-        //gets the info of users not yet a member of the channel and stores it on usersNotOnChannel useState.
+    useEffect(() => {
+        // gets the info of users not yet a member of the channel and stores it on usersNotOnChannel useState.
         const setNonMembersInfo = (channelMembers) => {
-            let memberIds = []
-            channelMembers.forEach(member => {
-                    memberIds.push(member.user_id)
-            })
+            let memberIds = channelMembers.map(member => member.user_id)
+    
             users.forEach(user => {
                 if (!memberIds.includes(user.id)) {
                     setUsersNotOnChannel(previous => [...previous, user])
@@ -84,28 +63,19 @@ function ChannelMessages () {
             })
         }
 
-        //gets the info of channelMembers from users and stores it on memberList useState.
+        // gets the info of channelMembers from users and stores it on memberList useState.
         const setUserInfoOnMemberList = (channelMembers) => {
             channelMembers.forEach(member => {
                 const user = users.find(user => user.id === member.user_id)
                 setMemberList(previous => [...previous, user]);
             })
         }
-
-        const fetchChannelInfo = async () => {
-            await ChannelApi.details(channelId)
-                .then(res => {
-                    setUserInfoOnMemberList(res.data.data.channel_members);
-                    setNonMembersInfo(res.data.data.channel_members);
-                    setChannelName(res.data.data.name)
-                })
-                .catch(error => console.log(error.response.data.errors))
+        
+        if (isFetchingChannel) {
+            setUserInfoOnMemberList(channelInfo.channel_members);
+            setNonMembersInfo(channelInfo.channel_members);
         }
-
-        setMemberList([]);
-        fetchChannelMessages();
-        fetchChannelInfo();
-    }, [channelId, users])
+    }, [isFetchingChannel, users, channelInfo])
 
     useEffect(() => {
         socket.current = io(`http://localhost:${process.env.REACT_APP_SOCKET_PORT}`);
@@ -117,15 +87,15 @@ function ChannelMessages () {
 
     // prevent rerender of component
     useEffect(() => {
-        if (arrivalMessage && (arrivalMessage.type === 'channel' && channelId === arrivalMessage.roomId)) {
-            setMessages(prev => [...prev, arrivalMessage]);
+        if (arrivalMessage && (arrivalMessage.type === 'channel' && arrivalMessage.roomId === id)) {
+            dispatch(setConversation(arrivalMessage));
         }
-    }, [arrivalMessage, channelId])
+    }, [arrivalMessage, dispatch, id])
 
-    const addMemberToChannel = async (newUserId) => {
+    const addMemberToChannel = async (id) => {
         const payload = {
-          "id": channelId,
-          "member_id": newUserId
+          id,
+          member_id: id
         }
     
         await ChannelApi.members(payload)
@@ -142,17 +112,19 @@ function ChannelMessages () {
         
         if (!isEmpty(value.trim())) {
             const payload = {
-                roomId: channelId,
-                name: currentUser.current.name,
-                image: currentUser.current.image,
+                roomId: id,
+                name: sender.name,
+                image: sender.image,
                 body: [value],
-                type: 'channel'
+                type: 'channel',
+                sender: Cookies.get('uid')
             }
             const messagePayload = {
-                receiver_id: channelId,
+                receiver_id: id,
                 receiver_class: 'Channel',
                 body: value
             }
+
             socket.current.emit('sendMessage', { payload });
             setValue('');
 
@@ -166,15 +138,13 @@ function ChannelMessages () {
         setShowMemberList(!showMemberList);
     }
 
-    //called on AddMember; Handles Add User Button on AddMember.
+    // called on AddMember; Handles Add User Button on AddMember.
     const handleAddUsers = (newMembers) => {
         newMembers.forEach(member => {
             addMemberToChannel(member.id)
             setMemberList(previous => [...previous, member]);
         })
-        let array = newMembers.map(member => {
-            return member.id
-        })
+        const array = newMembers.map(member => member.id)
         setUsersNotOnChannel(usersNotOnChannel.filter(user => !array.includes(user.id)));
         handleShowMemberListModal();
     }
@@ -182,7 +152,7 @@ function ChannelMessages () {
     return (
        <div className="message-container container full-content d-flex flex-column justify-bottom" style={{ gap: '20px', paddingTop: '0px', paddingLeft: '0px' ,paddingRight: '0px' }}>
             <PageHeader 
-                title={channelName} 
+                title={channelInfo.name} 
                 buttonLabel='Members'  
                 handleButtonClick={handleShowMemberListModal}
             />
@@ -191,7 +161,7 @@ function ChannelMessages () {
                 <div className="wrapper-blackout-backdrop">
                     <OutsideClickHandler onOutsideClick={handleShowMemberListModal}>
                         <ChannelMemberList 
-                            channelName={channelName}
+                            channelName={channelInfo.name}
                             memberList={memberList}
                             usersNotOnChannel={usersNotOnChannel}
                             setUsersNotOnChannel={setUsersNotOnChannel}
@@ -202,9 +172,9 @@ function ChannelMessages () {
                  </div>
             }
             <div className='message-container d-flex flex-column' style={{padding: '0px', paddingLeft: '20px', paddingRight: '20px'}}>
-                <Messages messages={messages} />
+                <Messages messages={conversation} />
                 <TextArea
-                    placeholder={`Send your message here...`}
+                    placeholder={`Message ${channelInfo.name}`}
                     handleOnChange={handleOnChange}
                     value={value}
                     handleSendMessage={handleSendMessage}

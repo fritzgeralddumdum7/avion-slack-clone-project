@@ -2,6 +2,7 @@ import React from 'react';
 
 import Message from './Message';
 import Image from '../Image/Image';
+import Divider from '../Divider/Divider';
 
 import './Messages.scoped.css';
 
@@ -35,14 +36,25 @@ function Messages ({ messages, selectedUser = {} }) {
     return (
         <div className="content">
             {
-                messages.length > 0 && 
-                    messages.map((message, i) => {
-                        return <Message
-                            key={i}
-                            image={message.image}
-                            name={message.name}
-                            bodies={message.body}
-                        />
+                messages.length > 0 &&
+                    messages.map((item, i) => {
+                        return <div key={i} className="d-flex flex-column">
+                                <Divider 
+                                    key={i}
+                                    text={item.locale} 
+                                />
+                                {
+                                    item.convos.map((message, i) => {
+                                        return <Message
+                                            key={i}
+                                            image={message.image}
+                                            name={message.name}
+                                            bodies={message.body}
+                                            time={message.time}
+                                        />
+                                    })
+                                }
+                            </div>
                     }) 
             }
             { 

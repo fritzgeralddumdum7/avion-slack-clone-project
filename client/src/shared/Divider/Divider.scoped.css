@@ -1,0 +1,24 @@
+.pill-container {
+    position: relative;
+    margin-bottom: 35px;
+    border-bottom: 1px solid #D7D7D7;
+}
+
+.pill-container:first-child {
+    margin-top: 15px;
+}
+
+.pill {
+    height: 28px;
+    border: 1px solid #D7D7D7;
+    width: fit-content;
+    padding: 12px 15px 10px 15px;
+    border-radius: 15px;
+    position: absolute;
+    bottom: -15px;
+    background-color: #fff;
+    font-size: 13px;
+    color: #1d1c1d;
+    font-weight: bold;
+    cursor: pointer;
+}

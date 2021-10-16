@@ -10,3 +10,14 @@ h4, small {
 .message-gap {
     gap: 10px;
 }
+
+.time {
+    font-weight: normal;
+    color: #616061;
+    font-size: 12px;
+    padding-left: 10px;
+}
+
+.item {
+    padding-bottom: 15px;
+}
