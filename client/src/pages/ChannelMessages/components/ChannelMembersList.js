@@ -34,7 +34,7 @@ function ChannelMemberList ({ channelName, memberList, usersNotOnChannel, setUse
                 <div className="d-flex">
                     <BiSearch/>
                     <SearchInput 
-                        placeholder='Find Members' 
+                        placeholder={`Find Members in ${channelName}`}
                         customClass='members-list-search-input'   
                         handleOnChange={handleOnChange}/>
                  </div>

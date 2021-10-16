@@ -36,7 +36,7 @@ function AddMember ({
                 <div className="d-flex">
                     <BiSearch/>
                     <SearchInput 
-                        placeholder='Find Members' 
+                        placeholder={`Find Members to add to ${channelName}`}
                         customClass='members-list-search-input'
                         handleOnChange={handleOnChange}
                     />

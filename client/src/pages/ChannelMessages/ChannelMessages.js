@@ -180,7 +180,7 @@ function ChannelMessages () {
     }
 
     return (
-        <div className="container full-content d-flex flex-column">
+       <div className="message-container container full-content d-flex flex-column justify-bottom" style={{ gap: '20px', paddingTop: '0px', paddingLeft: '0px' ,paddingRight: '0px' }}>
             <PageHeader 
                 title={channelName} 
                 buttonLabel='Members'  
@@ -201,7 +201,7 @@ function ChannelMessages () {
                     </OutsideClickHandler>
                  </div>
             }
-            <div className='message-container d-flex flex-column' style={{paddingBottom: '0px', paddingLeft: '0px' }}>
+            <div className='message-container d-flex flex-column' style={{padding: '0px', paddingLeft: '20px', paddingRight: '20px'}}>
                 <Messages messages={messages} />
                 <TextArea
                     placeholder={`Send your message here...`}

@@ -3,7 +3,7 @@
     position: absolute;
     display: flex;
     flex-direction: column;
-    padding-top: 30px;
+    padding-top: 20px;
     left: 50%;
     top: 50%;
     transform:translate(-50%, -50%);
@@ -33,6 +33,7 @@
     margin-left: 28px;
     margin-right: 28px;
     border-radius: 8px;
+    margin-top: 20px;
 }
 .wrapper:focus-within {
 
