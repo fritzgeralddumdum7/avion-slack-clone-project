@@ -20,7 +20,7 @@ function Search () {
 
     useEffect(() => {
         const handleResults = () => {
-            ownedChannels.map(item => setResults(currentResults => [...currentResults, item]));
+            ownedChannels && ownedChannels.map(item => setResults(currentResults => [...currentResults, item]));
             users.map(item => setResults(currentResults => [...currentResults, item]));
         }
 
