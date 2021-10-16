@@ -1,24 +1,26 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import Cookies from 'js-cookie';
-import faker from 'faker';
+import { useDispatch, useSelector } from 'react-redux';
 
 import TextArea from '../../shared/TextArea/TextArea';
 import Messages from '../../shared/Messages/Messages';
 import ComposeHeader from './components/ComposeHeader';
 
-import { alignMessagesWithUser, isEmpty } from '../../utils';
+import { isEmpty } from '../../utils';
 
 import MessageApi from '../../api/MessageApi';
+
+import { fetchConversation, emptyConversation } from '../../redux/messages';
 
 import './ComposeMessage.scoped.css';
 
 function ComposeMessage () {
+    const { conversation } = useSelector(state => state.messages);
     const { users } = useSelector(state => state.users);
+
+    const dispatch = useDispatch();
 
     const [isToggled, setIsToggled] = useState(false);
     const [selectedUser, setSelectedUser] = useState({});
-    const [messages, setMessages] = useState([]);
     const [filteredUsers, setFilteredUsers] = useState([]);
     const [searchInputValue, setSearchInputValue] = useState('');
     const [messageText, setMessageText] = useState('');
@@ -27,6 +29,10 @@ function ComposeMessage () {
         setIsToggled(!isToggled);
     }
 
+    useEffect(() => {
+        dispatch(emptyConversation());
+    }, [dispatch])
+
     const handleSelectUser = (user) => {
         setIsToggled(!isToggled);
         setSelectedUser(user);
@@ -34,8 +40,8 @@ function ComposeMessage () {
 
     const handleRemoveChip = () => {
         setSelectedUser({});
-        setMessages([]);
         setFilteredUsers([]);
+        dispatch(emptyConversation());
     }
 
     const handleOnChangeSearchInput = (e) => {
@@ -44,40 +50,9 @@ function ComposeMessage () {
 
     useEffect(() => {
         if (Object.keys(selectedUser).length) {
-            fetchConversation(selectedUser.id)
+            dispatch(fetchConversation({ type: 'User', id: selectedUser.id }));
         }
-    }, [selectedUser])
-
-    const fetchConversation = async (receiverId) => {
-        const fakeSender = {
-            name: faker.fake("{{name.firstName}} {{name.lastName}}"),
-            image: faker.fake("{{image.avatar}}")
-        }
-        const fakeReceiver = {
-            name: faker.fake("{{name.firstName}} {{name.lastName}}"),
-            image: faker.fake("{{image.avatar}}")
-        }
-
-        await MessageApi.retrieve('User', receiverId)
-            .then(res => {
-                const data = res.data.data;
-
-                // loop every item and set fake name & image
-                data.map(data => {
-                    if (data['sender'].email === Cookies.get('uid')) {
-                        data.name = fakeSender.name;
-                        data.image = fakeSender.image;
-                    } else {
-                        data.name = fakeReceiver.name;
-                        data.image = fakeReceiver.image;
-                    }
-
-                    return data;
-                })
-                setMessages(alignMessagesWithUser(data));
-            })
-            .catch(error => console.log(error.response.data.errors))
-    }
+    }, [selectedUser, dispatch])
 
     useEffect(() => {
         // filter data that matches the search query
@@ -128,7 +103,7 @@ function ComposeMessage () {
             />
             <div className="message-container container full-content d-flex flex-column justify-bottom" style={{ gap: '20px' }}>
                 <Messages 
-                    messages={messages}
+                    messages={conversation}
                     selectedUser={selectedUser}
                 />
                 <TextArea

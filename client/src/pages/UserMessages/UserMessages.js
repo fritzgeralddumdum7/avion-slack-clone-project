@@ -38,9 +38,7 @@ function Conversation () {
     const [value, setValue] = useState('');
 
     useEffect(() => {
-        if (id) {
-            dispatch(fetchConversation({ type: 'User', id }));
-        }
+        dispatch(fetchConversation({ type: 'User', id }));
     }, [id, dispatch])
 
     useEffect(() => {

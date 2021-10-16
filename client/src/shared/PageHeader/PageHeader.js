@@ -13,7 +13,7 @@ function PageHeader ({
             <header>
                 <h3>{title}</h3>
                 { hasButton &&
-                    <button onClick={handleButtonClick}> {buttonLabel}</button>
+                    <button onClick={handleButtonClick}>{buttonLabel}</button>
                 }
             </header>
         </div>    
