@@ -7,6 +7,7 @@ import faker from 'faker';
 
 import Messages from '../../shared/Messages/Messages';
 import TextArea from '../../shared/TextArea/TextArea';
+import PageHeader from '../ChannelMessages/components/PageHeader';
 
 import MessageApi from '../../api/MessageApi';
 
@@ -135,14 +136,21 @@ function UserMessages () {
     }
 
     return (
-        <div className="message-container container full-content d-flex flex-column justify-bottom" style={{ gap: '20px' }}>
-            <Messages messages={messages} selectedUser={currentUser.current} />
-            <TextArea
-                placeholder={`Message ${receiver.name}`}
-                handleOnChange={handleOnChange}
-                value={value}
-                handleSendMessage={handleSendMessage}
+        <div className="message-container container full-content d-flex flex-column justify-bottom" style={{ gap: '20px', paddingTop: '0px', paddingLeft: '0px' ,paddingRight: '0px' }}>
+            <PageHeader 
+                title={receiver.name}
+                buttonLabel='Members'  
+                hasButton={false}
             />
+            <div className='message-container d-flex flex-column' style={{padding: '0px', paddingLeft: '20px', paddingRight: '20px'}}>
+                <Messages messages={messages} selectedUser={currentUser.current} />
+                <TextArea
+                    placeholder={`Message ${receiver.name}`}
+                    handleOnChange={handleOnChange}
+                    value={value}
+                    handleSendMessage={handleSendMessage}
+                />
+            </div>
         </div>
     )
 }
