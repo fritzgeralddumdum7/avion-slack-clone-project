@@ -37,6 +37,7 @@ function SearchForm({
           results={results}
           searched={searched}
           customClass='header-searchlist'
+          hasFooter={true}
         />
       </div>
     )
