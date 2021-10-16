@@ -2,18 +2,18 @@
 .container-add-member {
     position: absolute;
     display: flex;
-    align-items: center;
     flex-direction: column;
-    padding-top: 30px;
+    padding-top: 20px;
     left: 50%;
     top: 50%;
     transform:translate(-50%, -50%);
     width: 580px;
-    height: 600px;
+    height: 600px;                                                          
+    max-height: 600px;
     border: 1px solid black;
     border-radius: 10px;
     background-color: #fdffff;
-    
+    justify-content: flex-start;
 }
 
 .d-flex {
@@ -31,6 +31,7 @@
     margin-left: 28px;
     margin-right: 28px;
     border-radius: 8px;
+    margin-top: 20px;
 }
 
 .wrapper:focus-within {
