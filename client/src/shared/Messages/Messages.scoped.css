@@ -12,7 +12,6 @@
     overflow: auto;
     display: grid;
     height: auto;
-    gap: 20px;
 }
 
 .no-convo {
@@ -60,4 +59,8 @@
 
 .normal-link:hover {
     text-decoration: underline;
+}
+
+.message-content {
+    gap: 20px;
 }

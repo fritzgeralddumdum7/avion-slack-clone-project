@@ -1,96 +1,59 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { 
+    useEffect, 
+    useState, 
+    useRef 
+} from 'react';
 import { useParams } from 'react-router-dom';
-import { alignMessagesWithUser, isEmpty } from '../../utils';
+import { useDispatch, useSelector } from 'react-redux';
 import { io } from 'socket.io-client';
 import Cookies from 'js-cookie';
-import faker from 'faker';
+import moment from 'moment';
 
 import Messages from '../../shared/Messages/Messages';
 import TextArea from '../../shared/TextArea/TextArea';
 import PageHeader from '../../shared/PageHeader/PageHeader';
 
+import { 
+    fetchConversation,
+    setConversation
+} from '../../redux/messages';
+
+import { isEmpty } from '../../utils';
+
 import MessageApi from '../../api/MessageApi';
 
-function UserMessages () {
-    const { receiverId } = useParams();
+function Conversation () {
+    const { id } = useParams();
 
-    // states
-    const [messages, setMessages] = useState([]);
-    const [receiver, setReceiver] = useState({});
-    const [sender, setSender] = useState({});
-    const [value, setValue] = useState('');
-    const [recipientEmail, setRecipientEmail] = useState('');
-    const [arrivalMessage, setArrivalMessage] = useState(null);
+    const dispatch = useDispatch();
 
-    // refs
+    const { 
+        conversation, 
+        recipient,
+        sender
+    } = useSelector(state => state.messages);
+
     const socket = useRef();
-    const currentUser = useRef({
-        uid: Cookies.get('uid'),
-        name: faker.fake("{{name.firstName}} {{name.lastName}}"),
-        image: faker.fake("{{image.avatar}}")
-    });
+
+    const [value, setValue] = useState('');
 
     useEffect(() => {
-    
-        const retrieveMessage = async () => {
-            const fakeSender = {
-                name: faker.fake("{{name.firstName}} {{name.lastName}}"),
-                image: faker.fake("{{image.avatar}}")
-            }
-            const fakeReceiver = {
-                name: faker.fake("{{name.firstName}} {{name.lastName}}"),
-                image: faker.fake("{{image.avatar}}")
-            }
-    
-            setReceiver(fakeReceiver);
-            setSender(fakeSender);
-        
-            await MessageApi.retrieve('User', receiverId)
-                .then(res => {
-                    const data = res.data.data;
-    
-                    // loop every item and set fake name & image
-                    data.map(data => {
-                        if (data['sender'].email === Cookies.get('uid')) {
-                            data.name = fakeSender.name;
-                            data.image = fakeSender.image;
-                        } else {
-                            data.name = fakeReceiver.name;
-                            data.image = fakeReceiver.image;
-                            if (isEmpty(recipientEmail)) {
-                                setRecipientEmail(data['sender'].uid)
-                            }
-                        }
-                        return data;
-                    })
-                    setMessages(alignMessagesWithUser(data));
-                })
-                .catch(error => console.log(error.response.data.errors))
+        if (id) {
+            dispatch(fetchConversation({ type: 'User', id }));
         }
-
-        retrieveMessage();
-    }, [receiverId, recipientEmail]);
+    }, [id, dispatch])
 
     useEffect(() => {
         socket.current = io(`http://localhost:${process.env.REACT_APP_SOCKET_PORT}`);
-        // get the `getMessage` responce from socket
+        // get the `getMessage` response from socket
         socket.current.on('getMessage', payload => {
-            setArrivalMessage(payload);
+            dispatch(setConversation(payload));
         })
-    }, [])
-
-    // prevent rerender of component
-    useEffect(() => {
-        arrivalMessage && setMessages(prev => [...prev, arrivalMessage]);
-    }, [arrivalMessage])
-
-    // connect users to socket server
-    useEffect(() => {
-        socket.current.emit('initUser', currentUser.current.uid);
+        socket.current.emit('initUser', Cookies.get('uid'));
         socket.current.on('getUsers', users => {
             console.log(users);
         });
-    }, [currentUser])
+    }, [dispatch])
 
     const handleOnChange = (e) => {
         setValue(e.target.value);
@@ -101,17 +64,17 @@ function UserMessages () {
         
         if (!isEmpty(value.trim())) {
             let payload = {
-                id: receiverId,
-                roomId: receiverId,
+                id: id,
                 name: sender.name,
                 image: sender.image,
+                time: moment().format('LT'),
                 body: [value],
-                recipient: recipientEmail,
-                sender: currentUser.current
+                recipient: recipient.uid,
+                sender: Cookies.get('uid')
             }
-            const type = recipientEmail === Cookies.get('uid') ? 'self' : 'direct-message';
+            const type = recipient.uid === Cookies.get('uid') ? 'self' : 'direct-message';
             const messagePayload = {
-                receiver_id: receiverId,
+                receiver_id: id,
                 receiver_class: 'User',
                 body: value
             }
@@ -120,32 +83,26 @@ function UserMessages () {
                 type: type
             }
 
+            socket.current.emit('sendMessage', { payload });
+            dispatch(setConversation(payload));
+            setValue('');
+            
             await MessageApi.send(messagePayload)
-                .then(res => {
-                    console.log(res);
-                    // pass the payload to the socket server
-                    socket.current.emit('sendMessage', { payload });
-                    if (type !== 'self') {
-                        setMessages([...messages, payload]);
-                    }
-                    setValue('');
-                })
+                .then(res => console.log(res))
                 .catch(error => console.log(error.response.data.errors))
-    
         }
     }
 
     return (
         <div className="message-container container full-content d-flex flex-column justify-bottom" style={{ gap: '20px', paddingTop: '0px', paddingLeft: '0px' ,paddingRight: '0px' }}>
             <PageHeader 
-                title={receiver.name}
-                buttonLabel='Members'  
+                title={recipient && recipient.name}
                 hasButton={false}
             />
             <div className='message-container d-flex flex-column' style={{padding: '0px', paddingLeft: '20px', paddingRight: '20px'}}>
-                <Messages messages={messages} selectedUser={currentUser.current} />
-                <TextArea
-                    placeholder={`Message ${receiver.name}`}
+                <Messages messages={conversation} />
+                <TextArea 
+                    placeholder={`Message ${recipient && recipient.name}`}
                     handleOnChange={handleOnChange}
                     value={value}
                     handleSendMessage={handleSendMessage}
@@ -155,4 +112,4 @@ function UserMessages () {
     )
 }
 
-export default UserMessages;
+export default Conversation;
