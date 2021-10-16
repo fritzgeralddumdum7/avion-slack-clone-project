@@ -5,7 +5,7 @@ function NavLinkList ({ list, hasImage, hasLabel, type }) {
     return (
         <ul>
             {
-                list.map((item, i) => {
+                list && list.map((item, i) => {
                     return <NavLinkItem 
                         key={i} 
                         item={item} 
