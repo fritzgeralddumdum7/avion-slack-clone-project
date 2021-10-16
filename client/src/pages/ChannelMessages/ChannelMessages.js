@@ -72,8 +72,10 @@ function ChannelMessages () {
         }
         
         if (isFetchingChannel) {
-            setUserInfoOnMemberList(channelInfo.channel_members);
-            setNonMembersInfo(channelInfo.channel_members);
+            if (!isFetchingChannel) {
+                setUserInfoOnMemberList(channelInfo.channel_members);
+                setNonMembersInfo(channelInfo.channel_members);
+            }
         }
     }, [isFetchingChannel, users, channelInfo])
 
