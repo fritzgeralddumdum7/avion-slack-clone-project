@@ -7,7 +7,19 @@ import AddMember from './AddMember';
 
 import './ChannelMemberList.scoped.css';
 
-function ChannelMemberList ({ channelName, memberList, usersNotOnChannel, setUsersNotOnChannel, handleAddUsers, newUsersList }) { 
+function ChannelMemberList ({ 
+    channelName, 
+    memberList, 
+    usersNotOnChannel, 
+    handleAddUsers, 
+    handleUserSelection,
+    isClicked,
+    toggleSearchList,
+    selectedUsers,
+    handleRemoveUser,
+    handleSearchQueryChange,
+    searchedQuery
+}) { 
     const [searched, setSearched] = useState('');
     const [addMemberClicked, setAddMemberClicked] = useState(false);
 
@@ -15,24 +27,20 @@ function ChannelMemberList ({ channelName, memberList, usersNotOnChannel, setUse
         setSearched(e.target.value);
     }
     
-    const handleAddMemberButton = () => {
-        setAddMemberClicked(true);
-    }
-
-    const closeAddMember = () => {
-        setAddMemberClicked(false);
-    }
-
-    const handleClick = () => {
-        // display user card function 
+    const toggleAddMember = () => {
+        setAddMemberClicked(!addMemberClicked);
     }
 
     return (
         <div className='container-channel-members'> 
             <div className='fixed-top'>
-                <PageHeader title={channelName} buttonLabel='Add Member' handleButtonClick={handleAddMemberButton}/>
+                <PageHeader 
+                    title={channelName} 
+                    buttonLabel='Add Member' 
+                    handleButtonClick={toggleAddMember}
+                />
                 <div className='wrapper'>
-                    <div className="d-flex">
+                    <div className="d-flex input-wrapper">
                         <BiSearch/>
                         <SearchInput 
                             placeholder={`Find Members in ${channelName}`}
@@ -40,16 +48,13 @@ function ChannelMemberList ({ channelName, memberList, usersNotOnChannel, setUse
                             handleOnChange={handleOnChange}/>
                     </div>
                 </div>
-            </div>
-            <div className="container-searchlist">
-                <SearchList 
-                    results={memberList}
-                    searched={searched}
-                    setUsersNotOnChanne={setUsersNotOnChannel}
-                    customClass='channel-member-searchlist'
-                    isNavLink={false}
-                    handleClick={handleClick}
-                />
+                <div style={{ height: '415px', overflow: 'auto' }}>
+                    <SearchList 
+                        results={memberList}
+                        searched={searched}
+                        customClass='channel-member-searchlist'
+                    />
+                </div>
             </div>
             {
                 addMemberClicked && 
@@ -57,7 +62,14 @@ function ChannelMemberList ({ channelName, memberList, usersNotOnChannel, setUse
                     channelName={channelName}
                     usersNotOnChannel={usersNotOnChannel}
                     handleAddUsers={handleAddUsers}
-                    closeAddMember={closeAddMember}
+                    handleReturnToMemberList={toggleAddMember}
+                    handleUserSelection={handleUserSelection}
+                    isClicked={isClicked}
+                    toggleSearchList={toggleSearchList}
+                    selectedUsers={selectedUsers}
+                    handleRemoveUser={handleRemoveUser}
+                    searchedQuery={searchedQuery}
+                    handleSearchQueryChange={handleSearchQueryChange}
                 />
             }
         </div>

@@ -39,11 +39,11 @@ return (
                 customClass='search-input-create-channel'
             />
             <SearchList 
-                    results={results}
-                    searched={searched}
-                    customClass='all-users-searchlist'
-                    handleClick={handleClick}
-                    isNavLink={false}
+                results={results}
+                searched={searched}
+                customClass='all-users-searchlist'
+                handleClick={handleClick}
+                isNavLink={false}
             />
             </div>
         </div> 

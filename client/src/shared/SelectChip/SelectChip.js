@@ -61,7 +61,6 @@ function SelectChip ({
                                     <SearchList 
                                         users={users}
                                         handleSelectUser={handleSelectUser}
-                                        searchInputValue={searchInputValue}
                                     />
                                 </OutsideClickHandler>
                             }

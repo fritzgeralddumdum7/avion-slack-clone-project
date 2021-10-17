@@ -1,69 +1,106 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BiSearch } from 'react-icons/bi';
+
 import SearchInput from '../../../shared/Search/SearchInput';
-import SearchList from '../../../shared/Search/SearchList';
+import OutsideClickHandler from 'react-outside-click-handler';
 import PageHeader from '../../../shared/PageHeader/PageHeader';
-import List from '../../../shared/List/List';
+import SearchList from '../../../shared/SelectChip/components/SearchList';
+import Image from '../../../shared/Image/Image';
+
 import './AddMember.scoped.css';
 
 function AddMember ({ 
     channelName, 
     handleAddUsers,
     usersNotOnChannel,
-    setUsersNotOnChannel
+    handleReturnToMemberList,
+    handleUserSelection,
+    isClicked,
+    toggleSearchList,
+    selectedUsers,
+    handleRemoveUser,
+    searchedQuery,
+    handleSearchQueryChange
 }) { 
-    const [searched, setSearched] = useState('');
-    const [newUsersList, setNewUsersList] = useState([]);
+    const [filteredUsers, setFilteredUsers] = useState([]);
 
-    const handleOnChange = (e) => {
-        setSearched(e.target.value);
-    }
+    useEffect(() => {
+        // filter data that matches the search query
+        let filtered = usersNotOnChannel.map(user => user.uid.toLowerCase().includes(searchedQuery.toLowerCase()) && user)
 
-    const handleClick = (item) => {
-        setNewUsersList([...newUsersList, {id: item.id, image: item.image, email: item.email}]);
-        setSearched('');
-    }    
+        // remove all undefined items
+        filtered = filtered.filter(item => item);
+        
+        setFilteredUsers(filtered);
+        filtered = [];
+    }, [searchedQuery, usersNotOnChannel])
 
-    const removeItem = (item) => {
-        setNewUsersList(newUsersList.filter(newUser=> newUser.id !== item.id))
-        setUsersNotOnChannel(previous => [...previous, item]);
+    const SelectedUser = ({ item, handleRemoveUser }) => {
+        const styles = { borderRadius: '4px' }
+        return (
+            <div className="users-container align-middle" onClick={() => handleRemoveUser(item)}>
+                <Image 
+                    width={35}
+                    customStyle={styles}
+                    source={item.image}
+                />
+                <div className="flex-row">
+                    <div className="user-info">
+                        <label style={{fontWeight: 'bold'}}>{item.name}</label>
+                        <small>{item.email}</small>
+                    </div>
+                    <small>
+                        Remove
+                    </small>
+                </div>
+            </div>
+        )
     }
 
     return (
         <div className='container-add-member'>
-            <PageHeader title={`${channelName} - Add Member` } hasButton={false}/>
+            <PageHeader 
+                title={`${channelName} - Add Member` } 
+                buttonLabel='Return'
+                handleButtonClick={handleReturnToMemberList}
+            />
             <div className='wrapper'>
-                <div className="d-flex">
+                <div className="d-flex input-wrapper">
                     <BiSearch/>
                     <SearchInput 
                         placeholder={`Find Members to add to ${channelName}`}
-                        customClass='members-list-search-input'
-                        handleOnChange={handleOnChange}
+                        customClass='members-list-search-input'   
+                        handleOnChange={handleSearchQueryChange}
+                        handleClick={toggleSearchList}
+                        searched={searchedQuery}
                     />
+                        {
+                            isClicked &&
+                                <OutsideClickHandler onOutsideClick={() => toggleSearchList()}>
+                                    <SearchList 
+                                        users={filteredUsers}
+                                        handleSelectUser={handleUserSelection}
+                                    />
+                                </OutsideClickHandler>
+                        }
                 </div>
             </div>
+            <div style={{ height: '380px', overflow: 'auto', padding: '0 25px' }}>
                 {
-                searched!==''  && 
-                    <div className="wrapper-searchlist">
-                        <SearchList 
-                            results={usersNotOnChannel}
-                            searched={searched}
-                            customClass='add-member-searchlist'
-                            isNavLink={false}
-                            handleClick={handleClick}
-                            hasFooter={true}
+                    selectedUsers && selectedUsers.map((user, i) => 
+                        <SelectedUser
+                            key={i}
+                            item={user}
+                            handleRemoveUser={handleRemoveUser}
                         />
-                    </div>
+                    )
                 }
-                <div className='wrapper-list'>
-                    <List list={newUsersList} removeItem={removeItem}/> 
-                </div>
-                <div className="wrapper-button">
-                    <button onClick={() => {
-                            handleAddUsers(newUsersList) }}>
-                                Add Users
-                    </button>
-                </div>
+            </div>
+            <div className="wrapper-button">
+                <button className={`add-new-member-btn ${!selectedUsers.length && 'disabled'}`} onClick={() => handleAddUsers(selectedUsers)}>
+                    Add Users
+                </button>
+            </div>
         </div>
         
     )

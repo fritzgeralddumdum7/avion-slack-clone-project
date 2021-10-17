@@ -6,32 +6,18 @@
 
 li {
     list-style: none;
-    padding-left: 30px;
     cursor: pointer;
 }
 
-li:first-child {
-    border-top: 1px solid #DDDDDD;
-}
-
-li a{    
+li a {    
     text-decoration: none;
     color: black;
     font-size: 1rem;
 }
 
-li a:hover {
-    color: #fdffff;
-}
-
 li:hover {
     background-color: #1164A3;
     color:  #fdffff !important;
-}
-
-
-li:hover .nav-link {
-    color: #fdffff;
 }
 
 .nav-link {
@@ -104,7 +90,10 @@ li:hover .nav-link {
     height: 60px;
     margin-bottom: 0;
     margin: 0;
-    padding: 30px;
+}
+
+a:hover {
+    color: #fff !important;
 }
 
 .all-users-searchlist {
@@ -142,4 +131,8 @@ li:hover .nav-link {
 
 a {
     width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 25px;
 }

@@ -19,7 +19,7 @@ function Messages ({
     }
     const NoConversation = ({ image, name, email }) => {
         return (
-            <div className="d-flex flex-column no-convo">
+            <div className="d-flex flex-column no-convo" style={{ paddingBottom: '15px' }}>
                 <div className="d-flex flex-row card">
                     <Image
                         width={70}
@@ -40,7 +40,7 @@ function Messages ({
     }
     const NoChannelConversation = ({ name }) => {
         return (
-            <div className="d-flex flex-column no-convo">
+            <div className="d-flex flex-column no-convo" style={{ paddingBottom: '15px' }}>
                 <label className="short-desc">
                     This is the very beginning of this channel <label>@{ name }</label>. Send HI to the members.
                 </label>
