@@ -98,7 +98,11 @@ function Conversation () {
                 hasButton={false}
             />
             <div className='message-container d-flex flex-column' style={{padding: '0px', paddingLeft: '20px', paddingRight: '20px'}}>
-                <Messages messages={conversation} />
+                <Messages 
+                    messages={conversation}
+                    hasSelectedUser={false}
+                    selectedUser={recipient}
+                />
                 <TextArea 
                     placeholder={`Message ${recipient && recipient.name}`}
                     handleOnChange={handleOnChange}

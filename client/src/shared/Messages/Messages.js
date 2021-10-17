@@ -6,7 +6,13 @@ import Divider from '../Divider/Divider';
 
 import './Messages.scoped.css';
 
-function Messages ({ messages, selectedUser = {} }) {
+function Messages ({ 
+    messages, 
+    selectedUser = {}, 
+    hasSelectedUser = true,
+    page,
+    channelName
+}) {
     const styles = {
         pointerEvents: 'none',
         borderRadius: '50%'
@@ -28,6 +34,15 @@ function Messages ({ messages, selectedUser = {} }) {
                 </div>
                 <label className="short-desc">
                     This is the very beginning of your direct message history with <label>@{ name }</label>. Only the two of you are in this conversation, and no one else can join it. <label className="normal-link">Learn more</label>
+                </label>
+            </div>
+        )
+    }
+    const NoChannelConversation = ({ name }) => {
+        return (
+            <div className="d-flex flex-column no-convo">
+                <label className="short-desc">
+                    This is the very beginning of this channel <label>@{ name }</label>. Send HI to the members.
                 </label>
             </div>
         )
@@ -58,12 +73,24 @@ function Messages ({ messages, selectedUser = {} }) {
                     }) 
             }
             { 
-                selectedUser.hasOwnProperty('uid') && messages.length === 0 && 
+                hasSelectedUser && selectedUser.hasOwnProperty('uid') && messages.length === 0 &&
                     <NoConversation 
                         image={selectedUser.image}
                         name={selectedUser.name}
                         email={selectedUser.uid}
-                    /> 
+                    />
+            }
+            {
+                !hasSelectedUser && !messages.length &&
+                    <NoConversation 
+                        image={selectedUser?.image}
+                        name={selectedUser?.name}
+                        email="email@example.com"
+                    />
+            }
+            {
+                page === 'channel' && !messages.length &&
+                    <NoChannelConversation name={channelName} />
             }
         </div>
     )

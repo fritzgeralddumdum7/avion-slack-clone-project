@@ -179,7 +179,11 @@ function ChannelMessages () {
                  </div>
             }
             <div className='message-container d-flex flex-column' style={{padding: '0px', paddingLeft: '20px', paddingRight: '20px'}}>
-                <Messages messages={conversation} />
+                <Messages 
+                    messages={conversation}
+                    page='channel'
+                    channelName={channelInfo.name}
+                />
                 <TextArea
                     placeholder={`Message ${channelInfo.name}`}
                     handleOnChange={handleOnChange}
