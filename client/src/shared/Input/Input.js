@@ -11,7 +11,8 @@ function Input ({
     handleChange, 
     message,
     label,
-    customClass
+    customClass,
+    maxLength
 }) {
     const setStyles = () => {
         if (isValid === false) {
@@ -38,6 +39,7 @@ function Input ({
                     className={setStyles}
                     type={type}
                     onChange={handleChange}
+                    maxLength={maxLength && maxLength}
                 />
                 { !isValid && <MessageText /> }
             </div>

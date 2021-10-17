@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { NavLink } from "react-router-dom";
 import { TiMessages } from 'react-icons/ti';
 import { BiMessageRoundedDetail, BiDotsVerticalRounded } from 'react-icons/bi';
@@ -13,8 +13,10 @@ import { BsPlusSquare } from 'react-icons/bs';
 import { useSelector } from 'react-redux';
 
 import CollapsableNavLinkList from './component/CollapsableNavLinkList/CollapsableNavLinkList';
+import AddChannel from '../../pages/CreateChannel/AddChannel';
 
 import './Sidebar.scoped.css';
+import { set } from 'js-cookie';
 
 function Sidebar () {
 
@@ -24,6 +26,7 @@ function Sidebar () {
         recentMessages, 
         ownedChannels
     } = useSelector(state => state.users);
+    const [addChannelClicked, setAddChannelClicked]  = useState(false);
 
     const NavHeader = () => {
         return (
@@ -39,7 +42,15 @@ function Sidebar () {
         );
     }
 
+    const toggleAddChannel = () => {
+        setAddChannelClicked(!addChannelClicked);
+    }
+
     return (
+        <div>
+        {
+            addChannelClicked && <AddChannel closeAddChannel={toggleAddChannel}/>
+        }
         <nav>
             <NavHeader />
             <div>
@@ -68,10 +79,10 @@ function Sidebar () {
                             list={ownedChannels}
                             type='channel'
                         >
-                            <NavLink to='/create-channel' className='add-channel-nav-link'>
-                                <BsPlusSquare />
+                             <div className="more" onClick={toggleAddChannel}>
+                                <BsPlusSquare className="more-icon" style={{marginLeft: '13px'}} />
                                 Add Channel
-                            </NavLink>
+                            </div>
                         </CollapsableNavLinkList>
                     </div>
                     <div>
@@ -86,6 +97,7 @@ function Sidebar () {
                 </div>
             </div>
         </nav>
+        </div>
     )
 }
 

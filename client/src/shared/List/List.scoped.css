@@ -13,3 +13,21 @@ ul {
     padding: 12px;
     list-style: none;
 }
+
+
+.add-channel-list {
+    top: 120px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;  
+    position: absolute;
+    background-color: #fdffff;
+    border-radius: 5px;
+    z-index: 1;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    cursor: pointer;
+}

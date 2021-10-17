@@ -1,0 +1,102 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;    
+}
+
+h2 {
+    position: absolute;
+    top: 30px;
+    margin-bottom: 20px;
+}
+
+.container-add-channel-name {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    padding-top: 20px;
+    left: 50%;
+    top: 50%;
+    transform:translate(-50%, -50%);
+    width: 400px;
+    height: 250px;                                                          
+    max-height: 600px;
+    border: 1px solid black;
+    border-radius: 10px;
+    background-color: #fdffff;
+    justify-content: center;
+    padding: 20px;
+}
+
+.container-add-channel-members {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    padding-top: 20px;
+    left: 50%;
+    top: 50%;
+    transform:translate(-50%, -50%);
+    width: 680px;
+    height: 480px;                                                          
+    max-height: 600px;
+    border: 1px solid black;
+    border-radius: 10px;
+    background-color: #fdffff;
+    justify-content: center;
+    padding: 20px;
+}
+
+button {
+    background-color: #DCDCDD;
+    border: 1px solid #BBBABB;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 5px 10px;
+    height: 36px;
+    width: 120px;
+    font-weight: bold;
+    margin: 10px;
+}
+
+button:hover {
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 8%);
+    background-color: #118566;
+    color: #fdffff;
+}
+
+.wrapper-button {
+    left: 50%;
+    transform: translate(-50%);
+    position: absolute;
+    bottom: 10px;
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.container-searchlist {
+    height: 100%;
+    background-color: #fdffff;
+    overflow-y: auto;
+    overflow-x: hidden;
+    z-index: 2 ;
+}
+
+.container-list {
+    position: absolute;
+    top: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+    
+}
+.wrapper-search-input {
+    position: relative;
+    top: -120px;
+}
+
+p {
+    color: red;
+    font-size: 13px;
+}

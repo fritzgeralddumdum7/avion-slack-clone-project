@@ -56,3 +56,17 @@ label:hover {
     padding: 10px;
 }
 
+.create-channel-search {
+    top: 140px;
+    left: 50%;
+    transform: translateX(-50%);
+    max-height: 145px;
+    border: 1px #d8d8d8 solid;
+    width: 90%;
+    position: absolute;
+    overflow:hidden;
+    overflow: auto;
+    background-color: #fdffff;
+    border-radius: 5px;
+    z-index: 2;
+}
