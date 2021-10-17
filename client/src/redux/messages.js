@@ -25,20 +25,27 @@ export const messages = createSlice({
     },
     reducers: {
         setConversation: (state, action) => {
-            const convoLastIndex = state.conversation.length - 1;
-            const lastMessageIndex = state.conversation[convoLastIndex].convos.length - 1;
-            const isPreviousRecipient = state.conversation[convoLastIndex].convos[lastMessageIndex].sender === action.payload.sender;
-
-            if (isPreviousRecipient) {
-                state.conversation[convoLastIndex].convos[lastMessageIndex].body = [
-                    ...state.conversation[convoLastIndex].convos[lastMessageIndex].body, 
-                    action.payload.body[0]
-                ]
+            if (state.conversation.length > 0) {
+                const convoLastIndex = state.conversation.length - 1;
+                const lastMessageIndex = state.conversation[convoLastIndex].convos.length - 1;
+                const isPreviousRecipient = state.conversation[convoLastIndex].convos[lastMessageIndex].sender === action.payload.sender;
+    
+                if (isPreviousRecipient) {
+                    state.conversation[convoLastIndex].convos[lastMessageIndex].body = [
+                        ...state.conversation[convoLastIndex].convos[lastMessageIndex].body, 
+                        action.payload.body[0]
+                    ]
+                } else {
+                    state.conversation[state.conversation.length - 1].convos = [
+                        ...state.conversation[state.conversation.length - 1].convos, 
+                        action.payload
+                    ]
+                }
             } else {
-                state.conversation[state.conversation.length - 1].convos = [
-                    ...state.conversation[state.conversation.length - 1].convos, 
-                    action.payload
-                ]
+                state.conversation = [{
+                    locale: (moment().calendar()).split(' at')[0],
+                    convos: [action.payload ]
+                }]
             }
         },
         emptyConversation: state => {
