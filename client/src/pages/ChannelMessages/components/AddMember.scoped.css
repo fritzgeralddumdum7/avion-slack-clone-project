@@ -18,7 +18,6 @@
 
 .d-flex {
     border: 1px solid #1d1c1d4d;
-    width: 510px;
     align-items: center;
     border-radius: 5px;
     padding-left: 12px;
@@ -31,25 +30,22 @@
     border: 1px solid rgb(97,96,97);
 }
 
-.wrapper {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    border-radius: 8px;
-    margin-top: 20px;
-    justify-self: center;
-    align-self: center;
-    border-bottom: 1px solid #1d1c1d4d;
-    padding-bottom: 20px;
-}
-
-.d-flex:focus-within {
+.input-wrapper:focus-within {
     outline: none;
     --saf-0: rgba(var(--sk_highlight,18,100,163),1);
     box-shadow: 0 0 0 1px var(--saf-0),0 0 0 5px rgba(29,155,209,.3);
     border-radius: 4px;
     border-color: transparent;
     -webkit-appearance: none;
+}
+
+.input-wrapper {
+    position: relative;
+}
+
+.wrapper {
+    padding: 25px;
+    border-bottom: 1px solid #DDDDDD;
 }
 
 .wrapper-searchlist {
@@ -82,7 +78,7 @@ button {
 }
 
 .wrapper-button {
-    padding: 10px;
+    padding-top: 10px;
     background-color: #fdffff;
     height: 50px;
     display: flex;
@@ -93,4 +89,51 @@ button {
     bottom: 10px;
     align-self: center;
     border-top: 1px solid #1d1c1d4d;
+}
+
+.wrapper-button button:hover {
+    cursor: pointer;
+}
+
+.users-container {
+    display: flex;
+    flex-direction: row;
+    border: 1px solid #DDDDDD;
+    padding: 10px;
+    gap: 8px;
+    border-radius: 5px;
+    margin: 10px 0;
+    cursor: pointer;
+}
+
+.users-container:hover {
+    background-color: #ff000021;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.flex-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 89%;
+}
+
+small {
+    font-size: 12px;
+}
+
+.add-new-member-btn:hover {
+    background-color: #007a5a;
+    color: #fff;
+    font-weight: bold;
+}
+
+.disabled {
+    pointer-events: none;
+    opacity: .5;
 }

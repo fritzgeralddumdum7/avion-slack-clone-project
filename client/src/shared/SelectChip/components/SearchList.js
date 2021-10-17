@@ -6,8 +6,7 @@ import './SearchList.scoped.css'
 
 function SearchList ({ 
     users, 
-    handleSelectUser,
-    searchInputValue
+    handleSelectUser
 }) {
 
     const SearchListItem = ({ email, image, user }) => {

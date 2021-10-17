@@ -34,14 +34,17 @@ function ChannelMessages () {
 
     const { conversation, sender } = useSelector(state => state.messages);
     const { users } = useSelector(state => state.users);
-    const { channelInfo, isFetchingChannel } = useSelector(state => state.channels);
+    const { channelInfo } = useSelector(state => state.channels);
 
     const [value, setValue] = useState('');
     const [arrivalMessage, setArrivalMessage] = useState(null);
     const [showMemberList, setShowMemberList] = useState(false);
+    const [isClicked, setIsClicked] = useState(false);
     const [memberList, setMemberList] = useState([]);
     const [usersNotOnChannel, setUsersNotOnChannel] = useState([]);
     const [totalMembers, setTotalMembers] = useState(0);
+    const [selectedUsers, setSelectedUsers] = useState([]);
+    const [searchedQuery, setSearchedQuery] = useState('');
 
     const socket = useRef();
 
@@ -75,10 +78,11 @@ function ChannelMessages () {
         }
         
         setMemberList([]);
+        setUsersNotOnChannel([]);
         setUserInfoOnMemberList(channelInfo.channel_members);
         setNonMembersInfo(channelInfo.channel_members);
         setTotalMembers(channelInfo.channel_members?.length)
-    }, [isFetchingChannel, users, channelInfo])
+    }, [channelInfo, users])
 
     useEffect(() => {
         socket.current = io(`http://localhost:${process.env.REACT_APP_SOCKET_PORT}`);
@@ -95,10 +99,10 @@ function ChannelMessages () {
         }
     }, [arrivalMessage, dispatch, id])
 
-    const addMemberToChannel = async (id) => {
-        const payload = {
-          id,
-          member_id: id
+    const addMemberToChannel = async (memberId) => {
+        const payload = { 
+            id, 
+            member_id: memberId 
         }
     
         await ChannelApi.members(payload)
@@ -139,21 +143,45 @@ function ChannelMessages () {
 
     const handleShowMemberListModal = () => {
         setShowMemberList(!showMemberList);
+        setUsersNotOnChannel([...usersNotOnChannel, ...selectedUsers]);
+        setSelectedUsers([]);
     }
 
-    // called on AddMember; Handles Add User Button on AddMember.
+    // add selected users to the channel
     const handleAddUsers = (newMembers) => {
         newMembers.forEach(member => {
             addMemberToChannel(member.id)
             setMemberList(previous => [...previous, member]);
         })
         const array = newMembers.map(member => member.id)
+        setSelectedUsers([]);
+        setTotalMembers(previous => previous += newMembers.length);
         setUsersNotOnChannel(usersNotOnChannel.filter(user => !array.includes(user.id)));
         handleShowMemberListModal();
     }
 
+    const handleUserSelection = (item) => {
+        toggleSearchList();
+        setSearchedQuery('');
+        setSelectedUsers(previous => [...previous, item]);
+        setUsersNotOnChannel(usersNotOnChannel.filter(user => user.email !== item.email));
+    }
+
+    const toggleSearchList = () => {
+        setIsClicked(!isClicked);
+    }
+
+    const handleRemoveUser = (item) => {
+        setUsersNotOnChannel(previous => [...previous, item])
+        setSelectedUsers(selectedUsers.filter(user => user.email !== item.email))
+    }
+
+    const handleSearchQueryChange = (e) => {
+        setSearchedQuery(e.target.value);
+    }
+
     return (
-       <div className="message-container container full-content d-flex flex-column justify-bottom" style={{ gap: '20px', paddingTop: '0px', paddingLeft: '0px' ,paddingRight: '0px' }}>
+       <div className="message-container container full-content d-flex flex-column justify-bottom" style={{ paddingTop: '0px', paddingLeft: '0px' ,paddingRight: '0px' }}>
             <PageHeader 
                 title={channelInfo.name} 
                 buttonLabel={`Members ${totalMembers}`}  
@@ -170,6 +198,13 @@ function ChannelMessages () {
                             setUsersNotOnChannel={setUsersNotOnChannel}
                             handleAddUsers={handleAddUsers}
                             handleShowMemberListModal={handleShowMemberListModal}
+                            handleUserSelection={handleUserSelection}
+                            isClicked={isClicked}
+                            toggleSearchList={toggleSearchList}
+                            selectedUsers={selectedUsers}
+                            handleRemoveUser={handleRemoveUser}
+                            handleSearchQueryChange={handleSearchQueryChange}
+                            searchedQuery={searchedQuery}
                         />
                     </OutsideClickHandler>
                  </div>
