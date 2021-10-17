@@ -49,7 +49,7 @@ export const messages = createSlice({
             }
         },
         emptyConversation: state => {
-            state.conversation = []
+            state.conversation = [];
         }
     },
     extraReducers: {
