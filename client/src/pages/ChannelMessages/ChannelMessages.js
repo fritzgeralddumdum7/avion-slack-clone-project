@@ -20,9 +20,7 @@ import {
     setConversation
 } from '../../redux/messages';
 
-import { 
-    fetchChannelInfo,
-} from '../../redux/channels';
+import { fetchChannelInfo } from '../../redux/channels';
 
 import { isEmpty } from '../../utils';
 
@@ -69,7 +67,6 @@ function ChannelMessages () {
         // gets the info of channelMembers from users and stores it on memberList useState.
         const setUserInfoOnMemberList = (channelMembers) => {
             if (channelMembers) {
-                console.log(channelMembers)
                 channelMembers.forEach(member => {
                     const user = users.find(user => user.id === member.user_id)
                     setMemberList(previous => [...previous, user]);
@@ -77,11 +74,10 @@ function ChannelMessages () {
             }
         }
         
+        setMemberList([]);
         setUserInfoOnMemberList(channelInfo.channel_members);
         setNonMembersInfo(channelInfo.channel_members);
-        if (channelInfo.channel_members) {
-            setTotalMembers(channelInfo.channel_members.length)
-        }
+        setTotalMembers(channelInfo.channel_members?.length)
     }, [isFetchingChannel, users, channelInfo])
 
     useEffect(() => {
