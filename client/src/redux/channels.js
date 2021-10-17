@@ -14,7 +14,6 @@ export const channels = createSlice({
     name: 'channels',
     initialState: {
         channelInfo: {},
-        memberList: [],
         isFetchingChannel: false
     },
     extraReducers: {

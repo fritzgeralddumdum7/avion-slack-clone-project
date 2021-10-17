@@ -80,7 +80,6 @@ a {
 }
 
 .message-container {
-    gap: 20px;
     justify-content: flex-end;
 }
 
