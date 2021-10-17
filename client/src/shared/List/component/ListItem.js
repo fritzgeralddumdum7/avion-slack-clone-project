@@ -1,14 +1,18 @@
 import Image from "../../Image/Image";
 import  './ListItem.scoped.css'
+import { MdClose } from 'react-icons/md';
 
 function ListItem ({ item, customClass, removeItem }) {
-    const imgStyle = { height: '36px', width: '36px', marginRight: '10px', borderRadius: '5px' }
+    let imgStyle = { height: '36px', width: '36px', marginRight: '10px', borderRadius: '5px' }
+    if (customClass='add-channel-list') {
+        imgStyle = { height: '25px', width: '25px', marginRight: '10px', borderRadius: '4px' }
+    }
 
     return(
-        <li className={customClass}>
+        <li onClick={() => removeItem(item)} className={customClass}>
             <Image source={ item.image } customStyle={ imgStyle } />
             {item.email}     
-            <button onClick={() => removeItem(item)}>Remove</button>
+            {customClass='add-channel-list' && <MdClose id="remove-icon" style={{justifySelf: 'end'}}/>  }
         </li>
     )
 }

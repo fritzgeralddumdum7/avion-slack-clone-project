@@ -6,7 +6,6 @@ import Login from '../pages/Login/Login';
 import Registration from '../pages/Registration/Registration';
 import ComposeMessage from '../pages/ComposeMessage/ComposeMessage';
 import Users from '../pages/Users/Users';
-import CreateChannel from '../pages/CreateChannel/CreateChannel';
 import ChannelMessages from '../pages/ChannelMessages/ChannelMessages';
 import UserMessages from '../pages/UserMessages/UserMessages';
 
@@ -24,7 +23,6 @@ const routes = () => {
             <AuthRoute path="/signup" exact component={Registration}/>
 
             <UserRoutes path="/compose" exact component={ComposeMessage} />
-            <UserRoutes path="/create-channel" exact component={CreateChannel} />
             <UserRoutes path="/users" exact component={Users} />
             <UserRoutes path="/channel/:id" exact component={ChannelMessages} />
             <UserRoutes path="/messages/:id" exact component={UserMessages} />
