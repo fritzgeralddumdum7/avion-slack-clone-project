@@ -49,7 +49,7 @@ function Messages ({
     }
 
     return (
-        <div className="content">
+        <div className="content" style={{ paddingTop: '20px' }}>
             {
                 messages.length > 0 &&
                     messages.map((item, i) => {

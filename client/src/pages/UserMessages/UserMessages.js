@@ -92,7 +92,7 @@ function Conversation () {
     }
 
     return (
-        <div className="message-container container full-content d-flex flex-column justify-bottom" style={{ gap: '20px', paddingTop: '0px', paddingLeft: '0px' ,paddingRight: '0px' }}>
+        <div className="message-container container full-content d-flex flex-column justify-bottom" style={{ paddingTop: '0px', paddingLeft: '0px' ,paddingRight: '0px' }}>
             <PageHeader 
                 title={recipient && recipient.name}
                 hasButton={false}
