@@ -181,6 +181,7 @@ export const setFakeInfo = (messages, moment, faker, Cookies) => {
         }
 
         if (separateByDate[separateByDate.length - 1].locale === locale) {
+            console.log(item)
             separateByDate[separateByDate.length - 1].convos.push(item);
         }
     })
