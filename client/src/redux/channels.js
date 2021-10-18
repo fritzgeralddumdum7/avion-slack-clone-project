@@ -14,13 +14,7 @@ export const channels = createSlice({
     name: 'channels',
     initialState: {
         channelInfo: {},
-        isFetchingChannel: false,
-        hasError: false
-    },
-    reducers: {
-        setHasError: (state, action) => {
-            state.hasError = action.payload;
-        }
+        isFetchingChannel: false
     },
     extraReducers: {
         [fetchChannelInfo.pending]: state => {
@@ -32,7 +26,5 @@ export const channels = createSlice({
         }
     }
 })
-
-export const { setHasError } = channels.actions;
 
 export default channels.reducer;
