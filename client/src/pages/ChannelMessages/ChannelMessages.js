@@ -20,7 +20,9 @@ import {
     setConversation
 } from '../../redux/messages';
 
-import { fetchChannelInfo } from '../../redux/channels';
+import { 
+    fetchChannelInfo,
+} from '../../redux/channels';
 
 import { isEmpty } from '../../utils';
 
@@ -183,7 +185,7 @@ function ChannelMessages () {
     return (
        <div className="message-container container full-content d-flex flex-column justify-bottom" style={{ paddingTop: '0px', paddingLeft: '0px' ,paddingRight: '0px' }}>
             <PageHeader 
-                title={channelInfo.name} 
+                title={channelInfo ? channelInfo.name : window.location = '/compose'} 
                 buttonLabel={`Members ${totalMembers}`}  
                 handleButtonClick={handleShowMemberListModal}
             />

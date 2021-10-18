@@ -4,7 +4,7 @@ import { MdClose } from 'react-icons/md';
 
 function ListItem ({ item, customClass, removeItem }) {
     let imgStyle = { height: '36px', width: '36px', marginRight: '10px', borderRadius: '5px' }
-    if (customClass='add-channel-list') {
+    if (customClass === 'add-channel-list') {
         imgStyle = { height: '25px', width: '25px', marginRight: '10px', borderRadius: '4px' }
     }
 

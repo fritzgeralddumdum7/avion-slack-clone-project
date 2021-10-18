@@ -16,7 +16,6 @@ import CollapsableNavLinkList from './component/CollapsableNavLinkList/Collapsab
 import AddChannel from '../../pages/CreateChannel/AddChannel';
 
 import './Sidebar.scoped.css';
-import { set } from 'js-cookie';
 
 function Sidebar () {
 

@@ -1,6 +1,9 @@
 {
   "name": "avion-slack-project",
   "version": "0.1.0",
+  "engines": {
+    "node": "15.x"
+  },
   "private": true,
   "dependencies": {
     "@craco/craco": "^5.3.0",

@@ -24,8 +24,8 @@ const routes = () => {
 
             <UserRoutes path="/compose" exact component={ComposeMessage} />
             <UserRoutes path="/users" exact component={Users} />
-            <UserRoutes path="/channel/:id" exact component={ChannelMessages} />
-            <UserRoutes path="/messages/:id" exact component={UserMessages} />
+            <UserRoutes path="/channel/:id(\d+)" exact component={ChannelMessages} />
+            <UserRoutes path="/messages/:id(\d+)" exact component={UserMessages} />
 
             <UserRoutes path="/threads" exact component={UnderConstruction} />
             <UserRoutes path="/all-dms" exact component={UnderConstruction} />
