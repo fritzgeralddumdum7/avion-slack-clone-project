@@ -19,6 +19,7 @@ import {
 function UserRoutes ({ component: Component, ...rest }) {
     const dispatch = useDispatch();
     const { isFetchingUsers } = useSelector(state => state.users);
+    const { hasError } = useSelector(state => state.channels);
     const userRef = useRef({
         image: faker.fake("{{image.avatar}}")
     })
@@ -28,7 +29,8 @@ function UserRoutes ({ component: Component, ...rest }) {
         dispatch(fetchAllUsers());
         dispatch(fetchOwnedChannels());
         dispatch(fetchRecentMessages());
-    }, [dispatch])
+        console.log(hasError)
+    }, [dispatch, hasError])
 
     return (
         <div>
