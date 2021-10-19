@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 
-import Image from '../Image/Image';
+import { FaRegUserCircle } from 'react-icons/fa';
 
 import './Message.scoped.css';
 
@@ -21,11 +21,7 @@ function Message ({ image, name, bodies, time }) {
 
     return (
         <div className="d-flex item" ref={scrollToLastMessageRef}>
-            <Image 
-                source={image}
-                width={36}
-                customStyle={imgStyle}
-            />
+            <FaRegUserCircle style={{width: '36px', height:'36px'}}/>
             <div className='message-content'>   
                 <h4 className="d-flex align-middle">{ name }
                     <p className="time">{ time }</p>

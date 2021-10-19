@@ -1,8 +1,8 @@
 import { NavLink } from "react-router-dom";
 import style from './NavLinkItem.scoped.css';
-import Image from '../../../Image/Image';
 import Cookies from "js-cookie";
 import { FiLock } from 'react-icons/fi';
+import { FaRegUserCircle } from 'react-icons/fa';
 
 function NavLinkItem ({ 
     item, 
@@ -11,7 +11,11 @@ function NavLinkItem ({
     hasLabel = false,
     type
 }) {
-    const imgStyle = { borderRadius: '4px' }
+    let itemName = item.email
+
+    if (item.email === undefined) {
+        itemName = item.name; 
+    }
 
     return (
         <NavLink 
@@ -22,15 +26,11 @@ function NavLinkItem ({
             className="nav-link-item">
             { 
                 hasImage ? 
-                <Image
-                    source={item.image} 
-                    width={20}
-                    customStyle={imgStyle}
-                /> 
+                <FaRegUserCircle/>
                 :
                 <FiLock />
             }   
-            { item.name }
+            { itemName }
             { 
                 hasLabel &&
                 <span className="guest-label">

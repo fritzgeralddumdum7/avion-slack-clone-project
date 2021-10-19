@@ -4,7 +4,7 @@ import OutsideClickHandler from 'react-outside-click-handler';
 
 import SearchInput from '../Search/SearchInput';
 import SearchList from './components/SearchList';
-import Image from '../Image/Image';
+import { FaRegUserCircle } from 'react-icons/fa';
 
 import './SelectChip.scoped.css';
 
@@ -27,11 +27,7 @@ function SelectChip ({
     const UserChip = ({ email, image, handleRemoveChip }) => {
         return (
             <div className="chip d-flex align-middle">
-                <Image 
-                    width={25}
-                    source={image}
-                    customStyle={styles}
-                />
+                <FaRegUserCircle/>
                 <label>{ email }</label>
                 <VscClose className="remove-chip" onClick={() => handleRemoveChip()} />
             </div>
@@ -45,7 +41,6 @@ function SelectChip ({
                     Object.keys(selectedUser).length ? 
                         <UserChip 
                             email={selectedUser.email}
-                            image={selectedUser.image}
                             handleRemoveChip={handleRemoveChip}
                         /> :
                         <div>

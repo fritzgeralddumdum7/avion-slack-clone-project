@@ -1,12 +1,13 @@
 import { NavLink } from "react-router-dom";
-import Image from '../Image/Image';
 import { AiOutlineLock } from 'react-icons/ai';
+import { FaRegUserCircle } from 'react-icons/fa';
 import './SearchListItem.scoped.css';
 
 function SearchListItem ({ item, customClass, handleClick, isNavLink=true }) {
     let imgStyle = { height: '20px', width: '20px', marginRight: '10px', borderRadius: '4px' };
-    let itemName = item.name + ' ' + item.email ;
+    let itemName = item.email ;
     let type = 'messages';
+    let itemImage = <FaRegUserCircle/>
 
     if (item.email === undefined) {
         itemName = item.name;
@@ -16,9 +17,6 @@ function SearchListItem ({ item, customClass, handleClick, isNavLink=true }) {
         imgStyle = { height: '40px', width: '40px', marginRight: '10px', borderRadius: '5px' };
         itemName =  
         <div className='d-flex flex-column'>
-            <div className='name'>
-             {item.name} 
-             </div>
              <div className='email'>
              {item.email}
              </div>
@@ -27,7 +25,6 @@ function SearchListItem ({ item, customClass, handleClick, isNavLink=true }) {
         imgStyle = { height: '36px', width: '36px', marginLeft: '30px', borderRadius: '4px' };
     }
 
-    let itemImage = <Image source={ item.image } customStyle={ imgStyle } />
 
     if (item.image === undefined) {
         itemImage = <AiOutlineLock/>
@@ -51,7 +48,7 @@ function SearchListItem ({ item, customClass, handleClick, isNavLink=true }) {
             <li className={customClass} onClick={() => handleClick(item)} >                
                 <div className="div-list-item" onClick={() => handleClick(item)} >
                     {itemImage}
-                    {itemName}
+                    {item.email}
                 </div> 
             </li>
 

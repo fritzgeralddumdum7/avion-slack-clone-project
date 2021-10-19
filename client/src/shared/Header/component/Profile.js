@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import OutsideClickHandler from 'react-outside-click-handler';
 
-import Image from '../../Image/Image';
+import { FaRegUserCircle } from 'react-icons/fa';
 
 import AuthApi from '../../../services/AuthApi';
 
@@ -9,9 +9,6 @@ import './Profile.scoped.css';
 
 function Profile ({ image }) {
     const [isToggled, setIsToggled] = useState(false);
-    const styles = {
-        borderRadius: '5px'
-    }
 
     const handleClick = () => {
         setIsToggled(!isToggled);
@@ -24,11 +21,9 @@ function Profile ({ image }) {
 
     return (
         <div className="d-flex flex-column profile-container">
-            <Image 
-                width="30" 
-                source={image}
-                customStyle={styles}
-                handleClick={handleClick}
+            <FaRegUserCircle
+                style={{width: '30px', height:'30px', color:'#fdffff', cursor:'pointer'}} 
+                onClick={handleClick}
             />
             { isToggled &&
                 <OutsideClickHandler onOutsideClick={handleClick}>

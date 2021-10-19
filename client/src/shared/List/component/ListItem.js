@@ -1,4 +1,4 @@
-import Image from "../../Image/Image";
+import { FaRegUserCircle } from 'react-icons/fa';
 import  './ListItem.scoped.css'
 import { MdClose } from 'react-icons/md';
 
@@ -10,7 +10,7 @@ function ListItem ({ item, customClass, removeItem }) {
 
     return(
         <li onClick={() => removeItem(item)} className={customClass}>
-            <Image source={ item.image } customStyle={ imgStyle } />
+            <FaRegUserCircle customStyle={ imgStyle } />
             {item.email}     
             {customClass='add-channel-list' && <MdClose id="remove-icon" style={{justifySelf: 'end'}}/>  }
         </li>

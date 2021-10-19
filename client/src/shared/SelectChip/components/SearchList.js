@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Image from '../../Image/Image';
+import { CgProfile } from 'react-icons/cg';
 
 import './SearchList.scoped.css'
 
@@ -13,11 +13,7 @@ function SearchList ({
         const styles = { borderRadius: '5px' }
         return (
             <div className="item d-flex flex-row align-middle" onClick={() => handleSelectUser(user)}>
-                <Image 
-                    width={25}
-                    source={image}
-                    customStyle={styles}
-                />
+                <CgProfile style={{width: '25px', height: '25px'}}/>
                 <label>{ email }</label>
             </div>
         );

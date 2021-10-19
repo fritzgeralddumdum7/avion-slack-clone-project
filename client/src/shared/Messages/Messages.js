@@ -3,6 +3,7 @@ import React from 'react';
 import Message from './Message';
 import Image from '../Image/Image';
 import Divider from '../Divider/Divider';
+import { FaRegUserCircle } from 'react-icons/fa';
 
 import './Messages.scoped.css';
 
@@ -21,11 +22,7 @@ function Messages ({
         return (
             <div className="d-flex flex-column no-convo" style={{ paddingBottom: '15px' }}>
                 <div className="d-flex flex-row card">
-                    <Image
-                        width={70}
-                        source={image}
-                        customStyle={styles}
-                    />
+                    <FaRegUserCircle style={{width: '70px', height:'70px'}}/>
                     <div className="d-flex flex-column info">
                         <h3>{ name }</h3>
                         <label>{ email }</label>

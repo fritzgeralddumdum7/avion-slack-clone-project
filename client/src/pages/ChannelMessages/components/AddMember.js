@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BiSearch } from 'react-icons/bi';
+import { CgProfile } from 'react-icons/cg';
 
 import SearchInput from '../../../shared/Search/SearchInput';
 import OutsideClickHandler from 'react-outside-click-handler';
@@ -39,11 +40,7 @@ function AddMember ({
         const styles = { borderRadius: '4px' }
         return (
             <div className="users-container align-middle" onClick={() => handleRemoveUser(item)}>
-                <Image 
-                    width={35}
-                    customStyle={styles}
-                    source={item.image}
-                />
+               <CgProfile style={{height: '36px', width: '36px'}}/>
                 <div className="flex-row">
                     <div className="user-info">
                         <label style={{fontWeight: 'bold'}}>{item.name}</label>

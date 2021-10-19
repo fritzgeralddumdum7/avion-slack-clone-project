@@ -63,7 +63,7 @@ function Conversation () {
         if (!isEmpty(value.trim())) {
             let payload = {
                 id: id,
-                name: sender.name,
+                name: sender.email,
                 image: sender.image,
                 time: moment().format('LT'),
                 body: [value],
