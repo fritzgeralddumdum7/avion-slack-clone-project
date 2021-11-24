@@ -24,12 +24,7 @@ function Profile ({ image }) {
 
     return (
         <div className="d-flex flex-column profile-container">
-            <Image 
-                width="30" 
-                source={image}
-                customStyle={styles}
-                handleClick={handleClick}
-            />
+            <h4 style={{ color: 'white', cursor: 'pointer', paddingRight: '10px', paddingTop: '5px' }} onClick={handleClick}>Logout</h4>
             { isToggled &&
                 <OutsideClickHandler onOutsideClick={handleClick}>
                     <div className="profile d-flex content-center" onClick={() => {
